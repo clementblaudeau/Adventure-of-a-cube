@@ -18,6 +18,7 @@ icone = pygame.image.load("images/cub121.png")
 pygame.display.set_icon(icone)
 pygame.display.set_caption("The Adventure Of Cub - Episode 1")
 
+avancement = 0
 
 #Chargement et collage du fond
 fond = pygame.image.load("images/espace.jpg").convert()
@@ -35,6 +36,7 @@ repeter = 1;
 #Chargement et collage du personnage
 cub = Cube()
 cub.position = cub.position.move(275,350)
+cub.hitbox = cub.hitbox.move(290,360)
 fenetre.blit(cub.image, cub.position)
 
 
@@ -49,6 +51,12 @@ k = 0
 #Murs
 obstacles = Obstacles()
 obstacles.NouvelObjet(1, 230,230, 2)
+obstacles.NouvelObjet(1, 260,230, 2)
+obstacles.NouvelObjet(1, 200,230, 2)
+obstacles.NouvelObjet(1, 260,230, 2)
+obstacles.NouvelObjet(1, 260,260, 2)
+obstacles.NouvelObjet(1, 260,290, 2)
+obstacles.NouvelObjet(1, 60,90, 2)
 
 
 
@@ -70,39 +78,38 @@ while continuer:
 			continuer = 0
 		if event.type == KEYDOWN:
 			if event.key == K_DOWN:
-			     if cub.position.bottom <= 500:
-				 if cub.position.move(0,3).collidelist(obstacles.positions) == -1:
-				     cub.position = cub.position.move(0,3)
+			     if cub.position.bottom <= 500 and not obstacles.ColisionsCube(cub.hitbox.move(0,3)):
+				cub.position = cub.position.move(0,3)
+				cub.hitbox = cub.hitbox.move(0,3)
 			if event.key == K_UP:
-			    if cub.position.top >= 20:
-				if cub.position.move(0,-3).collidelist(obstacles.positions) == -1:
-				    cub.position = cub.position.move(0,-3)
+			    if cub.position.top >= 20 and not obstacles.ColisionsCube(cub.hitbox.move(0,-3)):
+				cub.position = cub.position.move(0,-3)
+				cub.hitbox = cub.hitbox.move(0,-3)
 			if event.key == K_LEFT:
-			     if cub.position.left >= -15:
-				 if cub.position.move(-3,0).collidelist(obstacles.positions) == -1:
-				    cub.position = cub.position.move(-3,0)
+			     if cub.position.left >= -15 and not obstacles.ColisionsCube(cub.hitbox.move(-3,0)):
+				cub.position = cub.position.move(-3,0)
+				cub.hitbox = cub.hitbox.move(-3,0)
 			if event.key == K_RIGHT:
-			     if cub.position.right <= 655:
-				 if cub.position.move(3,0).collidelist(obstacles.positions) == -1:
-				    cub.position = cub.position.move(3,0)
-			if event.key == K_SPACE: 
-			    tir1.positions.append(cub.position.move(20,0))
-			if event.key == K_RCTRL: 
-			    tir1.positions.append(cub.position.move(20,0))
+			     if cub.position.right <= 655 and not obstacles.ColisionsCube(cub.hitbox.move(3,0)):
+				cub.position = cub.position.move(3,0)
+				cub.hitbox = cub.hitbox.move(3,0)
 			    
 	key = pygame.key.get_pressed()
 	if key[303] == True or key[304] == True:
-		if k >= 15:
-		    tir2.positions.append(cub.position.move(25,0))
+		if k >= 20:
+		    tir2.positions.append(Rect(0,0,20,50).move(cub.position.left + 25, cub.position.top))
 		    k = 0
 		k += 1
 	elif key[306] == True or key[305] == True:
 		if k >= 15:
-		    tir1.positions.append(cub.position.move(20,0))
+		    tir1.positions.append(Rect(0,0,20,30).move(cub.position.left + 30, cub.position.top))
 		    k = 0
 		k += 1
 	g += 1
+	
 	#Test des colisions avec les obstacles
+	tir1.positions = obstacles.ColisionsTir(tir1.positions)
+	tir2.positions = obstacles.ColisionsTir(tir2.positions)
 	
 	#Scrool
 	j += 1
@@ -110,8 +117,9 @@ while continuer:
 	    if scrool.top < 0:
 		scrool = scrool.move(0,1)
 	    j = 0
+	    avancement += 1
 	
-	
+	print obstacles.mur.get_rect()
 	
 	
 	#Avance des attaques et des ondes
@@ -122,7 +130,11 @@ while continuer:
 	#Rotation du cube
 	cub.rotation()
 	
-	
+	#Scrool des obstacles
+	obstacles.Scrool(cub.position)
+	if obstacles.ColisionsCube(cub.hitbox) == True:
+	    cub.position = cub.position.move(0,1)
+	    cub.hitbox = cub.hitbox.move(0,1)
 	
 	#Re-collage
 	fenetre.blit(fond, scrool)	
@@ -130,7 +142,7 @@ while continuer:
 	tir2.Affichage(fenetre)
 	onde.Affichage(fenetre)
 		
-	fenetre.blit(cub.image, cub.position)
+	cub.Affichage(fenetre)
 	
 	
 	#Affichage des murs
@@ -141,6 +153,12 @@ while continuer:
 	pygame.display.flip()
 	
 	
+	#Survie
+	if cub.position.top < 0:
+	    continuer = 0
+	if cub.position.top > 490:
+	    continuer = 0
+	
 	#Son
 	repeter = pygame.time.get_ticks() % 157000
 	if repeter > 100000:
@@ -149,8 +167,6 @@ while continuer:
 	    son = pygame.mixer.Sound("son/son_stressant.wav")
 	    son.play()
 	    repet = 1
-	    
-	    
 	    
 	
 

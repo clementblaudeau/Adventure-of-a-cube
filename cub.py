@@ -10,7 +10,7 @@ class Cube:
 		self.position = self.image.get_rect()
 		self.i = 1
 		self.cube_actuel = "images/cub002.png"
-		self.nbattaque = 0
+		self.hitbox = Rect(0,0,50,50)
 		
 		
 	def rotation(self):
@@ -31,7 +31,8 @@ class Cube:
 	
 
 
-		
+	def Affichage(self, fenetre):
+		fenetre.blit(self.image, self.position)	
 
 
 
