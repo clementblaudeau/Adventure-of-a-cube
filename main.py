@@ -7,11 +7,17 @@ from cub import *
 from tir import *
 from onde import *
 from obstacles import *
+from animations import *
+from niveau import *
+from menu import *
 
 pygame.init()
 
 #Ouverture de la fenêtre Pygame
-fenetre = pygame.display.set_mode((640, 480))
+fenetre = pygame.display.set_mode((640, 480), DOUBLEBUF)
+
+#Chargement du niveau
+niveau = Niveau("1")
 
 #Icone et titre
 icone = pygame.image.load("images/cub121.png")
@@ -21,12 +27,13 @@ pygame.display.set_caption("The Adventure Of Cub - Episode 1")
 avancement = 0
 
 #Chargement et collage du fond
-fond = pygame.image.load("images/espace.jpg").convert()
 scrool = fenetre.get_rect()
 scrool = scrool.move(0,-720)
 j = 0
 g = 0
-fenetre.blit(fond, scrool)
+h = 0
+fenetre.blit(niveau.fond, scrool)
+
 
 #Chargement du son
 son = pygame.mixer.Sound("son/son_stressant.wav")
@@ -36,8 +43,13 @@ repeter = 1;
 #Chargement et collage du personnage
 cub = Cube()
 cub.position = cub.position.move(275,350)
-cub.hitbox = cub.hitbox.move(290,360)
+cub.hitbox = cub.hitbox.move(300,370)
 fenetre.blit(cub.image, cub.position)
+
+barre = pygame.image.load("images/barre_onde.png").convert_alpha()
+poss_barre = barre.get_rect()
+poss_barre = poss_barre.move(640,20)
+fenetre.blit(barre,poss_barre)
 
 
 #Chargement des attaques
@@ -50,14 +62,6 @@ k = 0
 
 #Murs
 obstacles = Obstacles()
-obstacles.NouvelObjet(1, 230,230, 2)
-obstacles.NouvelObjet(1, 260,230, 2)
-obstacles.NouvelObjet(1, 200,230, 2)
-obstacles.NouvelObjet(1, 260,230, 2)
-obstacles.NouvelObjet(1, 260,260, 2)
-obstacles.NouvelObjet(1, 260,290, 2)
-obstacles.NouvelObjet(1, 60,90, 2)
-
 
 
 #Rafraîchissement de l'écran
@@ -66,8 +70,6 @@ pygame.display.flip()
 #Maintiend des touches
 pygame.key.set_repeat(2, 10)
 
-#Nombre de frames par secondes
-pygame.time.Clock().tick(3)
 
 #BOUCLE INFINIE
 continuer = 1
@@ -78,38 +80,26 @@ while continuer:
 			continuer = 0
 		if event.type == KEYDOWN:
 			if event.key == K_DOWN:
-			     if cub.position.bottom <= 500 and not obstacles.ColisionsCube(cub.hitbox.move(0,3)):
-				cub.position = cub.position.move(0,3)
-				cub.hitbox = cub.hitbox.move(0,3)
+			     cub.Deplace('bas', niveau.obstacles)
 			if event.key == K_UP:
-			    if cub.position.top >= 20 and not obstacles.ColisionsCube(cub.hitbox.move(0,-3)):
-				cub.position = cub.position.move(0,-3)
-				cub.hitbox = cub.hitbox.move(0,-3)
+			     cub.Deplace('haut', niveau.obstacles)
 			if event.key == K_LEFT:
-			     if cub.position.left >= -15 and not obstacles.ColisionsCube(cub.hitbox.move(-3,0)):
-				cub.position = cub.position.move(-3,0)
-				cub.hitbox = cub.hitbox.move(-3,0)
+			     cub.Deplace('gauche', niveau.obstacles)
 			if event.key == K_RIGHT:
-			     if cub.position.right <= 655 and not obstacles.ColisionsCube(cub.hitbox.move(3,0)):
-				cub.position = cub.position.move(3,0)
-				cub.hitbox = cub.hitbox.move(3,0)
+			     cub.Deplace('droite', niveau.obstacles)
 			    
 	key = pygame.key.get_pressed()
+	#Tirs
 	if key[303] == True or key[304] == True:
-		if k >= 20:
-		    tir2.positions.append(Rect(0,0,20,50).move(cub.position.left + 25, cub.position.top))
-		    k = 0
-		k += 1
+	    tir2.Tir(cub.position)
 	elif key[306] == True or key[305] == True:
-		if k >= 15:
-		    tir1.positions.append(Rect(0,0,20,30).move(cub.position.left + 30, cub.position.top))
-		    k = 0
-		k += 1
+	    tir1.Tir(cub.position)
+	    
 	g += 1
 	
 	#Test des colisions avec les obstacles
-	tir1.positions = obstacles.ColisionsTir(tir1.positions)
-	tir2.positions = obstacles.ColisionsTir(tir2.positions)
+	tir1.positions = niveau.obstacles.ColisionsTir(tir1.positions, 1)
+	tir2.positions = niveau.obstacles.ColisionsTir(tir2.positions, 3)
 	
 	#Scrool
 	j += 1
@@ -119,9 +109,10 @@ while continuer:
 	    j = 0
 	    avancement += 1
 	
-	print obstacles.mur.get_rect()
-	
-	
+	h +=1
+	if h > 1:
+	    cub.Glissement(niveau.obstacles)
+	    h = 0
 	#Avance des attaques et des ondes
 	tir1.Progression()
 	tir2.Progression()
@@ -131,32 +122,32 @@ while continuer:
 	cub.rotation()
 	
 	#Scrool des obstacles
-	obstacles.Scrool(cub.position)
-	if obstacles.ColisionsCube(cub.hitbox) == True:
+	niveau.obstacles.Scrool(cub.position)
+	if niveau.obstacles.ColisionsCube(cub.hitbox) == True:
 	    cub.position = cub.position.move(0,1)
 	    cub.hitbox = cub.hitbox.move(0,1)
 	
 	#Re-collage
-	fenetre.blit(fond, scrool)	
+	fenetre.blit(niveau.fond, scrool)	
 	tir1.Affichage(fenetre)
 	tir2.Affichage(fenetre)
 	onde.Affichage(fenetre)
-		
-	cub.Affichage(fenetre)
+	fenetre.blit(barre,poss_barre)
 	
 	
 	#Affichage des murs
-	obstacles.Affichage(fenetre)
+	niveau.obstacles.Affichage(fenetre)
 	
+	cub.Affichage(fenetre)
 	
 	#Rafraichissement
 	pygame.display.flip()
 	
 	
 	#Survie
-	if cub.position.top < 0:
+	if cub.position.top < -50:
 	    continuer = 0
-	if cub.position.top > 490:
+	if cub.position.top > 500:
 	    continuer = 0
 	
 	#Son
@@ -168,7 +159,8 @@ while continuer:
 	    son.play()
 	    repet = 1
 	    
-	
+	#Attendre (contre la surcharge du processeur et l'acceleration trop brutale)
+	pygame.time.delay(1)
 
 
 

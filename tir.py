@@ -1,3 +1,10 @@
+#------------------------------#
+#			Tir.py			   #
+#		Clement Blaudeau	   #
+#			******			   #
+#------------------------------#
+
+
 import pygame
 from pygame.locals import *
 
@@ -10,7 +17,7 @@ class tir1:
 	def __init__(self):
 		self.image = pygame.image.load("images/tir.png").convert_alpha()
 		self.positions = []
-	
+		self.k = 0
 	
 	def Progression(self):
 		i = 0
@@ -24,6 +31,12 @@ class tir1:
 	def Affichage(self, fenetre):
 		for element in self.positions:
 			fenetre.blit(self.image, element)
+			
+	def Tir(self,position):
+		if self.k >= 15:
+		    self.positions.append(Rect(0,0,20,30).move(position.left + 20, position.top - 10))
+		    self.k = 0
+		self.k += 1
 		
 	
 class tir2:
@@ -31,6 +44,7 @@ class tir2:
 	def __init__(self):
 		self.image = pygame.image.load("images/attaque.png").convert_alpha()
 		self.positions = []
+		self.k = 0
 		
 		
 	def Progression(self):
@@ -44,6 +58,13 @@ class tir2:
 	def Affichage(self, fenetre):
 		for element in self.positions:
 			fenetre.blit(self.image, element)
+			
+			
+	def Tir(self,position):
+		if self.k >= 35:
+		    self.positions.append(Rect(0,0,20,30).move(position.left + 20, position.top - 20))
+		    self.k = 0
+		self.k += 1
 		
 	
 	
