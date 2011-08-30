@@ -1,5 +1,7 @@
 import pygame
 from pygame.locals import *	
+from animations import *
+
 
 
 class Obstacles:
@@ -16,7 +18,7 @@ class Obstacles:
 		self.vies = []
 		self.sortes = []
 		self.j = 0
-		
+		self.eclat = Eclat()
 		
 	def NouvelObjet(self, sorte, largeur, hauteur):
 		self.temp = self.style1.get_rect()
@@ -27,6 +29,7 @@ class Obstacles:
 		
 	def Affichage(self, fenetre):
 		i = 0
+		self.eclat.Affichage(fenetre)
 		for element in self.positions:
 			if self.sortes[i] == 1:
 				fenetre.blit(self.style1, element)
@@ -61,9 +64,11 @@ class Obstacles:
 						attaques.remove(element2)
 						self.vies[i] = self.vies[i] - degats
 						if self.vies[i] <= 0:
+							self.eclat.Explosion(element,self.sortes[i])
 							self.positions.remove(element)
 							self.vies.remove(self.vies[i])
 							self.sortes.remove(self.sortes[i])
+							
 			i += 1
 		return attaques
 	
@@ -72,7 +77,7 @@ class Obstacles:
 	def Scrool(self, cub):
 		self.j += 1
 		i = 0
-		if self.j > 15:
+		if self.j > 10:
 			for element in self.positions:
 				self.positions[i] = self.positions[i].move(0,2)
 				i += 1

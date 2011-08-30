@@ -10,6 +10,7 @@
 import pygame
 from pygame.locals import *
 from obstacles import * 
+from text import *
 
 
 class Cube:
@@ -23,6 +24,7 @@ class Cube:
 		self.hitbox = Rect(0,0,10,10)
 		self.glissement_vertical = 0
 		self.glissement_horizontal = 0
+		self.score = Score()
 		
 		
 	def rotation(self):
@@ -40,6 +42,8 @@ class Cube:
 			self.i = 1
 		self.image = pygame.image.load(self.cube_actuel).convert_alpha()
 		
+		
+		
 	def Deplace(self, direction, obstacles):
 		if direction == 'bas':
 			if self.position.bottom <= 500 and not obstacles.ColisionsCube(self.hitbox.move(0,3)):
@@ -56,18 +60,50 @@ class Cube:
 					self.glissement_vertical += -3
 
 		elif direction == 'gauche':
-			if self.position.left >= -35 and not obstacles.ColisionsCube(self.hitbox.move(-3,0)):
+			if self.position.left >= -10 and not obstacles.ColisionsCube(self.hitbox.move(-3,0)):
 				self.position = self.position.move(-3,0)
 				self.hitbox = self.hitbox.move(-3,0)
 				if self.glissement_horizontal > -40:
 					self.glissement_horizontal += -3
 
 		elif direction == 'droite':
-			if self.position.right <= 665 and not obstacles.ColisionsCube(self.hitbox.move(3,0)):
+			if self.position.right <= 650 and not obstacles.ColisionsCube(self.hitbox.move(3,0)):
 				self.position = self.position.move(3,0)
 				self.hitbox = self.hitbox.move(3,0)
 				if self.glissement_horizontal < 40:
 					self.glissement_horizontal += 3
+				
+				
+				
+	def DeplaceLent(self, direction, obstacles):
+		print "Lent"
+		if direction == 'bas':
+			if self.position.bottom <= 500 and not obstacles.ColisionsCube(self.hitbox.move(0,1)):
+				self.position = self.position.move(0,1)
+				self.hitbox = self.hitbox.move(0,1)
+				if self.glissement_vertical < 40:
+					self.glissement_vertical += 1
+
+		elif direction == 'haut':
+			if self.position.top >= 0 and not obstacles.ColisionsCube(self.hitbox.move(0,-1)):
+				self.position = self.position.move(0,-1)
+				self.hitbox = self.hitbox.move(0,-1)
+				if self.glissement_vertical > -40:
+					self.glissement_vertical += -1
+
+		elif direction == 'gauche':
+			if self.position.left >= -10 and not obstacles.ColisionsCube(self.hitbox.move(-1,0)):
+				self.position = self.position.move(-1,0)
+				self.hitbox = self.hitbox.move(-1,0)
+				if self.glissement_horizontal > -40:
+					self.glissement_horizontal += -1
+
+		elif direction == 'droite':
+			if self.position.right <= 650 and not obstacles.ColisionsCube(self.hitbox.move(1,0)):
+				self.position = self.position.move(1,0)
+				self.hitbox = self.hitbox.move(1,0)
+				if self.glissement_horizontal < 40:
+					self.glissement_horizontal += 1
 				
 
 
@@ -75,8 +111,9 @@ class Cube:
 		fenetre.blit(self.image, self.position)	
 
 
+
 	def Glissement(self, obstacles):
-		if (self.position.bottom <= 500 and self.position.right <= 665) and not (obstacles.ColisionsCube(self.hitbox.move(0,-1)) or obstacles.ColisionsCube(self.hitbox.move(0,1))):
+		if (self.position.bottom <= 500 and self.position.top >= 3) and not (obstacles.ColisionsCube(self.hitbox.move(0,-1)) or obstacles.ColisionsCube(self.hitbox.move(0,1))):
 			if (self.glissement_vertical > 0):
 				self.position = self.position.move(0,1)
 				self.hitbox = self.hitbox.move(0,1)
@@ -88,10 +125,10 @@ class Cube:
 			else:
 				self.glissement_vertical = 0
 				
-		print self.glissement_vertical
+		#print self.glissement_vertical
 		
 		
-		if (self.position.left >= -35 and self.position.top >= 20) and not (obstacles.ColisionsCube(self.hitbox.move(10,0)) or obstacles.ColisionsCube(self.hitbox.move(-10,0))):
+		if (self.position.left >= -10 and self.position.right <= 650) and not (obstacles.ColisionsCube(self.hitbox.move(10,0)) or obstacles.ColisionsCube(self.hitbox.move(-10,0))):
 			if (self.glissement_horizontal > 0):
 				self.position = self.position.move(1,0)
 				self.hitbox = self.hitbox.move(1,0)
@@ -103,6 +140,6 @@ class Cube:
 			else:
 				self.glissement_horizontal = 0
 				
-		print self.glissement_horizontal
+		#print self.glissement_horizontal
 
 

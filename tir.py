@@ -1,7 +1,7 @@
 #------------------------------#
-#			Tir.py			   #
-#		Clement Blaudeau	   #
-#			******			   #
+#	Tir.py                 #
+#	Clement Blaudeau       #
+#            ******	       #
 #------------------------------#
 
 
@@ -61,10 +61,10 @@ class tir2:
 			
 			
 	def Tir(self,position):
-		if self.k >= 35:
+		if ((pygame.time.get_ticks() - self.k) > 350):
+		    self.k = pygame.time.get_ticks()
 		    self.positions.append(Rect(0,0,20,30).move(position.left + 20, position.top - 20))
-		    self.k = 0
-		self.k += 1
+		
 		
 	
 	
