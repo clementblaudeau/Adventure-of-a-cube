@@ -60,8 +60,8 @@ class Score:
 			if self.b > 255:
 				self.b = 255
 				self.v = self.score/8
-				if self.score > 255:
-					self.score = 255
+				if self.v > 255:
+					self.v = 255
 		self.text = self.font.render(str(self.score), 1, (self.r, self.v, self.b))
 		fenetre.blit(self.text, self.position)
 

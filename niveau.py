@@ -11,7 +11,7 @@
 import pygame
 from pygame.locals import *
 from obstacles import * 
-
+from ennemis import *
 
 class Niveau:
 	
@@ -47,6 +47,48 @@ class Niveau:
 			self.obstacles.NouvelObjet(int(self.contenu[i]),int(self.contenu[i+1]), int(self.contenu[i+2]))
 			i += 3
 			j += 1
+		self.ennemis = Ennemis()
+		
+		self.ennemis.NouvelEnnemi(1,200,-150)
+		self.ennemis.NouvelEnnemi(1,400,-150)
+		self.ennemis.NouvelEnnemi(1,600,-150)
+		self.ennemis.NouvelEnnemi(1,30,-150)
+		
+		self.ennemis.NouvelEnnemi(1,100,-250)
+		self.ennemis.NouvelEnnemi(1,300,-250)
+		self.ennemis.NouvelEnnemi(1,500,-250)
+		
+		self.ennemis.NouvelEnnemi(1,100,-350)
+		self.ennemis.NouvelEnnemi(1,300,-350)
+		self.ennemis.NouvelEnnemi(1,500,-350)
+		self.ennemis.NouvelEnnemi(1,30,-350)
+		
+		self.ennemis.NouvelEnnemi(1,200,-450)
+		self.ennemis.NouvelEnnemi(1,400,-450)
+		self.ennemis.NouvelEnnemi(1,600,-450)
+		self.ennemis.NouvelEnnemi(1,30,-450)
+		
+		self.ennemis.NouvelEnnemi(1,100,-750)
+		self.ennemis.NouvelEnnemi(1,300,-750)
+		self.ennemis.NouvelEnnemi(1,500,-750)
+		
+		self.ennemis.NouvelEnnemi(1,200,-850)
+		self.ennemis.NouvelEnnemi(1,400,-850)
+		self.ennemis.NouvelEnnemi(1,600,-850)
+		self.ennemis.NouvelEnnemi(1,30,-850)
+		
+		self.ennemis.NouvelEnnemi(1,100,-950)
+		self.ennemis.NouvelEnnemi(1,300,-950)
+		self.ennemis.NouvelEnnemi(1,500,-950)
+		
+		self.ennemis.NouvelEnnemi(1,30,-1150)
+		self.ennemis.NouvelEnnemi(1,200,-1150)
+		self.ennemis.NouvelEnnemi(1,400,-1150)
+		self.ennemis.NouvelEnnemi(1,600,-1150)
+		
+		
+		
+		
 		
 
 

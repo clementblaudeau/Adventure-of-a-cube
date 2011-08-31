@@ -11,6 +11,7 @@ from animations import *
 from niveau import *
 from menu import *
 from text import *
+from ennemis import *
 
 pygame.init()
 
@@ -27,11 +28,14 @@ pygame.display.set_caption(niveau.nom)
 
 avancement = 0
 
+
+
 #Chargement et collage du fond
 scrool = fenetre.get_rect()
 scrool = scrool.move(0,-720)
 j = 0
 g = 0
+w = 0
 h = 0
 fenetre.blit(niveau.fond, scrool)
 
@@ -45,7 +49,7 @@ repeter = 1;
 #Chargement et collage du personnage
 cub = Cube()
 cub.position = cub.position.move(275,350)
-cub.hitbox = cub.hitbox.move(300,370)
+cub.hitbox = cub.hitbox.move(303,373)
 fenetre.blit(cub.image, cub.position)
 mode = "rapide"
 delai = 0
@@ -75,7 +79,7 @@ continuer = 1
 while continuer:
 	key = pygame.key.get_pressed()
 	for event in pygame.event.get():	#Attente des événements
-		print event
+		#print event
 		if event.type == QUIT:
 			continuer = 0
 	
@@ -118,7 +122,13 @@ while continuer:
 	#Test des colisions avec les obstacles
 	tir1.positions = niveau.obstacles.ColisionsTir(tir1.positions, 1)
 	tir2.positions = niveau.obstacles.ColisionsTir(tir2.positions, 6)
+	tir1.positions = niveau.ennemis.CollisionsTirs(tir1.positions, 1)
+	tir2.positions = niveau.ennemis.CollisionsTirs(tir2.positions, 6)
 	cub.score.score += niveau.obstacles.eclat.Absorption(cub)
+	cub.score.score += niveau.ennemis.eclats.Absorption(cub)
+	if (niveau.ennemis.CollisionCube(cub.hitbox) == True):
+	    print "fin !!"
+	    continuer = 0
 	
 	#Scrool
 	j += 1
@@ -136,6 +146,8 @@ while continuer:
 	tir1.Progression()
 	tir2.Progression()
 	onde.Progression()
+	niveau.ennemis.Tir()
+	niveau.ennemis.Deplacements()
 	
 	#Rotation du cube
 	cub.rotation()
@@ -158,10 +170,14 @@ while continuer:
 	    fenetre.blit(mode_lent, (0,0))
 	cub.score.Affichage(fenetre)
 	
-	#Affichage des murs
+	#Affichage des murs et ennemis
 	niveau.obstacles.Affichage(fenetre)
-	
+	niveau.ennemis.Affichage(fenetre)
+	chrono.Affichage(pygame.time.get_ticks(), fenetre, "danae")
+	if avancement >= 600:
+	    chrono.Affichage(pygame.time.get_ticks(), fenetre, "boss")
 	cub.Affichage(fenetre)
+	print cub.score.score
 	
 	#Rafraichissement
 	pygame.display.flip()
@@ -183,7 +199,10 @@ while continuer:
 	    repet = 1
 	    
 	#Attendre (contre la surcharge du processeur et l'acceleration trop brutale)
-	pygame.time.delay(1)
+	w+=1
+	if w > 2:
+	    w = 0
+	    pygame.time.delay(1)
 
 
 

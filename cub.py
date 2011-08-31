@@ -21,7 +21,7 @@ class Cube:
 		self.position = self.image.get_rect()
 		self.i = 1
 		self.cube_actuel = "images/cub002.png"
-		self.hitbox = Rect(0,0,10,10)
+		self.hitbox = Rect(0,0,5,5)
 		self.glissement_vertical = 0
 		self.glissement_horizontal = 0
 		self.score = Score()
@@ -76,7 +76,6 @@ class Cube:
 				
 				
 	def DeplaceLent(self, direction, obstacles):
-		print "Lent"
 		if direction == 'bas':
 			if self.position.bottom <= 500 and not obstacles.ColisionsCube(self.hitbox.move(0,1)):
 				self.position = self.position.move(0,1)

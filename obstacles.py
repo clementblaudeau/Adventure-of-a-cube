@@ -1,3 +1,11 @@
+#------------------------------#
+#		  Obstacles.py		   #
+#		Clement Blaudeau	   #
+#			******			   #
+#------------------------------#
+  
+# -*- coding: utf-8 -*-
+
 import pygame
 from pygame.locals import *	
 from animations import *
@@ -60,7 +68,7 @@ class Obstacles:
 		i = 0
 		for element in self.positions:
 			for element2 in attaques:
-					if element.left < element2.right and element.right > element2.left and element.bottom >= element2.top and element.top <= element2.bottom:
+					if element.left < element2.right and element.right > element2.left and element.bottom >= (element2.top - 8) and element.top <= element2.bottom:
 						attaques.remove(element2)
 						self.vies[i] = self.vies[i] - degats
 						if self.vies[i] <= 0:
