@@ -23,7 +23,7 @@ class tir1:
 		i = 0
 		for element in self.positions:
 			self.positions[i] = self.positions[i].move(0,-3)
-			if self.positions[i].top < - 50:
+			if self.positions[i].bottom < 0:
 				self.positions.remove(self.positions[i])
 			i +=1
 			

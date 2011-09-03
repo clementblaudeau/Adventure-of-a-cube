@@ -12,6 +12,7 @@ from niveau import *
 from menu import *
 from text import *
 from ennemis import *
+from menu import *
 
 pygame.init()
 
@@ -20,6 +21,7 @@ fenetre = pygame.display.set_mode((640, 480), DOUBLEBUF)
 
 #Chargement du niveau
 niveau = Niveau("1")
+menu = Menu()
 
 #Icone et titre
 icone = pygame.image.load("images/cub121.png")
@@ -59,13 +61,11 @@ mode_lent = pygame.image.load("images/m_lent.png").convert_alpha()
 #Chargement des attaques
 i = 0
 onde = Onde()
-tir1 = tir1()
-tir2 = tir2()
+#tir1 = tir1()
+#tir2 = tir2()
 
 k = 0
 
-#Murs
-obstacles = Obstacles()
 
 
 #Rafraîchissement de l'écran
@@ -73,137 +73,130 @@ pygame.display.flip()
 
 
 
-
-#BOUCLE INFINIE
 continuer = 1
-while continuer:
-	key = pygame.key.get_pressed()
-	for event in pygame.event.get():	#Attente des événements
-		#print event
-		if event.type == QUIT:
-			continuer = 0
+#BOUCLE INFINIE
+while menu.MenuAffichage(fenetre) != 0:
+    
+    niveau = Niveau("1")
+    continuer = 1
+    while continuer:
+	    key = pygame.key.get_pressed()
+	    for event in pygame.event.get():	#Attente des événements
+		    #print event
+		    if event.type == QUIT:
+			    continuer = 0
 	
-	if key[122] == True and ((pygame.time.get_ticks() - delai) > 500):
-	    delai = pygame.time.get_ticks()
+	    if key[122] == True and ((pygame.time.get_ticks() - delai) > 500):
+		delai = pygame.time.get_ticks()
+		if mode == "lent":
+		    mode = "rapide"
+		else:
+		    mode = "lent"
+	    
 	    if mode == "lent":
-		mode = "rapide"
-		print mode
+		if key[273] == True:
+		    cub.DeplaceLent('haut', niveau.obstacles)
+		if key[274] == True:
+		    cub.DeplaceLent('bas', niveau.obstacles)
+		if key[276] == True:
+		    cub.DeplaceLent('gauche', niveau.obstacles)
+		if key[275] == True:
+		    cub.DeplaceLent('droite', niveau.obstacles)
+		#Tirs
+		if key[97] == True:
+		    cub.tir2.Tir(cub.position)
 	    else:
-		mode = "lent"
-		print mode
+		if key[273] == True:
+		    cub.Deplace('haut', niveau.obstacles)
+		if key[274] == True:
+		    cub.Deplace('bas', niveau.obstacles)
+		if key[276] == True:
+		    cub.Deplace('gauche', niveau.obstacles)
+		if key[275] == True:
+		    cub.Deplace('droite', niveau.obstacles)
+		#Tirs
+		if key[97] == True:
+		    cub.tir1.Tir(cub.position)
 	    
-	if mode == "lent":
-	    if key[273] == True:
-		cub.DeplaceLent('haut', niveau.obstacles)
-	    if key[274] == True:
-		cub.DeplaceLent('bas', niveau.obstacles)
-	    if key[276] == True:
-		cub.DeplaceLent('gauche', niveau.obstacles)
-	    if key[275] == True:
-		cub.DeplaceLent('droite', niveau.obstacles)
-	    #Tirs
-	    if key[97] == True:
-		tir2.Tir(cub.position)
-	else:
-	    if key[273] == True:
-		cub.Deplace('haut', niveau.obstacles)
-	    if key[274] == True:
-		cub.Deplace('bas', niveau.obstacles)
-	    if key[276] == True:
-		cub.Deplace('gauche', niveau.obstacles)
-	    if key[275] == True:
-		cub.Deplace('droite', niveau.obstacles)
-	    #Tirs
-	    if key[97] == True:
-		tir1.Tir(cub.position)
+	    g += 1
+	
+	    #Test des colisions avec les obstacles
+	    cub.tir1.positions = niveau.obstacles.ColisionsTir(cub.tir1.positions, 1)
+	    cub.tir2.positions = niveau.obstacles.ColisionsTir(cub.tir2.positions, 6)
+	    cub.tir1.positions = niveau.ennemis.CollisionsTirs(cub.tir1.positions, 1)
+	    cub.tir2.positions = niveau.ennemis.CollisionsTirs(cub.tir2.positions, 6)
+	    cub.score.score += niveau.obstacles.eclat.Absorption(cub)
+	    cub.score.score += niveau.ennemis.eclats.Absorption(cub)
 	    
-	g += 1
+	    if (niveau.ennemis.CollisionCube(cub.hitbox) == True):
+		print "fin !!"
+		cub.vie.vie += -1
+		if cub.vie.vie < 0:
+		    continuer = 0
 	
-	#Test des colisions avec les obstacles
-	tir1.positions = niveau.obstacles.ColisionsTir(tir1.positions, 1)
-	tir2.positions = niveau.obstacles.ColisionsTir(tir2.positions, 6)
-	tir1.positions = niveau.ennemis.CollisionsTirs(tir1.positions, 1)
-	tir2.positions = niveau.ennemis.CollisionsTirs(tir2.positions, 6)
-	cub.score.score += niveau.obstacles.eclat.Absorption(cub)
-	cub.score.score += niveau.ennemis.eclats.Absorption(cub)
-	if (niveau.ennemis.CollisionCube(cub.hitbox) == True):
-	    print "fin !!"
-	    continuer = 0
+	    #Scrool
+	    j += 1
+	    if j > 15:
+		if scrool.top < 0:
+		    scrool = scrool.move(0,1)
+		j = 0
+		avancement += 1
 	
-	#Scrool
-	j += 1
-	if j > 15:
-	    if scrool.top < 0:
-		scrool = scrool.move(0,1)
-	    j = 0
-	    avancement += 1
-	
-	h +=1
-	if h > 1:
+	    
+	    
 	    cub.Glissement(niveau.obstacles)
-	    h = 0
-	#Avance des attaques et des ondes
-	tir1.Progression()
-	tir2.Progression()
-	onde.Progression()
-	niveau.ennemis.Tir()
-	niveau.ennemis.Deplacements()
-	
-	#Rotation du cube
-	cub.rotation()
-	
-	#Scrool des obstacles
-	niveau.obstacles.Scrool(cub.position)
-	if niveau.obstacles.ColisionsCube(cub.hitbox) == True:
-	    cub.position = cub.position.move(0,1)
-	    cub.hitbox = cub.hitbox.move(0,1)
-	
-	#Re-collage
-	fenetre.blit(niveau.fond, scrool)	
-	tir1.Affichage(fenetre)
-	tir2.Affichage(fenetre)
-	onde.Affichage(fenetre)
-	chrono.Affichage(pygame.time.get_ticks(), fenetre, "danae")
-	if avancement >= 600:
-	    chrono.Affichage(pygame.time.get_ticks(), fenetre, "boss")
-	if mode == "lent":
-	    fenetre.blit(mode_lent, (0,0))
-	cub.score.Affichage(fenetre)
-	
-	#Affichage des murs et ennemis
-	niveau.obstacles.Affichage(fenetre)
-	niveau.ennemis.Affichage(fenetre)
-	chrono.Affichage(pygame.time.get_ticks(), fenetre, "danae")
-	if avancement >= 600:
-	    chrono.Affichage(pygame.time.get_ticks(), fenetre, "boss")
-	cub.Affichage(fenetre)
-	print cub.score.score
-	
-	#Rafraichissement
-	pygame.display.flip()
-	
-	
-	#Survie
-	if cub.position.top < -50:
-	    continuer = 0
-	if cub.position.top > 500:
-	    continuer = 0
-	
-	#Son
-	repeter = pygame.time.get_ticks() % 157000
-	if repeter > 100000:
-	    repet = 0
-	if repeter > 0 and repeter < 100 and repet == 0:
-	    son = pygame.mixer.Sound("son/son_stressant.wav")
-	    son.play()
-	    repet = 1
 	    
-	#Attendre (contre la surcharge du processeur et l'acceleration trop brutale)
-	w+=1
-	if w > 2:
-	    w = 0
+	    #Avance des attaques
+	    cub.AvanceTirs()
+	
+	    #Rotation du cube
+	    cub.Rotation()
+	
+	    #Scrool des obstacles
+	    niveau.obstacles.Scrool(cub.position)
+	    if niveau.obstacles.ColisionsCube(cub.hitbox) == True:
+		cub.position = cub.position.move(0,1)
+		cub.hitbox = cub.hitbox.move(0,1)
+	
+	    #Re-collage + Affichage des murs et ennemis
+	    fenetre.blit(niveau.fond, scrool)	
+	    if mode == "lent":
+		fenetre.blit(mode_lent, (0,0))
+	    chrono.Affichage(pygame.time.get_ticks(), fenetre, "")
+	    cub.Affichage(fenetre)
+	    niveau.Affichage(fenetre)
+	    
+	    
+	    #Rafraichissement
+	    pygame.display.flip()
+	
+	
+	    #Survie
+	    if cub.position.top < -50:
+		continuer = 0
+	    if cub.position.top > 500:
+		continuer = 0
+	    if avancement >= 500:
+		continuer = 0
+	    if niveau.ennemis.positions == []:
+		continuer = 0
+	    else:
+		print niveau.ennemis.positions
+		
+		
+		
+	    #Son
+	    repeter = pygame.time.get_ticks() % 157000
+	    if repeter > 100000:
+		repet = 0
+	    if repeter > 0 and repeter < 100 and repet == 0:
+		son = pygame.mixer.Sound("son/son_stressant.wav")
+		son.play()
+		repet = 1
+	    
+	    #Attendre (contre la surcharge du processeur et l'acceleration trop brutale)
 	    pygame.time.delay(1)
-
+    menu.FinNiveau(cub.score.score, cub.vie.vie, fenetre)
 
 
 

@@ -32,9 +32,11 @@ class Niveau:
 		self.nom_background = self.contenu[1]
 		self.fond = pygame.image.load(self.nom_background).convert()
 		self.nom_son = self.contenu[2]
-		
+		self.son = pygame.mixer.Sound(self.nom_son)
 		self.nombre_obstacles = self.contenu[3]
 		self.obstacles = Obstacles()
+		self.ennemis = Ennemis()
+		
 		
 		i = 4
 		j = 1
@@ -47,47 +49,33 @@ class Niveau:
 			self.obstacles.NouvelObjet(int(self.contenu[i]),int(self.contenu[i+1]), int(self.contenu[i+2]))
 			i += 3
 			j += 1
-		self.ennemis = Ennemis()
 		
-		self.ennemis.NouvelEnnemi(1,200,-150)
-		self.ennemis.NouvelEnnemi(1,400,-150)
-		self.ennemis.NouvelEnnemi(1,600,-150)
-		self.ennemis.NouvelEnnemi(1,30,-150)
-		
-		self.ennemis.NouvelEnnemi(1,100,-250)
-		self.ennemis.NouvelEnnemi(1,300,-250)
-		self.ennemis.NouvelEnnemi(1,500,-250)
-		
-		self.ennemis.NouvelEnnemi(1,100,-350)
-		self.ennemis.NouvelEnnemi(1,300,-350)
-		self.ennemis.NouvelEnnemi(1,500,-350)
-		self.ennemis.NouvelEnnemi(1,30,-350)
-		
+		j = 1
+		self.nombre_ennemis = self.contenu[i]
+		while j <= int(self.nombre_ennemis):
+			print self.nombre_ennemis
+			print j
+			print self.contenu[i]
+			print self.contenu[i+1]
+			print self.contenu[i+2]
+			self.ennemis.NouvelEnnemi(int(self.contenu[i]),int(self.contenu[i+1]), int(self.contenu[i+2]))
+			i += 3
+			j += 1
+			
+			
 		self.ennemis.NouvelEnnemi(1,200,-450)
-		self.ennemis.NouvelEnnemi(1,400,-450)
-		self.ennemis.NouvelEnnemi(1,600,-450)
-		self.ennemis.NouvelEnnemi(1,30,-450)
-		
-		self.ennemis.NouvelEnnemi(1,100,-750)
-		self.ennemis.NouvelEnnemi(1,300,-750)
-		self.ennemis.NouvelEnnemi(1,500,-750)
-		
+		self.ennemis.NouvelEnnemi(1,200,-550)
 		self.ennemis.NouvelEnnemi(1,200,-850)
-		self.ennemis.NouvelEnnemi(1,400,-850)
-		self.ennemis.NouvelEnnemi(1,600,-850)
-		self.ennemis.NouvelEnnemi(1,30,-850)
-		
-		self.ennemis.NouvelEnnemi(1,100,-950)
-		self.ennemis.NouvelEnnemi(1,300,-950)
-		self.ennemis.NouvelEnnemi(1,500,-950)
-		
-		self.ennemis.NouvelEnnemi(1,30,-1150)
-		self.ennemis.NouvelEnnemi(1,200,-1150)
-		self.ennemis.NouvelEnnemi(1,400,-1150)
-		self.ennemis.NouvelEnnemi(1,600,-1150)
+		self.ennemis.NouvelEnnemi(1,200,-1850)
+		self.ennemis.NouvelEnnemi(1,200,-950)
+		self.ennemis.NouvelEnnemi(1,200,-1350)
 		
 		
-		
+	def Affichage(self, fenetre):
+		self.ennemis.Tir()
+		self.ennemis.Deplacements()
+		self.obstacles.Affichage(fenetre)
+		self.ennemis.Affichage(fenetre)
 		
 		
 

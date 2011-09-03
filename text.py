@@ -65,3 +65,40 @@ class Score:
 		self.text = self.font.render(str(self.score), 1, (self.r, self.v, self.b))
 		fenetre.blit(self.text, self.position)
 
+
+
+
+class Vie:
+	
+	def __init__(self):
+		self.font = pygame.font.Font(None, 36)
+		self.text = self.font.render("0", 1, (255, 255, 255))
+		self.position = self.text.get_rect()
+		self.position = self.position.move(560, 75)
+		self.vie = 5
+		self.r = 0
+		self.b = 0
+		self.v = 0
+
+	def Affichage(self, fenetre):
+		
+		if self.vie == 5:
+			self.v = 255
+		if self.vie == 4:
+			self.v = 250
+			self.r = 250
+		if self.vie == 3:
+			self.v = 200
+			self.r = 255
+		if self.vie == 2:
+			self.r = 255
+			self.v = 155
+		if self.vie == 1:
+			self.r = 255
+			self.v = 50
+		if self.vie == 0:
+			self.r = 255
+			self.v = 0
+		self.text = self.font.render(str(self.vie), 1, (self.r, self.v, self.b))
+		fenetre.blit(self.text, self.position)
+
