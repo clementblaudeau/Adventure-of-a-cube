@@ -41,35 +41,21 @@ class Niveau:
 		i = 4
 		j = 1
 		while j <= int(self.nombre_obstacles):
-			print self.nombre_obstacles
-			print j
-			print self.contenu[i]
-			print self.contenu[i+1]
-			print self.contenu[i+2]
 			self.obstacles.NouvelObjet(int(self.contenu[i]),int(self.contenu[i+1]), int(self.contenu[i+2]))
 			i += 3
 			j += 1
 		
 		j = 1
 		self.nombre_ennemis = self.contenu[i]
+		i += 1
 		while j <= int(self.nombre_ennemis):
-			print self.nombre_ennemis
-			print j
+			self.ennemis.NouvelEnnemi(int(self.contenu[i]),int(self.contenu[i+1]), int(self.contenu[i+2]))
 			print self.contenu[i]
 			print self.contenu[i+1]
 			print self.contenu[i+2]
-			self.ennemis.NouvelEnnemi(int(self.contenu[i]),int(self.contenu[i+1]), int(self.contenu[i+2]))
 			i += 3
 			j += 1
 			
-			
-		self.ennemis.NouvelEnnemi(1,200,-450)
-		self.ennemis.NouvelEnnemi(1,200,-550)
-		self.ennemis.NouvelEnnemi(1,200,-850)
-		self.ennemis.NouvelEnnemi(1,200,-1850)
-		self.ennemis.NouvelEnnemi(1,200,-950)
-		self.ennemis.NouvelEnnemi(1,200,-1350)
-		
 		
 	def Affichage(self, fenetre):
 		self.ennemis.Tir()

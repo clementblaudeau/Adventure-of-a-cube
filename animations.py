@@ -73,7 +73,10 @@ class Eclat:
 		i = 0
 		if self.j > 10:
 			for element in self.positions:
-				self.positions[i] = self.positions[i].move(0,2)
+				if (element.top > 660):
+					self.positions.remove(element)
+				else:
+					self.positions[i] = self.positions[i].move(0,2)
 				i += 1
 			self.j = 0
 

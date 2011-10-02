@@ -20,7 +20,8 @@ class Ennemis:
 		self.positions = []
 		self.sortes = []
 		self.vies = []
-		self.tirs = []
+		self.tirs1 = []
+		self.tirs2 = []
 		self.positions_tirs = []
 		self.bille = pygame.image.load("images/bille.png").convert_alpha()
 		self.ennemis1 = pygame.image.load("images/ennemis1.png").convert_alpha()
@@ -44,17 +45,20 @@ class Ennemis:
 		for element in self.positions:
 			if element.colliderect(hitbox):
 				self.eclats.Explosion(self.positions[i],self.sortes[i] * 3)
-				print self.sortes[i]
 				self.vies.remove(self.vies[i])
 				self.sortes.remove(self.sortes[i])
 				self.positions.remove(self.positions[i])
 				return True
 			i+=1
 		i = 0
-		for element in self.positions_tirs:
+		for element in self.tirs1:
 			if element.colliderect(hitbox):
-				self.positions_tirs.remove(element)
-				self.tirs.remove(self.tirs[i])
+				self.tirs1.remove(element)
+				return True
+			i+=1
+		for element in self.tirs2:
+			if element.colliderect(hitbox):
+				self.tirs2.remove(element)
 				return True
 			i+=1
 		return False
@@ -65,7 +69,7 @@ class Ennemis:
 		for element in tirs:
 			if element.top >= 0:
 				for element2 in self.positions:
-					if element2.colliderect(element):
+					if element2.colliderect(element) == True:
 						tirs.remove(element)
 						self.vies[i] =- degats
 						if self.vies[i] <= 0:
@@ -75,7 +79,7 @@ class Ennemis:
 							self.sortes.remove(self.sortes[i])
 							self.positions.remove(element2)
 					i +=1
-				i = 0
+			i = 0
 		
 		return tirs
 		
@@ -111,24 +115,23 @@ class Ennemis:
 			for element in self.sortes:
 				if self.positions[i].bottom >= 0:
 					if element == 1:
-						print "			tir !"
-						self.positions_tirs.append(pygame.Rect(self.positions[i].left - 5,self.positions[i].top,10,10))
-						self.positions_tirs.append(pygame.Rect(self.positions[i].right + 5,self.positions[i].top,10,10))
-						self.tirs.append(1)
-						self.tirs.append(2)
+						self.tirs1.append(pygame.Rect(self.positions[i].left - 5,self.positions[i].top,10,10))
+						self.tirs2.append(pygame.Rect(self.positions[i].right + 5,self.positions[i].top,10,10))
+						
 				i += 1
 				
 	def Cleaner(self):
 		i = 0
-		for element in self.tirs:
-			if self.positions_tirs[i].right < 0:
-				self.positions_tirs.remove(self.positions_tirs[i])
-				self.tirs.remove(self.tirs[i])
+		for element in self.tirs1:
+			if self.tirs1[i].right < 0:
+				self.tirs1.remove(element)
 				print "Clean !"
 				return 0
-			elif self.positions_tirs[i].left > 640:
-				self.positions_tirs.remove(self.positions_tirs[i])
-				self.tirs.remove(self.tirs[i])
+			i+=1
+		i = 0
+		for element in self.tirs2:
+			if self.tirs2[i].left > 640:
+				self.tirs2.remove(element)
 				print "Clean !"
 				return 0
 			i+=1
@@ -145,33 +148,24 @@ class Ennemis:
 			for element in self.positions:
 				self.positions[i] = element.move(0,1)
 				i += 1
+
 		i = 0
-		for element in self.positions_tirs:
-			if self.tirs[i] == 1:
-				self.positions_tirs[i] = element.move(-1,0)
-			if self.tirs[i] == 2:
-				self.positions_tirs[i] = element.move(1,0)
-			if self.tirs[i] == 3:
-				self.positions_tirs[i] = element.move(0,2)
-			if self.tirs[i] == 4:
-				self.positions_tirs[i] = element.move(0,-1)
-			if self.tirs[i] == 5:
-				self.positions_tirs[i] = element.move(1,2)
-			if self.tirs[i] == 6:
-				self.positions_tirs[i] = element.move(-1,2)
-			if self.tirs[i] == 7:
-				self.positions_tirs[i] = element.move(1,-1)
-			if self.tirs[i] == 8:
-				self.positions_tirs[i] = element.move(-1,-1)
-			i+= 1
-		
-		i = 0
-		
+		for element in self.tirs1:
+			self.tirs1[i].right -= 1
+			i+=1
+		i =0
+		for element in self.tirs2:
+			self.tirs2[i].left += 1
+			i+=1
 		
 		for element in self.positions:
 			fenetre.blit(self.ennemis1, element)
 			
-		for element in self.positions_tirs:
+		for element in self.tirs1:
+			if not (element.right > 690) and not (element.left < -10) and not (element.top < -5) and not (element.bottom > 490):
+				fenetre.blit(self.bille, element)
+				
+		for element in self.tirs2:
 			if not (element.right > 690) and not (element.left < -10) and not (element.top < -5) and not (element.bottom > 490):
 				fenetre.blit(self.bille, element)
 		

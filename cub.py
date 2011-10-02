@@ -25,27 +25,33 @@ class Cube:
 		self.hitbox = Rect(0,0,5,5)
 		self.glissement_vertical = 0
 		self.glissement_horizontal = 0
+		self.degat = 0
+		self.img_degat = pygame.image.load("images/degats.png").convert_alpha()
 		self.score = Score()
 		self.vie = Vie()
 		self.tir1 = tir1()
 		self.tir2 = tir2()
-		
+		self.images = []
+		while self.i < 199:
+			if self.i < 10:
+				self.cube_actuel = "images/cub00"+ str(self.i) +".png"
+			elif self.i < 100:
+				self.cube_actuel = "images/cub0"+ str(self.i) +".png"
+			elif self.i < 200:
+				self.cube_actuel = "images/cub"+ str(self.i) +".png"
+			elif self.i == 200:
+				self.cube_actuel = "images/cub"+ str(self.i) +".png"
+			self.images.append(pygame.image.load(self.cube_actuel).convert_alpha())
+			self.i += 1
+			print self.i
+		self.i = 0
 		
 	def Rotation(self):
-		if self.i < 10:
-			self.cube_actuel = "images/cub00"+ str(self.i) +".png"
-			self.i +=1
-		elif self.i < 100:
-			self.cube_actuel = "images/cub0"+ str(self.i) +".png"
-			self.i +=1
-		elif self.i < 200:
-			self.cube_actuel = "images/cub"+ str(self.i) +".png"
-			self.i +=1
-		elif self.i == 200:
-			self.cube_actuel = "images/cub"+ str(self.i) +".png"
-			self.i = 1
-		self.image = pygame.image.load(self.cube_actuel).convert_alpha()
-		
+		if self.i > 199:
+			self.i = 0
+		print self.i
+		self.image = self.images[self.i]
+		self.i += 1
 		
 		
 	def Deplace(self, direction, obstacles):
@@ -104,6 +110,10 @@ class Cube:
 
 	def Affichage(self, fenetre):
 		fenetre.blit(self.image, self.position)	
+		if self.degat > 0:
+			self.degat -= 1
+			if self.degat % 10:
+				fenetre.blit(self.img_degat, self.position.move(7,7))
 		self.vie.Affichage(fenetre)
 		self.tir1.Affichage(fenetre)
 		self.tir2.Affichage(fenetre)

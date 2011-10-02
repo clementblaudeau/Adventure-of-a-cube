@@ -34,7 +34,7 @@ avancement = 0
 
 #Chargement et collage du fond
 scrool = fenetre.get_rect()
-scrool = scrool.move(0,-720)
+scrool = scrool.move(0,-384)
 j = 0
 g = 0
 w = 0
@@ -44,8 +44,8 @@ fenetre.blit(niveau.fond, scrool)
 chrono = Chrono()
 
 #Chargement du son
-son = pygame.mixer.Sound("son/son_stressant.wav")
-son.play()
+#son = pygame.mixer.Sound("son/son_stressant.wav")
+#son.play()
 repeter = 1;
 
 #Chargement et collage du personnage
@@ -60,12 +60,11 @@ mode_lent = pygame.image.load("images/m_lent.png").convert_alpha()
 
 #Chargement des attaques
 i = 0
-onde = Onde()
+#onde = Onde()
 #tir1 = tir1()
 #tir2 = tir2()
 
 k = 0
-
 
 
 #Rafraîchissement de l'écran
@@ -74,11 +73,15 @@ pygame.display.flip()
 
 
 continuer = 1
+lvl = menu.MenuAffichage(fenetre)
 #BOUCLE INFINIE
-while menu.MenuAffichage(fenetre) != 0:
-    
-    niveau = Niveau("1")
+while lvl:
+    niveau = Niveau(str(lvl))
     continuer = 1
+    cub.vie.vie = 5
+    cub.score.score = 0
+    pygame.display.set_caption(niveau.nom)
+    avancement = 0
     while continuer:
 	    key = pygame.key.get_pressed()
 	    for event in pygame.event.get():	#Attente des événements
@@ -117,6 +120,8 @@ while menu.MenuAffichage(fenetre) != 0:
 		#Tirs
 		if key[97] == True:
 		    cub.tir1.Tir(cub.position)
+		    
+		    
 	    
 	    g += 1
 	
@@ -131,6 +136,7 @@ while menu.MenuAffichage(fenetre) != 0:
 	    if (niveau.ennemis.CollisionCube(cub.hitbox) == True):
 		print "fin !!"
 		cub.vie.vie += -1
+		cub.degat +=80
 		if cub.vie.vie < 0:
 		    continuer = 0
 	
@@ -176,27 +182,19 @@ while menu.MenuAffichage(fenetre) != 0:
 		continuer = 0
 	    if cub.position.top > 500:
 		continuer = 0
-	    if avancement >= 500:
+		cub.vie.vie = - 1
+	    if avancement >= 390:
 		continuer = 0
-	    if niveau.ennemis.positions == []:
+	    if niveau.ennemis.positions == [] and niveau.ennemis.eclats.positions == [] and niveau.obstacles.eclat.positions == [] and niveau.obstacles.positions == []:
 		continuer = 0
-	    else:
-		print niveau.ennemis.positions
+		pygame.time.delay(500)
 		
+	    
 		
-		
-	    #Son
-	    repeter = pygame.time.get_ticks() % 157000
-	    if repeter > 100000:
-		repet = 0
-	    if repeter > 0 and repeter < 100 and repet == 0:
-		son = pygame.mixer.Sound("son/son_stressant.wav")
-		son.play()
-		repet = 1
 	    
 	    #Attendre (contre la surcharge du processeur et l'acceleration trop brutale)
 	    pygame.time.delay(1)
     menu.FinNiveau(cub.score.score, cub.vie.vie, fenetre)
-
-
+    lvl = menu.MenuAffichage(fenetre)
+pygame.quit()
 
