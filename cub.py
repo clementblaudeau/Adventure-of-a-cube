@@ -32,7 +32,7 @@ class Cube:
 		self.tir1 = tir1()
 		self.tir2 = tir2()
 		self.images = []
-		while self.i < 199:
+		while self.i <= 200:
 			if self.i < 10:
 				self.cube_actuel = "images/cub00"+ str(self.i) +".png"
 			elif self.i < 100:
@@ -49,7 +49,6 @@ class Cube:
 	def Rotation(self):
 		if self.i > 199:
 			self.i = 0
-		print self.i
 		self.image = self.images[self.i]
 		self.i += 1
 		

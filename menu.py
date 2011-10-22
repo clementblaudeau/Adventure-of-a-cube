@@ -94,7 +94,7 @@ class Menu:
 		
 		continuer = 1
 		while continuer:
-			
+			pygame.time.delay(1)
 			fenetre.blit(image,(0,0))
 			if vrai:
 				fenetre.blit(self.font.render(" Score : " + str(score), 1, (255, 255, 0)), (80, 320))
