@@ -43,7 +43,6 @@ class Cube:
 				self.cube_actuel = "images/cub"+ str(self.i) +".png"
 			self.images.append(pygame.image.load(self.cube_actuel).convert_alpha())
 			self.i += 1
-			print self.i
 		self.i = 0
 		
 	def Rotation(self):

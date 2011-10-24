@@ -50,9 +50,6 @@ class Niveau:
 		i += 1
 		while j <= int(self.nombre_ennemis):
 			self.ennemis.NouvelEnnemi(int(self.contenu[i]),int(self.contenu[i+1]), int(self.contenu[i+2]))
-			print self.contenu[i]
-			print self.contenu[i+1]
-			print self.contenu[i+2]
 			i += 3
 			j += 1
 			

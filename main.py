@@ -13,6 +13,7 @@ from menu import *
 from text import *
 from ennemis import *
 from menu import *
+from sauvegarde import *
 
 pygame.init()
 
@@ -30,7 +31,8 @@ pygame.display.set_caption(niveau.nom)
 
 avancement = 0
 
-
+#sauvegardes
+sauvegarde = Sauvegarde()
 
 #Chargement et collage du fond
 scrool = fenetre.get_rect()
@@ -73,7 +75,7 @@ pygame.display.flip()
 
 
 continuer = 1
-lvl = menu.MenuAffichage(fenetre)
+lvl = menu.MenuAffichage(fenetre, sauvegarde.NiveauActuel())
 #BOUCLE INFINIE
 while lvl:
     niveau = Niveau(str(lvl))
@@ -82,12 +84,15 @@ while lvl:
     cub.score.score = 0
     pygame.display.set_caption(niveau.nom)
     avancement = 0
+    scrool = scrool.move(0,0)
     while continuer:
 	    key = pygame.key.get_pressed()
 	    for event in pygame.event.get():	#Attente des événements
 		    #print event
 		    if event.type == QUIT:
 			    continuer = 0
+			    pygame.quit()
+			    break
 	
 	    if key[122] == True and ((pygame.time.get_ticks() - delai) > 500):
 		delai = pygame.time.get_ticks()
@@ -142,6 +147,14 @@ while lvl:
 	
 	    #Scrool
 	    j += 1
+	    if cub.position.top < 10:
+		j += 5
+		if j > 15:
+		    niveau.obstacles.Scrool(cub.position)
+		    if niveau.obstacles.ColisionsCube(cub.hitbox) == True:
+			cub.position = cub.position.move(0,1)
+			cub.hitbox = cub.hitbox.move(0,1)
+			niveau.Affichage(fenetre)
 	    if j > 15:
 		if scrool.top < 0:
 		    scrool = scrool.move(0,1)
@@ -183,8 +196,6 @@ while lvl:
 	    if cub.position.top > 500:
 		continuer = 0
 		cub.vie.vie = - 1
-	    if avancement >= 390:
-		continuer = 0
 	    if niveau.ennemis.positions == [] and niveau.ennemis.eclats.positions == [] and niveau.obstacles.eclat.positions == [] and niveau.obstacles.positions == []:
 		continuer = 0
 		pygame.time.delay(500)
@@ -194,7 +205,10 @@ while lvl:
 	    
 	    #Attendre (contre la surcharge du processeur et l'acceleration trop brutale)
 	    pygame.time.delay(1)
+	    
     menu.FinNiveau(cub.score.score, cub.vie.vie, fenetre)
-    lvl = menu.MenuAffichage(fenetre)
+    if int(lvl) + 1 > int(sauvegarde.NiveauActuel()):
+	sauvegarde.NouveauNiveau()
+    lvl = menu.MenuAffichage(fenetre, sauvegarde.NiveauActuel())
 pygame.quit()
 

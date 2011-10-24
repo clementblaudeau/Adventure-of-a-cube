@@ -70,7 +70,10 @@ class Ennemis:
 			if element.top >= 0:
 				for element2 in self.positions:
 					if element2.colliderect(element) == True:
-						tirs.remove(element)
+						try :
+							tirs.remove(element)
+						except:
+							pass
 						self.vies[i] =- degats
 						if self.vies[i] <= 0:
 							self.eclats.Explosion(self.positions[i],self.sortes[i] * 3)

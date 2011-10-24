@@ -15,14 +15,32 @@ class Menu:
 		self.fond = pygame.image.load("images/menu.png").convert_alpha()
 		self.gagne = pygame.image.load("images/fin_niveau.png").convert()
 		self.boutons = Bouton()
-		self.boutons.NouveauBouton((30,160), 1)
-		self.boutons.NouveauBouton((30,210), 2)
 		self.lastclic = 0
 		self.lastevent = 0
 		self.ok = 0
 		self.lastpos = (0,0)
+		self.x = 30
+		self.y = 150
+		#self.boutons.NouveauBouton((30,160), 1)
+		#self.boutons.NouveauBouton((30,210), 2)
 		
-	def MenuAffichage(self,fenetre):
+	def MenuAffichage(self,fenetre,nb):
+		self.boutons.Netoyage()
+		self.x = 30
+		self.y = 150
+		self.nb = "0"
+		nb = int(nb)
+		print "---------------------------------------------------"
+		while nb > 0:
+			if self.y >= 460:
+				self.y = 150
+				self.x += 100
+			self.nb = str(int(self.nb)+1)
+			self.boutons.NouveauBouton((self.x,self.y), self.nb)
+			self.y += 50
+			nb -= 1
+			print nb
+			print "          "+self.nb
 		print "---------------------------------------------------"
 		fenetre.blit(self.fond,(0,0))
 		continuer = 1
@@ -143,11 +161,15 @@ class Bouton:
 					if clic == 1:
 						fenetre.blit(self.on, element)
 						fenetre.blit(self.numeros[i], (element.centerx - 15, element.centery-10))
-						print "		1"
+						
 						return int(self.num[i])
 					else:
 						fenetre.blit(self.hover, element)
 						fenetre.blit(self.numeros[i], (element.centerx - 15, element.centery-10))
 			i +=1
+	def Netoyage(self):
+		self.positions = []
+		self.numeros = []
+		self.num = []
 			
 
