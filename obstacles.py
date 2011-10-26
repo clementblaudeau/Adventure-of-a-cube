@@ -90,6 +90,13 @@ class Obstacles:
 				self.positions[i] = self.positions[i].move(0,2)
 				i += 1
 			self.j = 0
+			
+			for element in self.positions:
+				if element.top > 500:
+					self.positions.remove(element)
+					i -= 1
+				i += 1
+			
 
 
 

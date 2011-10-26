@@ -36,7 +36,7 @@ sauvegarde = Sauvegarde()
 
 #Chargement et collage du fond
 scrool = fenetre.get_rect()
-scrool = scrool.move(0,-384)
+scrool = scrool.move(0,0)
 j = 0
 g = 0
 w = 0
@@ -80,11 +80,18 @@ lvl = menu.MenuAffichage(fenetre, sauvegarde.NiveauActuel())
 while lvl:
     niveau = Niveau(str(lvl))
     continuer = 1
+    cub.position.x = 0
+    cub.position.y = 0
+    cub.hitbox.x = 0
+    cub.hitbox.y = 0
+    cub.position = cub.position.move(275,350)
+    cub.hitbox = cub.hitbox.move(303,373)
     cub.vie.vie = 5
     cub.score.score = 0
     pygame.display.set_caption(niveau.nom)
     avancement = 0
-    scrool = scrool.move(0,0)
+    scrool = fenetre.get_rect()
+    scrool = scrool.move(-10,-544)
     while continuer:
 	    key = pygame.key.get_pressed()
 	    for event in pygame.event.get():	#Attente des événements
@@ -200,7 +207,6 @@ while lvl:
 		continuer = 0
 		pygame.time.delay(500)
 		
-	    
 		
 	    
 	    #Attendre (contre la surcharge du processeur et l'acceleration trop brutale)
@@ -209,6 +215,9 @@ while lvl:
     menu.FinNiveau(cub.score.score, cub.vie.vie, fenetre)
     if int(lvl) + 1 > int(sauvegarde.NiveauActuel()):
 	sauvegarde.NouveauNiveau()
-    lvl = menu.MenuAffichage(fenetre, sauvegarde.NiveauActuel())
+    if menu.vrai == True :
+	lvl +=1
+    else :
+	lvl = menu.MenuAffichage(fenetre, sauvegarde.NiveauActuel())
 pygame.quit()
 

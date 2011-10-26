@@ -76,9 +76,11 @@ class Menu:
 		if vies > -1:
 			image = self.gagne
 			vrai = True
+			self.vrai = True
 		else:
 			image = pygame.image.load("images/game_over.png").convert()
 			vrai = False
+			self.vrai = False
 		fenetre.blit(image,(0,0))
 		if vrai:
 			self.font = pygame.font.Font("polices/Coalition.ttf", 17)

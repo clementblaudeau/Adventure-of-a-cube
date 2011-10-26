@@ -49,7 +49,7 @@ class Niveau:
 		self.nombre_ennemis = self.contenu[i]
 		i += 1
 		while j <= int(self.nombre_ennemis):
-			self.ennemis.NouvelEnnemi(int(self.contenu[i]),int(self.contenu[i+1]), int(self.contenu[i+2]))
+			self.ennemis.NouvelEnnemi(int(self.contenu[int(i)]),int(self.contenu[int(i)+1]), int(self.contenu[int(i)+2]))
 			i += 3
 			j += 1
 			
