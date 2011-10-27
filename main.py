@@ -91,7 +91,7 @@ while lvl:
     pygame.display.set_caption(niveau.nom)
     avancement = 0
     scrool = fenetre.get_rect()
-    scrool = scrool.move(-10,-544)
+    scrool = scrool.move(0,-544)
     while continuer:
 	    key = pygame.key.get_pressed()
 	    for event in pygame.event.get():	#Attente des événements
@@ -206,7 +206,6 @@ while lvl:
 	    if niveau.ennemis.positions == [] and niveau.ennemis.eclats.positions == [] and niveau.obstacles.eclat.positions == [] and niveau.obstacles.positions == []:
 		continuer = 0
 		pygame.time.delay(500)
-		
 		
 	    
 	    #Attendre (contre la surcharge du processeur et l'acceleration trop brutale)

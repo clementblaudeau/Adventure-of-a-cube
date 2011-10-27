@@ -28,6 +28,7 @@ class Ennemis:
 		self.bille = pygame.image.load("images/bille.png").convert_alpha()
 		self.ennemis1 = pygame.image.load("images/ennemis1.png").convert_alpha()
 		self.ennemis2 = pygame.image.load("images/ennemis2.png").convert_alpha()
+		self.ennemis3 = pygame.image.load("images/ennemis3.png").convert_alpha()
 		self.j = 0
 		self.temps = pygame.time.get_ticks()
 		self.eclats = Eclat()
@@ -105,9 +106,25 @@ class Ennemis:
 		for element in self.sortes:
 			if element == 1:
 				self.positions[i] = self.positions[i].move(0,1)
+				if self.positions[i].top > 490:
+					self.vies.remove(self.vies[i])
+					self.sortes.remove(self.sortes[i])
+					self.positions.remove(self.positions[i])
+					print "mort !"
 			elif element == 2:
 				self.positions[i] = self.positions[i].move(1,0)
-			#elif element == 3:
+				if self.positions[i].left > 640:
+					self.vies.remove(self.vies[i])
+					self.sortes.remove(self.sortes[i])
+					self.positions.remove(self.positions[i])
+					print "mort !"
+			elif element == 3:
+				self.positions[i] = self.positions[i].move(-1,0)
+				if self.positions[i].right < 0:
+					self.vies.remove(self.vies[i])
+					self.sortes.remove(self.sortes[i])
+					self.positions.remove(self.positions[i])
+					print "mort !"
 			#elif element == 4:
 			#elif element == 5:
 			#elif element == 6:
@@ -115,11 +132,6 @@ class Ennemis:
 			#elif element == 8:
 			#elif element == 9:
 			#elif element == 10:
-			if self.positions[i].top > 490 or self.positions[i].left > 640:
-				self.vies.remove(self.vies[i])
-				self.sortes.remove(self.sortes[i])
-				self.positions.remove(self.positions[i])
-				print "mort !"
 			i+=1
 			
 			
@@ -134,7 +146,7 @@ class Ennemis:
 					if element == 1:
 						self.tirs1.append(pygame.Rect(self.positions[i].left - 5,self.positions[i].top,10,10))
 						self.tirs2.append(pygame.Rect(self.positions[i].right + 5,self.positions[i].top,10,10))
-					if element == 2:
+					if element == 2 or element == 3:
 						self.tirs4.append(pygame.Rect(self.positions[i].centerx,self.positions[i].top - 5,10,10))
 						self.tirs3.append(pygame.Rect(self.positions[i].centerx + 5,self.positions[i].bottom + 5,10,10))
 					
@@ -175,9 +187,9 @@ class Ennemis:
 		self.j += 1
 		if self.j >= 10:
 			self.j = 0
-			for element in self.positions:
-				self.positions[i] = element.move(0,1)
-				i += 1
+			#for element in self.positions:
+				#self.positions[i] = element.move(0,1)
+				#i += 1
 
 		i = 0
 		for element in self.tirs1:
@@ -201,6 +213,9 @@ class Ennemis:
 				fenetre.blit(self.ennemis1, element)
 			if self.sortes[i] == 2:
 				fenetre.blit(self.ennemis2, element)
+			if self.sortes[i] == 3:
+				fenetre.blit(self.ennemis3, element)
+			i+=1
 			
 		for element in self.tirs1:
 			if not (element.right > 690) and not (element.left < -10) and not (element.top < -5) and not (element.bottom > 490):
