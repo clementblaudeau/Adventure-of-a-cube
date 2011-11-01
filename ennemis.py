@@ -183,13 +183,7 @@ class Ennemis:
 		#Scrool, 
 		#Affichage
 		self.Cleaner()
-		i = 0
-		self.j += 1
-		if self.j >= 10:
-			self.j = 0
-			#for element in self.positions:
-				#self.positions[i] = element.move(0,1)
-				#i += 1
+		
 
 		i = 0
 		for element in self.tirs1:

@@ -26,7 +26,11 @@ class Onde:
 		self.onde20 = pygame.image.load("images/onde20.png").convert_alpha()
 		self.positions = []
 		self.progressions = []
+		self.protect = True
 		
+	def NouvelleOnde(self, position):
+		self.positions.append(position)
+		self.progressions.append(0)
 		
 	def Progression(self):
 		i = 0
@@ -36,7 +40,17 @@ class Onde:
 				self.progressions.remove(self.progressions[i])
 				self.positions.remove(self.positions[i])
 			i +=1
-		
+	
+	def Protege(self, cub):
+		i = 0
+		self.protect = False
+		for element in self.positions:
+			if self.progressions[i] > 1:
+				if self.positions[i].colliderect(cub):
+					self.protect = True
+				
+			i+=1
+	
 	def Niveau(self, a):
 		if a <= 0.25:
 			return self.onde01
@@ -82,9 +96,10 @@ class Onde:
 			return self.onde20
 
 	def Affichage(self, fenetre):
+		self.Progression()
 		i = 0
 		for element in self.positions:
-			fenetre.blit(self.Niveau(onde.progressions[i]), element)
+			fenetre.blit(self.Niveau(self.progressions[i]), element)
 			i +=1
 
 

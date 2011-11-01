@@ -11,6 +11,7 @@ import pygame
 from pygame.locals import *
 from obstacles import * 
 from text import *
+from onde import *
 from tir import *
 
 class Cube:
@@ -29,6 +30,7 @@ class Cube:
 		self.img_degat = pygame.image.load("images/degats.png").convert_alpha()
 		self.score = Score()
 		self.vie = Vie()
+		self.onde = Onde()
 		self.tir1 = tir1()
 		self.tir2 = tir2()
 		self.images = []
@@ -115,6 +117,7 @@ class Cube:
 		self.vie.Affichage(fenetre)
 		self.tir1.Affichage(fenetre)
 		self.tir2.Affichage(fenetre)
+		self.onde.Affichage(fenetre)
 		self.score.Affichage(fenetre)
 
 	def AvanceTirs(self):
