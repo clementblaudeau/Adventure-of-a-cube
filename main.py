@@ -94,6 +94,7 @@ while lvl:
     scrool = scrool.move(0,-544)
     while continuer:
 	    key = pygame.key.get_pressed()
+	    
 	    for event in pygame.event.get():	#Attente des événements
 		    #print event
 		    if event.type == QUIT:
@@ -107,7 +108,8 @@ while lvl:
 		    mode = "rapide"
 		else:
 		    mode = "lent"
-	    
+	    if key[101] == True:
+		cub.onde.NouvelleOnde((cub.hitbox.left - 90, cub.hitbox.top - 75))
 	    if mode == "lent":
 		if key[273] == True:
 		    cub.DeplaceLent('haut', niveau.obstacles)
@@ -145,8 +147,7 @@ while lvl:
 	    cub.score.score += niveau.obstacles.eclat.Absorption(cub)
 	    cub.score.score += niveau.ennemis.eclats.Absorption(cub)
 	    
-	    if (niveau.ennemis.CollisionCube(cub.hitbox) == True):
-		print "fin !!"
+	    if (niveau.ennemis.CollisionCube(cub.hitbox) == True):# and (cub.onde.protect == False):
 		cub.vie.vie += -1
 		cub.degat +=80
 		if cub.vie.vie < 0:
@@ -168,7 +169,7 @@ while lvl:
 		j = 0
 		avancement += 1
 	
-	    
+	   
 	    
 	    cub.Glissement(niveau.obstacles)
 	    
