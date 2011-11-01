@@ -108,8 +108,6 @@ while lvl:
 		    mode = "rapide"
 		else:
 		    mode = "lent"
-	    if key[101] == True:
-		cub.onde.NouvelleOnde((cub.hitbox.left - 90, cub.hitbox.top - 75))
 	    if mode == "lent":
 		if key[273] == True:
 		    cub.DeplaceLent('haut', niveau.obstacles)
@@ -147,7 +145,7 @@ while lvl:
 	    cub.score.score += niveau.obstacles.eclat.Absorption(cub)
 	    cub.score.score += niveau.ennemis.eclats.Absorption(cub)
 	    
-	    if (niveau.ennemis.CollisionCube(cub.hitbox) == True):# and (cub.onde.protect == False):
+	    if (niveau.ennemis.CollisionCube(cub.hitbox) == True):
 		cub.vie.vie += -1
 		cub.degat +=80
 		if cub.vie.vie < 0:
