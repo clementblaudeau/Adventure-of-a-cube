@@ -30,6 +30,7 @@ class Ennemis:
 		self.ennemis2 = pygame.image.load("images/ennemis2.png").convert_alpha()
 		self.ennemis3 = pygame.image.load("images/ennemis3.png").convert_alpha()
 		self.ennemis4 = pygame.image.load("images/ennemis4.png").convert_alpha()
+		self.ennemis5 = pygame.image.load("images/ennemis5.png").convert_alpha()
 		self.j = 0
 		self.temps = pygame.time.get_ticks()
 		self.eclats = Eclat()
@@ -133,6 +134,13 @@ class Ennemis:
 					self.sortes.remove(self.sortes[i])
 					self.positions.remove(self.positions[i])
 					print "mort !"
+			elif element == 5:
+				self.positions[i] = self.positions[i].move(1,1)
+				if self.positions[i].left > 680 or self.positions[i].top > 490:
+					self.vies.remove(self.vies[i])
+					self.sortes.remove(self.sortes[i])
+					self.positions.remove(self.positions[i])
+					print "mort !"
 			#elif element == 5:
 			#elif element == 6:
 			#elif element == 7:
@@ -222,6 +230,8 @@ class Ennemis:
 				fenetre.blit(self.ennemis3, element)
 			if self.sortes[i] == 4:
 				fenetre.blit(self.ennemis4, element)
+			if self.sortes[i] == 5:
+				fenetre.blit(self.ennemis5, element)
 			i+=1
 			
 		for element in self.tirs1:
