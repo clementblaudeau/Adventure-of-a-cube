@@ -29,18 +29,13 @@ icone = pygame.image.load("images/cub121.png")
 pygame.display.set_icon(icone)
 pygame.display.set_caption(niveau.nom)
 
-avancement = 0
-
-#sauvegardes
+#Sauvegardes
 sauvegarde = Sauvegarde()
 
 #Chargement et collage du fond
 scrool = fenetre.get_rect()
 scrool = scrool.move(0,0)
 j = 0
-g = 0
-w = 0
-h = 0
 fenetre.blit(niveau.fond, scrool)
 
 chrono = Chrono()
@@ -60,18 +55,8 @@ delai = 0
 mode_lent = pygame.image.load("images/m_lent.png").convert_alpha()
 
 
-#Chargement des attaques
-i = 0
-#onde = Onde()
-#tir1 = tir1()
-#tir2 = tir2()
-
-k = 0
-
-
 #Rafraîchissement de l'écran
 pygame.display.flip()
-
 
 
 continuer = 1
@@ -165,7 +150,6 @@ while lvl:
 		if scrool.top < 0:
 		    scrool = scrool.move(0,1)
 		j = 0
-		avancement += 1
 	
 	   
 	    
@@ -202,7 +186,7 @@ while lvl:
 	    if cub.position.top > 500:
 		continuer = 0
 		cub.vie.vie = - 1
-	    if niveau.ennemis.positions == [] and niveau.ennemis.eclats.positions == [] and niveau.obstacles.eclat.positions == [] and niveau.obstacles.positions == []:
+	    if niveau.Fini == True:
 		continuer = 0
 		pygame.time.delay(500)
 		
