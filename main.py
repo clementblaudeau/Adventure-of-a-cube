@@ -192,7 +192,7 @@ while lvl:
 		
 	    
 	    #Attendre (contre la surcharge du processeur et l'acceleration trop brutale)
-	    pygame.time.delay(1)
+	    pygame.time.delay(5)
 	    
     menu.FinNiveau(cub.score.score, cub.vie.vie, fenetre)
     if int(lvl) + 1 > int(sauvegarde.NiveauActuel()):
