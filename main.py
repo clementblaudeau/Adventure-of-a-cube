@@ -36,6 +36,7 @@ sauvegarde = Sauvegarde()
 scrool = fenetre.get_rect()
 scrool = scrool.move(0,0)
 j = 0
+g = 0
 fenetre.blit(niveau.fond, scrool)
 
 chrono = Chrono()
