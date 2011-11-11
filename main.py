@@ -166,7 +166,8 @@ while lvl:
 		    scrool = scrool.move(0,1)
 		j = 0
 		avancement += 1
-	
+		
+	    print niveau.ennemis.positions
 	   
 	    
 	    cub.Glissement(niveau.obstacles)

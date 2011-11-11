@@ -24,6 +24,10 @@ class Ennemis:
 		self.tirs2 = []
 		self.tirs3 = []
 		self.tirs4 = []
+		self.tirs5 = []
+		self.tirs6 = []
+		self.tirs7 = []
+		self.tirs8 = []
 		self.positions_tirs = []
 		self.bille = pygame.image.load("images/bille.png").convert_alpha()
 		self.ennemis1 = pygame.image.load("images/ennemis1.png").convert_alpha()
@@ -31,6 +35,7 @@ class Ennemis:
 		self.ennemis3 = pygame.image.load("images/ennemis3.png").convert_alpha()
 		self.ennemis4 = pygame.image.load("images/ennemis4.png").convert_alpha()
 		self.ennemis5 = pygame.image.load("images/ennemis5.png").convert_alpha()
+		self.ennemis6 = pygame.image.load("images/ennemis6.png").convert_alpha()
 		self.j = 0
 		self.temps = pygame.time.get_ticks()
 		self.eclats = Eclat()
@@ -77,6 +82,26 @@ class Ennemis:
 				self.tirs4.remove(element)
 				return True
 			i+=1
+		for element in self.tirs5:
+			if element.colliderect(hitbox):
+				self.tirs5.remove(element)
+				return True
+			i+=1
+		for element in self.tirs6:
+			if element.colliderect(hitbox):
+				self.tirs6.remove(element)
+				return True
+			i+=1
+		for element in self.tirs7:
+			if element.colliderect(hitbox):
+				self.tirs7.remove(element)
+				return True
+			i+=1
+		for element in self.tirs8:
+			if element.colliderect(hitbox):
+				self.tirs8.remove(element)
+				return True
+			i+=1
 		return False
 		
 	def CollisionsTirs(self, tirs, degats):
@@ -106,7 +131,7 @@ class Ennemis:
 		#depaclement des ennemis en fonction de leurs paterns.
 		i = 0
 		for element in self.sortes:
-			if element == 1:
+			if element == 1 or element == 6:
 				self.positions[i] = self.positions[i].move(0,1)
 				if self.positions[i].top > 490:
 					self.vies.remove(self.vies[i])
@@ -141,12 +166,8 @@ class Ennemis:
 					self.sortes.remove(self.sortes[i])
 					self.positions.remove(self.positions[i])
 					print "mort !"
-			#elif element == 5:
 			#elif element == 6:
 			#elif element == 7:
-			#elif element == 8:
-			#elif element == 9:
-			#elif element == 10:
 			i+=1
 			
 			
@@ -169,6 +190,15 @@ class Ennemis:
 						self.tirs3.append(pygame.Rect(self.positions[i].centerx + 5,self.positions[i].bottom + 5,10,10))
 						self.tirs1.append(pygame.Rect(self.positions[i].left - 5,self.positions[i].top,10,10))
 						self.tirs2.append(pygame.Rect(self.positions[i].right + 5,self.positions[i].top,10,10))
+					if element == 6:
+						self.tirs4.append(pygame.Rect(self.positions[i].centerx,self.positions[i].top - 5,10,10))
+						self.tirs1.append(pygame.Rect(self.positions[i].left - 5,self.positions[i].top,10,10))
+						self.tirs2.append(pygame.Rect(self.positions[i].right + 5,self.positions[i].top,10,10))
+						self.tirs5.append(pygame.Rect(self.positions[i].right + 5,self.positions[i].top,10,10))
+						self.tirs6.append(pygame.Rect(self.positions[i].right + 5,self.positions[i].top,10,10))
+						self.tirs7.append(pygame.Rect(self.positions[i].right - 5,self.positions[i].bottom + 5,10,10))
+						self.tirs8.append(pygame.Rect(self.positions[i].left + 5,self.positions[i].bottom + 5,10,10))
+					
 				i += 1
 				
 	def Cleaner(self):
@@ -196,6 +226,30 @@ class Ennemis:
 				self.tirs4.remove(element)
 				return 0
 			i+=1
+		i = 0
+		for element in self.tirs5:
+			if self.tirs5[i].bottom < 0:
+				self.tirs5.remove(element)
+				return 0
+			i+=1
+		i = 0
+		for element in self.tirs6:
+			if self.tirs6[i].bottom < 0:
+				self.tirs6.remove(element)
+				return 0
+			i+=1
+		i = 0
+		for element in self.tirs7:
+			if self.tirs7[i].top > 490:
+				self.tirs7.remove(element)
+				return 0
+			i+=1
+		i = 0
+		for element in self.tirs8:
+			if self.tirs8[i].top > 490:
+				self.tirs8.remove(element)
+				return 0
+			i+=1
 			
 				
 	def Affichage(self, fenetre):
@@ -221,6 +275,26 @@ class Ennemis:
 			self.tirs4[i].bottom -= 1
 			i+=1
 		i = 0
+		for element in self.tirs5:
+			self.tirs5[i].bottom -= 1
+			self.tirs5[i].right -= 1
+			i+=1
+		i = 0
+		for element in self.tirs6:
+			self.tirs6[i].bottom -= 1
+			self.tirs6[i].right += 1
+			i+=1
+		i = 0
+		for element in self.tirs7:
+			self.tirs7[i].bottom += 1
+			self.tirs7[i].right -= 1
+			i+=1
+		i = 0
+		for element in self.tirs8:
+			self.tirs8[i].bottom += 1
+			self.tirs8[i].right += 1
+			i+=1
+		i = 0
 		for element in self.positions:
 			if self.sortes[i] == 1:
 				fenetre.blit(self.ennemis1, element)
@@ -232,6 +306,8 @@ class Ennemis:
 				fenetre.blit(self.ennemis4, element)
 			if self.sortes[i] == 5:
 				fenetre.blit(self.ennemis5, element)
+			if self.sortes[i] == 6:
+				fenetre.blit(self.ennemis6, element)
 			i+=1
 			
 		for element in self.tirs1:
@@ -247,6 +323,22 @@ class Ennemis:
 				fenetre.blit(self.bille, element)
 				
 		for element in self.tirs4:
+			if not (element.right > 690) and not (element.left < -10) and not (element.top < -5) and not (element.bottom > 490):
+				fenetre.blit(self.bille, element)
+				
+		for element in self.tirs5:
+			if not (element.right > 690) and not (element.left < -10) and not (element.top < -5) and not (element.bottom > 490):
+				fenetre.blit(self.bille, element)
+				
+		for element in self.tirs6:
+			if not (element.right > 690) and not (element.left < -10) and not (element.top < -5) and not (element.bottom > 490):
+				fenetre.blit(self.bille, element)
+				
+		for element in self.tirs7:
+			if not (element.right > 690) and not (element.left < -10) and not (element.top < -5) and not (element.bottom > 490):
+				fenetre.blit(self.bille, element)
+				
+		for element in self.tirs8:
 			if not (element.right > 690) and not (element.left < -10) and not (element.top < -5) and not (element.bottom > 490):
 				fenetre.blit(self.bille, element)
 		
