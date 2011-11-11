@@ -151,7 +151,13 @@ while lvl:
 		if scrool.top < 0:
 		    scrool = scrool.move(0,1)
 		j = 0
+<<<<<<< HEAD
 	
+=======
+
+		avancement += 1
+
+>>>>>>> DevEnnemis
 	   
 	    
 	    cub.Glissement(niveau.obstacles)
