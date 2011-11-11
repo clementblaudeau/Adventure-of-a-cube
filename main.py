@@ -54,7 +54,7 @@ fenetre.blit(cub.image, cub.position)
 mode = "rapide"
 delai = 0
 mode_lent = pygame.image.load("images/m_lent.png").convert_alpha()
-
+surcharge_boucle = pygame.time.get_ticks()
 
 #Rafraîchissement de l'écran
 pygame.display.flip()
@@ -64,6 +64,7 @@ continuer = 1
 lvl = menu.MenuAffichage(fenetre, sauvegarde.NiveauActuel())
 #BOUCLE INFINIE
 while lvl:
+    
     niveau = Niveau(str(lvl))
     continuer = 1
     cub.position.x = 0
@@ -79,6 +80,7 @@ while lvl:
     scrool = fenetre.get_rect()
     scrool = scrool.move(0,-544)
     while continuer:
+	    surcharge_boucle = pygame.time.get_ticks()
 	    key = pygame.key.get_pressed()
 	    
 	    for event in pygame.event.get():	#Attente des événements
@@ -151,13 +153,8 @@ while lvl:
 		if scrool.top < 0:
 		    scrool = scrool.move(0,1)
 		j = 0
-<<<<<<< HEAD
-	
-=======
-
 		avancement += 1
 
->>>>>>> DevEnnemis
 	   
 	    
 	    cub.Glissement(niveau.obstacles)
@@ -193,13 +190,15 @@ while lvl:
 	    if cub.position.top > 500:
 		continuer = 0
 		cub.vie.vie = - 1
-	    if niveau.Fini == True:
+	    if niveau.Fini() == True:
 		continuer = 0
 		pygame.time.delay(500)
 		
 	    
 	    #Attendre (contre la surcharge du processeur et l'acceleration trop brutale)
-	    pygame.time.delay(5)
+	    surcharge_boucle2 = pygame.time.get_ticks()
+	    if surcharge_boucle2 - surcharge_boucle < 5:
+		pygame.time.delay(5)
 	    
     menu.FinNiveau(cub.score.score, cub.vie.vie, fenetre)
     if int(lvl) + 1 > int(sauvegarde.NiveauActuel()):

@@ -40,6 +40,7 @@ class Ennemis:
 		self.temps = pygame.time.get_ticks()
 		self.eclats = Eclat()
 		self.fini = 0
+		self.comp = False
 		
 		
 		
@@ -47,6 +48,8 @@ class Ennemis:
 		#Ajout d'un ennemi. A faire avec les niveaux
 		self.positions.append(pygame.Rect(x,y,30,30))
 		self.sortes.append(sorte)
+		if sorte == 6:
+			self.comp == True
 		self.vies.append(sorte * 3)
 		
 	def CollisionCube(self, hitbox):
@@ -82,26 +85,27 @@ class Ennemis:
 				self.tirs4.remove(element)
 				return True
 			i+=1
-		for element in self.tirs5:
-			if element.colliderect(hitbox):
-				self.tirs5.remove(element)
-				return True
-			i+=1
-		for element in self.tirs6:
-			if element.colliderect(hitbox):
-				self.tirs6.remove(element)
-				return True
-			i+=1
-		for element in self.tirs7:
-			if element.colliderect(hitbox):
-				self.tirs7.remove(element)
-				return True
-			i+=1
-		for element in self.tirs8:
-			if element.colliderect(hitbox):
-				self.tirs8.remove(element)
-				return True
-			i+=1
+		if self.comp == True:
+			for element in self.tirs5:
+				if element.colliderect(hitbox):
+					self.tirs5.remove(element)
+					return True
+				i+=1
+			for element in self.tirs6:
+				if element.colliderect(hitbox):
+					self.tirs6.remove(element)
+					return True
+				i+=1
+			for element in self.tirs7:
+				if element.colliderect(hitbox):
+					self.tirs7.remove(element)
+					return True
+				i+=1
+			for element in self.tirs8:
+				if element.colliderect(hitbox):
+					self.tirs8.remove(element)
+					return True
+				i+=1
 		return False
 		
 	def CollisionsTirs(self, tirs, degats):
@@ -227,29 +231,30 @@ class Ennemis:
 				return 0
 			i+=1
 		i = 0
-		for element in self.tirs5:
-			if self.tirs5[i].bottom < 0:
-				self.tirs5.remove(element)
-				return 0
-			i+=1
-		i = 0
-		for element in self.tirs6:
-			if self.tirs6[i].bottom < 0:
-				self.tirs6.remove(element)
-				return 0
-			i+=1
-		i = 0
-		for element in self.tirs7:
-			if self.tirs7[i].top > 490:
-				self.tirs7.remove(element)
-				return 0
-			i+=1
-		i = 0
-		for element in self.tirs8:
-			if self.tirs8[i].top > 490:
-				self.tirs8.remove(element)
-				return 0
-			i+=1
+		if self.comp == True :
+			for element in self.tirs5:
+				if self.tirs5[i].bottom < 0:
+					self.tirs5.remove(element)
+					return 0
+				i+=1
+			i = 0
+			for element in self.tirs6:
+				if self.tirs6[i].bottom < 0:
+					self.tirs6.remove(element)
+					return 0
+				i+=1
+			i = 0
+			for element in self.tirs7:
+				if self.tirs7[i].top > 490:
+					self.tirs7.remove(element)
+					return 0
+				i+=1
+			i = 0
+			for element in self.tirs8:
+				if self.tirs8[i].top > 490:
+					self.tirs8.remove(element)
+					return 0
+				i+=1
 			
 				
 	def Affichage(self, fenetre):
