@@ -61,5 +61,13 @@ class Niveau:
 		self.ennemis.Affichage(fenetre)
 		
 		
+	def Fini(self):
+		if self.ennemis.positions == 0:
+			if self.obstacles.positions == 0:
+				if self.obstacles.eclats.positions == 0:
+					if self.ennemis.eclats.positions == 0:
+						return True
+		return False
+		
 
 
