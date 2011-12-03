@@ -30,7 +30,6 @@ class Menu:
 		self.y = 150
 		self.nb = "0"
 		nb = int(nb)
-		print "---------------------------------------------------"
 		while nb > 0:
 			if self.y >= 460:
 				self.y = 150
@@ -39,9 +38,6 @@ class Menu:
 			self.boutons.NouveauBouton((self.x,self.y), self.nb)
 			self.y += 50
 			nb -= 1
-			print nb
-			print "          "+self.nb
-		print "---------------------------------------------------"
 		fenetre.blit(self.fond,(0,0))
 		continuer = 1
 		self.boutons.Affichage(fenetre, (0,0), 0)
@@ -125,7 +121,7 @@ class Menu:
 			for event in pygame.event.get():
 				if event.type == QUIT:
 					continuer = 0
-				if event.type == MOUSEBUTTONDOWN:
+				if event.type == KEYDOWN:
 							continuer = 0
 
 #class DebutNiveau:

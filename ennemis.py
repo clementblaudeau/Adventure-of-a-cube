@@ -141,35 +141,30 @@ class Ennemis:
 					self.vies.remove(self.vies[i])
 					self.sortes.remove(self.sortes[i])
 					self.positions.remove(self.positions[i])
-					print "mort !"
 			elif element == 2:
 				self.positions[i] = self.positions[i].move(1,0)
 				if self.positions[i].left > 640:
 					self.vies.remove(self.vies[i])
 					self.sortes.remove(self.sortes[i])
 					self.positions.remove(self.positions[i])
-					print "mort !"
 			elif element == 3:
 				self.positions[i] = self.positions[i].move(-1,0)
 				if self.positions[i].right < 0:
 					self.vies.remove(self.vies[i])
 					self.sortes.remove(self.sortes[i])
 					self.positions.remove(self.positions[i])
-					print "mort !"
 			elif element == 4:
 				self.positions[i] = self.positions[i].move(-1,1)
 				if self.positions[i].right < 0 or self.positions[i].top > 490:
 					self.vies.remove(self.vies[i])
 					self.sortes.remove(self.sortes[i])
 					self.positions.remove(self.positions[i])
-					print "mort !"
 			elif element == 5:
 				self.positions[i] = self.positions[i].move(1,1)
 				if self.positions[i].left > 680 or self.positions[i].top > 490:
 					self.vies.remove(self.vies[i])
 					self.sortes.remove(self.sortes[i])
 					self.positions.remove(self.positions[i])
-					print "mort !"
 			#elif element == 6:
 			#elif element == 7:
 			i+=1
