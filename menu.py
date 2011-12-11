@@ -8,6 +8,7 @@
 
 import pygame
 from pygame.locals import *
+import general
 
 class Menu:
 	
@@ -21,6 +22,7 @@ class Menu:
 		self.lastpos = (0,0)
 		self.x = 30
 		self.y = 150
+		self.vrai = False
 		#self.boutons.NouveauBouton((30,160), 1)
 		#self.boutons.NouveauBouton((30,210), 2)
 		
@@ -170,4 +172,5 @@ class Bouton:
 		self.numeros = []
 		self.num = []
 			
+
 

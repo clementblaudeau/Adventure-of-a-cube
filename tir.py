@@ -8,6 +8,7 @@
 import pygame
 from pygame.locals import *
 
+import general
 
 
 
@@ -15,7 +16,7 @@ from pygame.locals import *
 class tir1:
 	
 	def __init__(self):
-		self.image = pygame.image.load("images/tir.png").convert_alpha()
+		self.image = [pygame.image.load("images/tir.png").convert_alpha(),pygame.image.load("images/tir2.png").convert_alpha(),pygame.image.load("images/tir3.png").convert_alpha()]
 		self.positions = []
 		self.k = 0
 	
@@ -30,7 +31,7 @@ class tir1:
 			
 	def Affichage(self, fenetre):
 		for element in self.positions:
-			fenetre.blit(self.image, element)
+			fenetre.blit(self.image[general.niv], element)
 			
 	def Tir(self,position):
 		if self.k >= 15:
@@ -42,7 +43,7 @@ class tir1:
 class tir2:
 	
 	def __init__(self):
-		self.image = pygame.image.load("images/attaque.png").convert_alpha()
+		self.image = [pygame.image.load("images/attaque.png").convert_alpha(),pygame.image.load("images/attaque2.png").convert_alpha(),pygame.image.load("images/attaque3.png").convert_alpha()]
 		self.positions = []
 		self.k = 0
 		
@@ -57,11 +58,11 @@ class tir2:
 		
 	def Affichage(self, fenetre):
 		for element in self.positions:
-			fenetre.blit(self.image, element)
+			fenetre.blit(self.image[general.niv], element)
 			
 			
 	def Tir(self,position):
-		if ((pygame.time.get_ticks() - self.k) > 350):
+		if ((pygame.time.get_ticks() - self.k) > 350-(20*general.niv)):
 		    self.k = pygame.time.get_ticks()
 		    self.positions.append(Rect(0,0,20,30).move(position.left + 20, position.top - 20))
 		

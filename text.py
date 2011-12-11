@@ -5,8 +5,22 @@
 #------------------------------#
 
 
+import general
 import pygame
 from pygame.locals import *
+
+class Textes:
+	def __init__(self):
+		self.chrono = Chrono()
+		self.score = Score()
+		self.vie = Vie()
+		self.nivtirs = NivTirs()
+	
+	def Affichage(self, time, fenetre, sorte):
+		self.chrono.Affichage(time, fenetre, sorte)
+		self.vie.Affichage(fenetre)
+		self.chrono.Affichage(fenetre)
+		self.nivtirs.Affichage(fenetre)
 
 class Chrono:
 	
@@ -19,10 +33,7 @@ class Chrono:
 		self.font = pygame.font.Font(None, 36)
 		self.text = self.font.render(self.temps, 1, (255, 180, 10))
 		self.position = self.text.get_rect()
-		self.position = self.position.move(560, 15)
-
-
-
+		self.position = self.position.move(general.w+65, 20)
 
 	def Affichage(self, time, fenetre, sorte):
 		self.chrono_ml = time
@@ -37,6 +48,7 @@ class Chrono:
 		if sorte == "boss":
 			self.text = self.font.render(self.temps, 1, (255,10,10))
 		fenetre.blit(self.text, self.position)
+		
 
 class Score:
 	
@@ -45,7 +57,7 @@ class Score:
 		self.font = pygame.font.Font(None, 36)
 		self.text = self.font.render("0", 1, (255, 255, 255))
 		self.position = self.text.get_rect()
-		self.position = self.position.move(560, 45)
+		self.position = self.position.move(general.w+65, 55)
 		self.score = 0
 		self.r = 0
 		self.b = 0
@@ -74,7 +86,7 @@ class Vie:
 		self.font = pygame.font.Font(None, 36)
 		self.text = self.font.render("0", 1, (255, 255, 255))
 		self.position = self.text.get_rect()
-		self.position = self.position.move(560, 75)
+		self.position = self.position.move(general.w+65, 85)
 		self.vie = 5
 		self.r = 0
 		self.b = 0
@@ -100,5 +112,32 @@ class Vie:
 			self.r = 255
 			self.v = 0
 		self.text = self.font.render(str(self.vie), 1, (self.r, self.v, self.b))
+		fenetre.blit(self.text, self.position)
+
+
+class NivTirs:
+	
+	def __init__(self):
+		self.font = pygame.font.Font(None, 36)
+		self.text = self.font.render("", 1, (0,0,0))
+		self.position = self.text.get_rect()
+		self.position = self.position.move(general.w+70, 200)
+
+	def Affichage(self, fenetre):
+		chaine = ""
+		i = 0
+		if (general.ennemis/15 == 1):
+			general.niv = 1
+			i = 15
+		if (general.ennemis/15 == 2):
+			general.niv = 2
+			i = 30
+		while i <= general.ennemis:
+			chaine += "|"
+			i += 1
+		if i >= 30:
+			chaine = "***"
+		
+		self.text = self.font.render(chaine, 1, (0, 0, 0))
 		fenetre.blit(self.text, self.position)
 

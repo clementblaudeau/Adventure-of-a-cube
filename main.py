@@ -1,5 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+#------------------------------#
+#             Main.py          #
+#	Clement Blaudeau       #
+#	    ******	       #
+#------------------------------#
+
 import pygame
 from pygame.locals import *	
 
@@ -10,19 +16,23 @@ from obstacles import *
 from animations import *
 from niveau import *
 from menu import *
+from credits import *
 from text import *
 from ennemis import *
 from menu import *
+from menuprincipal import *
 from sauvegarde import *
+import general
 
 pygame.init()
 
-#Ouverture de la fenêtre Pygame
-fenetre = pygame.display.set_mode((640, 480), DOUBLEBUF)
+#Ouverture de la fenetre Pygame
+fenetre = pygame.display.set_mode((general.w+200, general.h), DOUBLEBUF)
 
 #Chargement du niveau
 niveau = Niveau("1")
 menu = Menu()
+menuprincipal = MenuPrincipal()
 
 #Icone et titre
 icone = pygame.image.load("images/cub121.png")
@@ -55,42 +65,52 @@ mode = "rapide"
 delai = 0
 mode_lent = pygame.image.load("images/m_lent.png").convert_alpha()
 surcharge_boucle = pygame.time.get_ticks()
-
+paneau = pygame.image.load("images/paneau.png").convert_alpha()
+fenetre.blit(paneau,(general.w,0))
 #Rafraîchissement de l'écran
 pygame.display.flip()
 
 
 continuer = 1
-lvl = menu.MenuAffichage(fenetre, sauvegarde.NiveauActuel())
+
+modejeu = menuprincipal.MenuAffichage(fenetre, sauvegarde.NiveauActuel())
 #BOUCLE INFINIE
-while lvl:
-    
-    niveau = Niveau(str(lvl))
-    continuer = 1
-    cub.position.x = 0
-    cub.position.y = 0
-    cub.hitbox.x = 0
-    cub.hitbox.y = 0
-    cub.position = cub.position.move(275,350)
-    cub.hitbox = cub.hitbox.move(303,373)
-    cub.vie.vie = 5
-    cub.score.score = 0
-    pygame.display.set_caption(niveau.nom)
-    avancement = 0
-    scrool = fenetre.get_rect()
-    scrool = scrool.move(0,-544)
-    while continuer:
+while modejeu:
+    if modejeu == 2:
+	lvl = menu.MenuAffichage(fenetre, sauvegarde.NiveauActuel())
+    elif modejeu == 4:
+	lvl = 0
+	cred = Credits()
+	cred.Affichage(fenetre)
+    else:
+	lvl = 1
+    while lvl != 0:
+	niveau = Niveau(str(lvl))
+	continuer = 1
+	cub.position.x = 0
+	cub.position.y = 0
+	cub.hitbox.x = 0
+	cub.hitbox.y = 0
+	cub.position = cub.position.move(275,350)
+	cub.hitbox = cub.hitbox.move(303,373)
+	cub.vie.vie = 5
+	cub.score.score = 0
+	pygame.display.set_caption(niveau.nom)
+	avancement = 0
+	scrool = fenetre.get_rect()
+	scrool = scrool.move(0,-544)
+	while continuer:
 	    surcharge_boucle = pygame.time.get_ticks()
 	    key = pygame.key.get_pressed()
 	    
 	    for event in pygame.event.get():	#Attente des événements
 		    #print event
 		    if event.type == QUIT:
+			    lvl = 0
 			    continuer = 0
-			    pygame.quit()
 			    break
 	
-	    if key[122] == True and ((pygame.time.get_ticks() - delai) > 500):
+	    if key[122] == True and ((pygame.time.get_ticks() - delai) > general.h+10):
 		delai = pygame.time.get_ticks()
 		if mode == "lent":
 		    mode = "rapide"
@@ -122,14 +142,13 @@ while lvl:
 		    cub.tir1.Tir(cub.position)
 		    
 		    
-	    
 	    g += 1
 	
 	    #Test des colisions avec les obstacles
-	    cub.tir1.positions = niveau.obstacles.ColisionsTir(cub.tir1.positions, 1)
-	    cub.tir2.positions = niveau.obstacles.ColisionsTir(cub.tir2.positions, 6)
-	    cub.tir1.positions = niveau.ennemis.CollisionsTirs(cub.tir1.positions, 1)
-	    cub.tir2.positions = niveau.ennemis.CollisionsTirs(cub.tir2.positions, 6)
+	    cub.tir1.positions = niveau.obstacles.ColisionsTir(cub.tir1.positions, 1+general.niv)
+	    cub.tir2.positions = niveau.obstacles.ColisionsTir(cub.tir2.positions, 6+general.niv)
+	    cub.tir1.positions = niveau.ennemis.CollisionsTirs(cub.tir1.positions, 1+general.niv)
+	    cub.tir2.positions = niveau.ennemis.CollisionsTirs(cub.tir2.positions, 6+general.niv)
 	    cub.score.score += niveau.obstacles.eclat.Absorption(cub)
 	    cub.score.score += niveau.ennemis.eclats.Absorption(cub)
 	    
@@ -173,13 +192,14 @@ while lvl:
 	
 	    #Re-collage + Affichage des murs et ennemis
 	    fenetre.blit(niveau.fond, scrool)	
+	    
 	    if mode == "lent":
 		fenetre.blit(mode_lent, (0,0))
+	    
+	    niveau.Affichage(fenetre)
+	    fenetre.blit(paneau,(general.w,0))
 	    chrono.Affichage(pygame.time.get_ticks(), fenetre, "")
 	    cub.Affichage(fenetre)
-	    niveau.Affichage(fenetre)
-	    
-	    
 	    #Rafraichissement
 	    pygame.display.flip()
 	
@@ -187,7 +207,7 @@ while lvl:
 	    #Survie
 	    if cub.position.top < -50:
 		continuer = 0
-	    if cub.position.top > 500:
+	    if cub.position.top > general.h+10:
 		continuer = 0
 		cub.vie.vie = - 1
 	    if niveau.Fini() == True:
@@ -200,12 +220,15 @@ while lvl:
 	    if surcharge_boucle2 - surcharge_boucle < 5:
 		pygame.time.delay(5)
 	    
-    menu.FinNiveau(cub.score.score, cub.vie.vie, fenetre)
-    if int(lvl) + 1 > int(sauvegarde.NiveauActuel()):
-	sauvegarde.NouveauNiveau()
-    if menu.vrai == True :
-	lvl +=1
-    else :
-	lvl = menu.MenuAffichage(fenetre, sauvegarde.NiveauActuel())
+	if lvl != 0:
+	    menu.FinNiveau(cub.score.score, cub.vie.vie, fenetre)
+	    menu.vrai = False
+	if int(lvl) + 1 > int(sauvegarde.NiveauActuel()):
+	    sauvegarde.NouveauNiveau()
+	if menu.vrai == True :
+	    lvl +=1
+	else :
+	    lvl = menu.MenuAffichage(fenetre, sauvegarde.NiveauActuel())
+    modejeu = menuprincipal.MenuAffichage(fenetre, sauvegarde.NiveauActuel())
 pygame.quit()
 

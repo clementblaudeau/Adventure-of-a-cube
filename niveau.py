@@ -12,6 +12,7 @@ import pygame
 from pygame.locals import *
 from obstacles import * 
 from ennemis import *
+import general
 
 class Niveau:
 	

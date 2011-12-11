@@ -11,6 +11,7 @@ import pygame
 from pygame.locals import *
 from obstacles import * 
 from animations import *
+import general
 
 
 class Ennemis:
@@ -62,48 +63,66 @@ class Ennemis:
 				self.vies.remove(self.vies[i])
 				self.sortes.remove(self.sortes[i])
 				self.positions.remove(self.positions[i])
+				general.niv = 0
+				general.ennemis = 0
 				return True
 			i+=1
 		i = 0
 		for element in self.tirs1:
 			if element.colliderect(hitbox):
 				self.tirs1.remove(element)
+				general.niv = 0
+				general.ennemis = 0
 				return True
 			i+=1
 		for element in self.tirs2:
 			if element.colliderect(hitbox):
 				self.tirs2.remove(element)
+				general.niv = 0
+				general.ennemis = 0
 				return True
 			i+=1
 		for element in self.tirs3:
 			if element.colliderect(hitbox):
 				self.tirs3.remove(element)
+				general.niv = 0
+				general.ennemis = 0
 				return True
 			i+=1
 		for element in self.tirs4:
 			if element.colliderect(hitbox):
 				self.tirs4.remove(element)
+				general.niv = 0
+				general.ennemis = 0
 				return True
 			i+=1
 		if self.comp == True:
 			for element in self.tirs5:
 				if element.colliderect(hitbox):
 					self.tirs5.remove(element)
+					general.niv = 0
+					general.ennemis = 0
 					return True
 				i+=1
 			for element in self.tirs6:
 				if element.colliderect(hitbox):
 					self.tirs6.remove(element)
+					general.niv = 0
+					general.ennemis = 0
 					return True
 				i+=1
 			for element in self.tirs7:
 				if element.colliderect(hitbox):
 					self.tirs7.remove(element)
+					general.niv = 0
+					general.ennemis = 0
 					return True
 				i+=1
 			for element in self.tirs8:
 				if element.colliderect(hitbox):
 					self.tirs8.remove(element)
+					general.niv = 0
+					general.ennemis = 0
 					return True
 				i+=1
 		return False
@@ -121,6 +140,7 @@ class Ennemis:
 							pass
 						self.vies[i] =- degats
 						if self.vies[i] <= 0:
+							general.ennemis += 1
 							self.eclats.Explosion(self.positions[i],self.sortes[i] * 3)
 							print self.sortes[i]
 							self.vies.remove(self.vies[i])
@@ -137,13 +157,13 @@ class Ennemis:
 		for element in self.sortes:
 			if element == 1 or element == 6:
 				self.positions[i] = self.positions[i].move(0,1)
-				if self.positions[i].top > 490:
+				if self.positions[i].top > general.h+10:
 					self.vies.remove(self.vies[i])
 					self.sortes.remove(self.sortes[i])
 					self.positions.remove(self.positions[i])
 			elif element == 2:
 				self.positions[i] = self.positions[i].move(1,0)
-				if self.positions[i].left > 640:
+				if self.positions[i].left > general.w:
 					self.vies.remove(self.vies[i])
 					self.sortes.remove(self.sortes[i])
 					self.positions.remove(self.positions[i])
@@ -173,7 +193,7 @@ class Ennemis:
 	def Tir(self):
 		#Tirs
 		#Patern en fonction du type.
-		if (pygame.time.get_ticks() - self.temps) > 500:
+		if (pygame.time.get_ticks() - self.temps) > general.h+10:
 			self.temps = pygame.time.get_ticks()
 			i = 0
 			for element in self.sortes:
@@ -209,7 +229,7 @@ class Ennemis:
 			i+=1
 		i = 0
 		for element in self.tirs2:
-			if self.tirs2[i].left > 640:
+			if self.tirs2[i].left > general.w:
 				self.tirs2.remove(element)
 				return 0
 			i+=1

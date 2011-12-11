@@ -13,6 +13,7 @@ from obstacles import *
 from text import *
 from onde import *
 from tir import *
+import general
 
 class Cube:
 	
@@ -30,6 +31,7 @@ class Cube:
 		self.img_degat = pygame.image.load("images/degats.png").convert_alpha()
 		self.score = Score()
 		self.vie = Vie()
+		self.nivtirs = NivTirs()
 		self.onde = Onde()
 		self.tir1 = tir1()
 		self.tir2 = tir2()
@@ -56,7 +58,7 @@ class Cube:
 		
 	def Deplace(self, direction, obstacles):
 		if direction == 'bas':
-			if self.position.bottom <= 500 and not obstacles.ColisionsCube(self.hitbox.move(0,3)):
+			if self.position.bottom <= general.h+10 and not obstacles.ColisionsCube(self.hitbox.move(0,3)):
 				self.position = self.position.move(0,3)
 				self.hitbox = self.hitbox.move(0,3)
 				if self.glissement_vertical < 40:
@@ -77,7 +79,7 @@ class Cube:
 					self.glissement_horizontal += -3
 
 		elif direction == 'droite':
-			if self.position.right <= 650 and not obstacles.ColisionsCube(self.hitbox.move(3,0)):
+			if self.position.right <= general.w+10 and not obstacles.ColisionsCube(self.hitbox.move(3,0)):
 				self.position = self.position.move(3,0)
 				self.hitbox = self.hitbox.move(3,0)
 				if self.glissement_horizontal < 40:
@@ -87,7 +89,7 @@ class Cube:
 				
 	def DeplaceLent(self, direction, obstacles):
 		if direction == 'bas':
-			if self.position.bottom <= 500 and not obstacles.ColisionsCube(self.hitbox.move(0,1)):
+			if self.position.bottom <= general.h+10 and not obstacles.ColisionsCube(self.hitbox.move(0,1)):
 				self.position = self.position.move(0,1)
 				self.hitbox = self.hitbox.move(0,1)
 
@@ -102,7 +104,7 @@ class Cube:
 				self.hitbox = self.hitbox.move(-1,0)
 
 		elif direction == 'droite':
-			if self.position.right <= 650 and not obstacles.ColisionsCube(self.hitbox.move(1,0)):
+			if self.position.right <= general.w+10 and not obstacles.ColisionsCube(self.hitbox.move(1,0)):
 				self.position = self.position.move(1,0)
 				self.hitbox = self.hitbox.move(1,0)
 				
@@ -119,6 +121,7 @@ class Cube:
 		self.tir2.Affichage(fenetre)
 		self.onde.Affichage(fenetre)
 		self.score.Affichage(fenetre)
+		self.nivtirs.Affichage(fenetre)
 
 	def AvanceTirs(self):
 	    self.tir1.Progression()
@@ -128,7 +131,7 @@ class Cube:
 		self.k +=1
 		if self.k > 1:
 			self.k = 0
-			if (self.position.bottom <= 500 and self.position.top >= 3) and not (obstacles.ColisionsCube(self.hitbox.move(0,-1)) or obstacles.ColisionsCube(self.hitbox.move(0,1))):
+			if (self.position.bottom <= general.h+10 and self.position.top >= 3) and not (obstacles.ColisionsCube(self.hitbox.move(0,-1)) or obstacles.ColisionsCube(self.hitbox.move(0,1))):
 				if (self.glissement_vertical > 0):
 					self.position = self.position.move(0,1)
 					self.hitbox = self.hitbox.move(0,1)
@@ -140,7 +143,7 @@ class Cube:
 				else:
 					self.glissement_vertical = 0
 		
-			if (self.position.left >= -10 and self.position.right <= 650) and not (obstacles.ColisionsCube(self.hitbox.move(10,0)) or obstacles.ColisionsCube(self.hitbox.move(-10,0))):
+			if (self.position.left >= -10 and self.position.right <= general.w+10) and not (obstacles.ColisionsCube(self.hitbox.move(10,0)) or obstacles.ColisionsCube(self.hitbox.move(-10,0))):
 				if (self.glissement_horizontal > 0):
 					self.position = self.position.move(1,0)
 					self.hitbox = self.hitbox.move(1,0)

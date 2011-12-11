@@ -9,6 +9,7 @@
 import pygame
 from pygame.locals import *	
 from animations import *
+import general
 
 
 
@@ -92,7 +93,7 @@ class Obstacles:
 			self.j = 0
 			
 			for element in self.positions:
-				if element.top > 500:
+				if element.top > general.h+10:
 					self.positions.remove(element)
 					i -= 1
 				i += 1

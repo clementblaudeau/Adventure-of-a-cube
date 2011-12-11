@@ -9,6 +9,8 @@
 import pygame
 from pygame.locals import *	
 
+import general
+
 class Sauvegarde:
 	
 	def __init__(self):
