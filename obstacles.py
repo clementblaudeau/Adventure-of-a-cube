@@ -77,6 +77,7 @@ class Obstacles:
 							self.positions.remove(element)
 							self.vies.remove(self.vies[i])
 							self.sortes.remove(self.sortes[i])
+							return attaques
 							
 			i += 1
 		return attaques

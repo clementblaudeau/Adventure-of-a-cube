@@ -34,10 +34,10 @@ class tir1:
 			fenetre.blit(self.image[general.niv], element)
 			
 	def Tir(self,position):
-		if self.k >= 15:
+		if ((pygame.time.get_ticks() - self.k) > 100-(5*general.niv)):
+		    self.k = pygame.time.get_ticks()
+		    general.tirs += 1
 		    self.positions.append(Rect(0,0,20,30).move(position.left + 20, position.top - 10))
-		    self.k = 0
-		self.k += 1
 		
 	
 class tir2:
@@ -62,10 +62,10 @@ class tir2:
 			
 			
 	def Tir(self,position):
-		if ((pygame.time.get_ticks() - self.k) > 350-(20*general.niv)):
+		if ((pygame.time.get_ticks() - self.k) > 350-(5*general.niv)):
 		    self.k = pygame.time.get_ticks()
 		    self.positions.append(Rect(0,0,20,30).move(position.left + 20, position.top - 20))
-		
+		    general.tirs += 3
 		
 	
 	

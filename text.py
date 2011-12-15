@@ -118,7 +118,7 @@ class Vie:
 class NivTirs:
 	
 	def __init__(self):
-		self.font = pygame.font.Font(None, 36)
+		self.font = pygame.font.Font("polices/Bank.ttf", 20)
 		self.text = self.font.render("", 1, (0,0,0))
 		self.position = self.text.get_rect()
 		self.position = self.position.move(general.w+70, 200)
@@ -132,7 +132,7 @@ class NivTirs:
 		if (general.ennemis/15 == 2):
 			general.niv = 2
 			i = 30
-		while i <= general.ennemis:
+		while i < general.ennemis:
 			chaine += "|"
 			i += 1
 		if i >= 30:
@@ -140,4 +140,6 @@ class NivTirs:
 		
 		self.text = self.font.render(chaine, 1, (0, 0, 0))
 		fenetre.blit(self.text, self.position)
+		self.text = self.font.render(str("Tirs : "+str(general.tirs)), 1, (0, 0, 0))
+		fenetre.blit(self.text, self.position.move(0,50))
 

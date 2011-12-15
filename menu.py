@@ -1,10 +1,11 @@
+
+# -*- coding: utf-8 -*-
 #------------------------------#
 #			Menu.py			   #
 #		Clement Blaudeau	   #
 #			******			   #
 #------------------------------#
 
-# -*- coding: utf-8 -*-
 
 import pygame
 from pygame.locals import *
@@ -20,6 +21,7 @@ class Menu:
 		self.lastevent = 0
 		self.ok = 0
 		self.lastpos = (0,0)
+		self.font = pygame.font.Font("polices/Coalition.ttf", 17)
 		self.x = 30
 		self.y = 150
 		self.vrai = False
@@ -89,21 +91,37 @@ class Menu:
 			pygame.time.delay(700)
 			fenetre.blit(image,(0,0))
 			fenetre.blit(self.font.render(" Score : " + str(score), 1, (255, 255, 0)), (80, 320))
-			fenetre.blit(self.font.render(" Vies Restantes : " + str(vies), 1, (255, 255, 0)), (80, 340))
+			fenetre.blit(self.font.render(" + Vies Restantes : " + str(vies), 1, (255, 255, 0)), (80, 340))
 			
 			pygame.display.flip()
 			
 			pygame.time.delay(700)
 			fenetre.blit(image,(0,0))
 			fenetre.blit(self.font.render(" Score : " + str(score), 1, (255, 255, 0)), (80, 320))
-			fenetre.blit(self.font.render(" Vies Restantes : " + str(vies) + " x 100 : " + str(vies * 100), 1, (255, 255, 0)), (80, 340))
+			fenetre.blit(self.font.render(" + Vies Restantes : " + str(vies) + " x 100 : " + str(vies * 100), 1, (255, 255, 0)), (80, 340))
+			pygame.display.flip()
 			pygame.display.flip()
 			
 			pygame.time.delay(700)
 			fenetre.blit(image,(0,0))
 			fenetre.blit(self.font.render(" Score : " + str(score), 1, (255, 255, 0)), (80, 320))
-			fenetre.blit(self.font.render(" Vies Restantes : " + str(vies) + " x 100 : " + str(vies * 100), 1, (255, 255, 0)), (80, 340))
-			fenetre.blit(self.font.render("---------", 1, (255, 255, 0)), (130, 360))
+			fenetre.blit(self.font.render(" + Vies Restantes : " + str(vies) + " x 100 : " + str(vies * 100), 1, (255, 255, 0)), (80, 340))
+			fenetre.blit(self.font.render(" - Tirs : " + str(general.tirs), 1, (255, 0, 0)), (80, 360))
+			pygame.display.flip()
+			
+			pygame.time.delay(700)
+			fenetre.blit(image,(0,0))
+			fenetre.blit(self.font.render(" Score : " + str(score), 1, (255, 255, 0)), (80, 320))
+			fenetre.blit(self.font.render(" + Vies Restantes : " + str(vies) + " x 100 : " + str(vies * 100), 1, (255, 255, 0)), (80, 340))
+			fenetre.blit(self.font.render(" - Tirs : " + str(general.tirs) +" x 2 : " + str(general.tirs*2), 1, (255, 0, 0)), (80, 360))
+			pygame.display.flip()
+			
+			pygame.time.delay(700)
+			fenetre.blit(image,(0,0))
+			fenetre.blit(self.font.render(" Score : " + str(score), 1, (255, 255, 0)), (80, 320))
+			fenetre.blit(self.font.render(" + Vies Restantes : " + str(vies) + " x 100 : " + str(vies * 100), 1, (255, 255, 0)), (80, 340))
+			fenetre.blit(self.font.render(" - Tirs : " + str(general.tirs) +" x 2 : " + str(general.tirs*2), 1, (255, 0, 0)), (80, 360))
+			fenetre.blit(self.font.render("---------", 1, (255, 255, 0)), (130, 380))
 			pygame.display.flip()
 			
 			pygame.time.delay(700)
@@ -111,20 +129,60 @@ class Menu:
 			
 		
 		continuer = 1
+		pygame.event.clear()
 		while continuer:
 			pygame.time.delay(1)
 			fenetre.blit(image,(0,0))
 			if vrai:
 				fenetre.blit(self.font.render(" Score : " + str(score), 1, (255, 255, 0)), (80, 320))
-				fenetre.blit(self.font.render(" Vies Restantes : " + str(vies) + " x 100 : " + str(vies * 100), 1, (255, 255, 0)), (80, 340))
-				fenetre.blit(self.font.render("---------", 1, (255, 255, 0)), (130, 360))
-				fenetre.blit(self.font.render(" Total : " +  str(vies * 100 + score), 1, (255, 185, 0)), (80, 380))
+				fenetre.blit(self.font.render(" + Vies Restantes : " + str(vies) + " x 100 : " + str(vies * 100), 1, (255, 255, 0)), (80, 340))
+				fenetre.blit(self.font.render(" - Tirs : " + str(general.tirs) +" x 2 : " + str(general.tirs*2), 1, (255, 0, 0)), (80, 360))
+				fenetre.blit(self.font.render("---------", 1, (255, 255, 0)), (130, 380))
+				fenetre.blit(self.font.render(" Total : " +  str((vies * 100 + score)- (2*general.tirs)), 1, (255, 185, 0)), (80, 400))
 			pygame.display.flip()
+			
 			for event in pygame.event.get():
 				if event.type == QUIT:
 					continuer = 0
 				if event.type == KEYDOWN:
 							continuer = 0
+							
+	def Pause(self,fenetre):
+		fenetre.blit(pygame.image.load("images/pause.png").convert_alpha(),(0,0));
+		pygame.display.flip()
+		pygame.time.delay(100)
+		continuer = 1
+		pygame.event.clear()
+		while continuer == 1:
+			for event in pygame.event.get():	#Attente des événements
+				#print event
+				if event.type == KEYDOWN:
+					if event.key == 27:
+						continuer = 0
+						pygame.event.clear()
+				elif event.type == QUIT:
+					continuer = 0
+					pygame.event.clear()
+					break
+		
+		fenetre.blit(self.font.render("3", 1, (255, 255, 0)), ((general.w/2)-50, 320))
+		pygame.display.flip()
+		pygame.time.delay(700)
+		
+		fenetre.blit(self.font.render("3", 1, (255, 255, 0)), ((general.w/2)-50, 320))
+		fenetre.blit(self.font.render("2", 1, (255, 255, 0)), ((general.w/2), 320))
+		pygame.display.flip()
+		pygame.time.delay(700)
+		
+		
+		fenetre.blit(self.font.render("3", 1, (255, 255, 0)), ((general.w/2)-50, 320))
+		fenetre.blit(self.font.render("2", 1, (255, 255, 0)), ((general.w/2), 320))
+		fenetre.blit(self.font.render("1", 1, (255, 255, 0)), ((general.w/2)+50, 320))
+		pygame.display.flip()
+		pygame.time.delay(700)
+		
+		
+	    
 
 #class DebutNiveau:
 	#Cinematique

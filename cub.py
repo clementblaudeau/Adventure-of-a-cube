@@ -127,6 +127,22 @@ class Cube:
 	    self.tir1.Progression()
 	    self.tir2.Progression()
 
+	def Nettoyage(self):
+		self.position.x = 0
+		self.position.y = 0
+		self.hitbox.x = 0
+		self.hitbox.y = 0
+		self.position = self.position.move(275,350)
+		self.hitbox = self.hitbox.move(303,373)
+		self.vie.vie = 5
+		self.score.score = 0
+		self.glissement_vertical = 0
+		self.glissement_horizontal = 0
+		self.k = 0
+		self.tir1 = tir1()
+		self.tir2 = tir2()
+		general.tirs = 0
+	
 	def Glissement(self, obstacles):
 		self.k +=1
 		if self.k > 1:
