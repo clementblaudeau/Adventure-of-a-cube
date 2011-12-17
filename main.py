@@ -166,6 +166,7 @@ while modejeu:
 					scrool = scrool.move(0,1)
 					j = 0
 					avancement += 1
+					niveau.ennemis.ScroolEnnemisFixes()
 
 			cub.Glissement(niveau.obstacles)
 	    
@@ -213,19 +214,21 @@ while modejeu:
 				
 				
 				
-		menu.FinNiveau(cub.score.score, cub.vie.vie, fenetre)
+		
 		if lvl == 0:
 			lvl = menu.MenuAffichage(fenetre, sauvegarde.NiveauActuel())
-		elif cub.vie.vie >= 0:
-			if modejeu == 1:
-				if lvl < 30:
-					if (int(lvl) + 1) > int(sauvegarde.NiveauActuel()):
-						sauvegarde.NouveauNiveau()
-					lvl += 1
-			elif modejeu == 2:
-				lvl = menu.MenuAffichage(fenetre, sauvegarde.NiveauActuel())
 		else:
-			lvl = menu.MenuAffichage(fenetre, sauvegarde.NiveauActuel())
+		    menu.FinNiveau(cub.score.score, cub.vie.vie, fenetre)
+		    if cub.vie.vie >= 0:
+			    if modejeu == 1:
+				    if lvl < 30:
+					    if (int(lvl) + 1) > int(sauvegarde.NiveauActuel()):
+						    sauvegarde.NouveauNiveau()
+					    lvl += 1
+			    elif modejeu == 2:
+				    lvl = menu.MenuAffichage(fenetre, sauvegarde.NiveauActuel())
+		    else:
+			    lvl = menu.MenuAffichage(fenetre, sauvegarde.NiveauActuel())
 	    
     modejeu = menuprincipal.MenuAffichage(fenetre, sauvegarde.NiveauActuel())
 pygame.quit()

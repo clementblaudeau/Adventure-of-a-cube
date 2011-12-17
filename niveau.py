@@ -53,6 +53,17 @@ class Niveau:
 			self.ennemis.NouvelEnnemi(int(self.contenu[int(i)]),int(self.contenu[int(i)+1]), int(self.contenu[int(i)+2]))
 			i += 3
 			j += 1
+		i += 1
+		j=1
+		try :	    
+		    self.nombre_ennemisf = self.contenu[i]
+		    while j <= int(self.nombre_ennemisf):
+			    self.ennemis.NouvelEnnemiFixe(int(self.contenu[int(i)]),int(self.contenu[int(i)+1]), int(self.contenu[int(i)+2]))
+			    i += 3
+			    j += 1
+			    print "Des ennemis !!!! (fixes)"
+		except:
+		    pass
 			
 		
 	def Affichage(self, fenetre):
@@ -67,7 +78,8 @@ class Niveau:
 			if self.obstacles.positions == []:
 				if self.obstacles.eclat.positions == []:
 					if self.ennemis.eclats.positions == []:
-						return True
+						if self.ennemis.positionsf == []:
+							return True
 		return False
 		
 
