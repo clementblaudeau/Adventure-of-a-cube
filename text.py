@@ -62,6 +62,9 @@ class Score:
 		self.r = 0
 		self.b = 0
 		self.v = 0
+		
+	def CalculScore(self, vies):
+		return (self.score + (vies * 100) - (general.tirs*2))
 
 	def Affichage(self, fenetre):
 		
@@ -142,4 +145,23 @@ class NivTirs:
 		fenetre.blit(self.text, self.position)
 		self.text = self.font.render(str("Tirs : "+str(general.tirs)), 1, (0, 0, 0))
 		fenetre.blit(self.text, self.position.move(0,50))
+
+
+
+class ModeLent:
+	
+	def __init__(self):
+		self.font = pygame.font.Font("polices/Bank.ttf", 20)
+		self.text = self.font.render("Mode Lent", 1, (1,1,0))
+		
+		
+	def Affichage(self,fenetre):
+		fenetre.blit(self.text, (general.w+50,general.h-100))
+		
+	
+	
+	
+	
+	
+	
 

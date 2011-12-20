@@ -34,19 +34,27 @@ class Niveau:
 		self.fond = pygame.image.load(self.nom_background).convert()
 		self.nom_son = self.contenu[2]
 		self.son = pygame.mixer.Sound(self.nom_son)
-		self.nombre_obstacles = self.contenu[3]
+		self.nombre_obstacles = self.contenu[4]
 		self.obstacles = Obstacles()
-		self.ennemis = Ennemis()
 		
 		
-		i = 4
+		
+		i = 5
 		j = 1
 		while j <= int(self.nombre_obstacles):
+		    try:
 			self.obstacles.NouvelObjet(int(self.contenu[i]),int(self.contenu[i+1]), int(self.contenu[i+2]))
+		    except:
+			print "Pas content !!!!!"+str(i)
+		    finally:
 			i += 3
 			j += 1
 		
 		j = 1
+		i += 1
+		self.style = self.contenu[i]
+		i += 1
+		self.ennemis = Ennemis(self.style)
 		self.nombre_ennemis = self.contenu[i]
 		i += 1
 		while j <= int(self.nombre_ennemis):
@@ -66,7 +74,8 @@ class Niveau:
 		    pass
 			
 		
-	def Affichage(self, fenetre):
+	def Affichage(self, fenetre, scrool):
+		fenetre.blit(self.fond, scrool)
 		self.ennemis.Tir()
 		self.ennemis.Deplacements()
 		self.obstacles.Affichage(fenetre)

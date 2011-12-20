@@ -16,7 +16,7 @@ import general
 
 class Ennemis:
 	
-	def __init__(self):
+	def __init__(self, style):
 		#variables en tous genres
 		self.positions = []
 		self.sortes = []

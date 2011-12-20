@@ -16,6 +16,7 @@ class Menu:
 	def __init__(self):
 		self.fond = pygame.image.load("images/menu.png").convert_alpha()
 		self.gagne = pygame.image.load("images/fin_niveau.png").convert()
+		self.chargement = pygame.image.load("images/chargement.png").convert()
 		self.boutons = Bouton()
 		self.lastclic = 0
 		self.lastevent = 0
@@ -70,7 +71,7 @@ class Menu:
 				
 				
 
-	def FinNiveau(self, score, vies, fenetre):
+	def FinNiveau(self, score, vies, fenetre, meilleurScore):
 		
 		
 		if vies > -1:
@@ -125,6 +126,26 @@ class Menu:
 			pygame.display.flip()
 			
 			pygame.time.delay(700)
+			fenetre.blit(image,(0,0))
+			fenetre.blit(self.font.render(" Score : " + str(score), 1, (255, 255, 0)), (80, 320))
+			fenetre.blit(self.font.render(" + Vies Restantes : " + str(vies) + " x 100 : " + str(vies * 100), 1, (255, 255, 0)), (80, 340))
+			fenetre.blit(self.font.render(" - Tirs : " + str(general.tirs) +" x 2 : " + str(general.tirs*2), 1, (255, 0, 0)), (80, 360))
+			fenetre.blit(self.font.render("---------", 1, (255, 255, 0)), (130, 380))
+			fenetre.blit(self.font.render(" Total : " +  str((vies * 100 + score)- (2*general.tirs)), 1, (255, 185, 0)), (80, 400))
+			pygame.display.flip()
+			
+			
+			pygame.time.delay(700)
+			fenetre.blit(image,(0,0))
+			fenetre.blit(self.font.render(" Score : " + str(score), 1, (255, 255, 0)), (80, 320))
+			fenetre.blit(self.font.render(" + Vies Restantes : " + str(vies) + " x 100 : " + str(vies * 100), 1, (255, 255, 0)), (80, 340))
+			fenetre.blit(self.font.render(" - Tirs : " + str(general.tirs) +" x 2 : " + str(general.tirs*2), 1, (255, 0, 0)), (80, 360))
+			fenetre.blit(self.font.render("---------", 1, (255, 255, 0)), (130, 380))
+			fenetre.blit(self.font.render(" Total : " +  str((vies * 100 + score)- (2*general.tirs)), 1, (255, 185, 0)), (80, 400))
+			fenetre.blit(self.font.render(str(meilleurScore), 1, (255, 185, 0)), (250, 50))
+			pygame.display.flip()
+			
+			pygame.time.delay(700)
 			
 			
 		
@@ -139,6 +160,7 @@ class Menu:
 				fenetre.blit(self.font.render(" - Tirs : " + str(general.tirs) +" x 2 : " + str(general.tirs*2), 1, (255, 0, 0)), (80, 360))
 				fenetre.blit(self.font.render("---------", 1, (255, 255, 0)), (130, 380))
 				fenetre.blit(self.font.render(" Total : " +  str((vies * 100 + score)- (2*general.tirs)), 1, (255, 185, 0)), (80, 400))
+				fenetre.blit(self.font.render(str(meilleurScore), 1, (255, 185, 0)), (250, 50))
 			pygame.display.flip()
 			
 			for event in pygame.event.get():
@@ -181,6 +203,27 @@ class Menu:
 		pygame.display.flip()
 		pygame.time.delay(700)
 		
+		
+	def Chargement(self, fenetre):
+			fenetre.blit(self.chargement,(0,0))
+			pygame.display.flip()
+			
+	def CommencementNiveau(self, fenetre):
+		fenetre.blit(self.font.render("3", 1, (255, 255, 0)), ((general.w/2)-50, 320))
+		pygame.display.flip()
+		pygame.time.delay(700)
+		
+		fenetre.blit(self.font.render("3", 1, (255, 255, 0)), ((general.w/2)-50, 320))
+		fenetre.blit(self.font.render("2", 1, (255, 255, 0)), ((general.w/2), 320))
+		pygame.display.flip()
+		pygame.time.delay(700)
+		
+		
+		fenetre.blit(self.font.render("3", 1, (255, 255, 0)), ((general.w/2)-50, 320))
+		fenetre.blit(self.font.render("2", 1, (255, 255, 0)), ((general.w/2), 320))
+		fenetre.blit(self.font.render("1", 1, (255, 255, 0)), ((general.w/2)+50, 320))
+		pygame.display.flip()
+		pygame.time.delay(700)
 		
 	    
 

@@ -27,7 +27,7 @@ class Cube:
 		self.hitbox = Rect(0,0,5,5)
 		self.glissement_vertical = 0
 		self.glissement_horizontal = 0
-		self.degat = 0
+		self.degats = 0
 		self.img_degat = pygame.image.load("images/degats.png").convert_alpha()
 		self.score = Score()
 		self.vie = Vie()
@@ -35,6 +35,7 @@ class Cube:
 		self.onde = Onde()
 		self.tir1 = tir1()
 		self.tir2 = tir2()
+		self.modelent = ModeLent()
 		self.images = []
 		while self.i <= 200:
 			if self.i < 10:
@@ -86,35 +87,46 @@ class Cube:
 					self.glissement_horizontal += 3
 				
 				
-				
+	
+	def Reboot(self):
+		self.position.x = 0
+		self.position.y = 0
+		self.hitbox.x = 0
+		self.hitbox.y = 0
+		self.position = self.position.move(275,350)
+		self.hitbox = self.hitbox.move(303,373)
+		self.glissement_vertical = 0
+		self.glissement_horizontal = 0
+	
+			
 	def DeplaceLent(self, direction, obstacles):
 		if direction == 'bas':
-			if self.position.bottom <= general.h+10 and not obstacles.ColisionsCube(self.hitbox.move(0,1)):
-				self.position = self.position.move(0,1)
-				self.hitbox = self.hitbox.move(0,1)
+			if self.position.bottom <= general.h+10 and not obstacles.ColisionsCube(self.hitbox.move(0,2)):
+				self.position = self.position.move(0,2)
+				self.hitbox = self.hitbox.move(0,2)
 
 		elif direction == 'haut':
-			if self.position.top >= 0 and not obstacles.ColisionsCube(self.hitbox.move(0,-1)):
-				self.position = self.position.move(0,-1)
-				self.hitbox = self.hitbox.move(0,-1)
+			if self.position.top >= 0 and not obstacles.ColisionsCube(self.hitbox.move(0,-2)):
+				self.position = self.position.move(0,-2)
+				self.hitbox = self.hitbox.move(0,-2)
 
 		elif direction == 'gauche':
-			if self.position.left >= -10 and not obstacles.ColisionsCube(self.hitbox.move(-1,0)):
-				self.position = self.position.move(-1,0)
-				self.hitbox = self.hitbox.move(-1,0)
+			if self.position.left >= -10 and not obstacles.ColisionsCube(self.hitbox.move(-2,0)):
+				self.position = self.position.move(-2,0)
+				self.hitbox = self.hitbox.move(-2,0)
 
 		elif direction == 'droite':
-			if self.position.right <= general.w+10 and not obstacles.ColisionsCube(self.hitbox.move(1,0)):
-				self.position = self.position.move(1,0)
-				self.hitbox = self.hitbox.move(1,0)
+			if self.position.right <= general.w+10 and not obstacles.ColisionsCube(self.hitbox.move(2,0)):
+				self.position = self.position.move(2,0)
+				self.hitbox = self.hitbox.move(2,0)
 				
 
 
 	def Affichage(self, fenetre):
 		fenetre.blit(self.image, self.position)	
-		if self.degat > 0:
-			self.degat -= 1
-			if self.degat % 10:
+		if self.degats > 0:
+			self.degats -= 1
+			if self.degats % 10:
 				fenetre.blit(self.img_degat, self.position.move(7,7))
 		self.vie.Affichage(fenetre)
 		self.tir1.Affichage(fenetre)
@@ -142,6 +154,7 @@ class Cube:
 		self.tir1 = tir1()
 		self.tir2 = tir2()
 		general.tirs = 0
+		self.degats = 0
 	
 	def Glissement(self, obstacles):
 		self.k +=1
