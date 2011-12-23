@@ -31,7 +31,6 @@ pygame.init()
 fenetre = pygame.display.set_mode((general.w+200, general.h), DOUBLEBUF)
 
 #Chargement du niveau
-niveau = Niveau("1")
 
 #Chargement des menus et crédits
 menu = Menu()
@@ -44,7 +43,7 @@ menu.Chargement(fenetre)
 #Icone et titre
 icone = pygame.image.load("images/cub121.png")
 pygame.display.set_icon(icone)
-pygame.display.set_caption(niveau.nom)
+pygame.display.set_caption("The adventure of Cub !")
 
 #Chargement des sauvegardes
 sauvegarde = Sauvegarde()
@@ -65,7 +64,7 @@ chrono = Chrono()
 repeter = 1;
 
 #Chargement et collage du personnage, chargement de variables relatives au personnage
-cub = Cube()
+cub = Cub()
 cub.position = cub.position.move(275,350)
 cub.hitbox = cub.hitbox.move(303,373)
 fenetre.blit(cub.image, cub.position)
@@ -133,7 +132,7 @@ while modejeu:
 		
 		
 		while continuer:
-			surcharge_boucle = pygame.time.get_ticks()
+			tps_debut_boucle = pygame.time.get_ticks()
 			key = pygame.key.get_pressed()
 			for event in pygame.event.get():	#Attente des événements
 				#print event
@@ -185,13 +184,20 @@ while modejeu:
 			cub.tir2.positions = niveau.obstacles.ColisionsTir(cub.tir2.positions, 6+general.niv)
 			cub.tir1.positions = niveau.ennemis.CollisionsTirs(cub.tir1.positions, 1+general.niv)
 			cub.tir2.positions = niveau.ennemis.CollisionsTirs(cub.tir2.positions, 6+general.niv)
+			niveau.boss.CollisionTirs(cub.tir1.positions)
+			niveau.boss.CollisionTirs(cub.tir2.positions)
 			cub.score.score += niveau.obstacles.eclat.Absorption(cub)
 			cub.score.score += niveau.ennemis.eclats.Absorption(cub)
-	    
+			
 			if (niveau.ennemis.CollisionCube(cub.hitbox) == True):
-			    if cub.degats <= 1:
+			    if cub.degats == 0:
 				cub.vie.vie += -1
-				cub.degats +=80
+				cub.degats +=200
+				cub.Reboot()
+			if (niveau.boss.CollisionCube(cub.hitbox) == True):
+			    if cub.degats == 0:
+				cub.vie.vie += -1
+				cub.degats +=200
 				cub.Reboot()
 			if cub.vie.vie < 0:
 				continuer = 0
@@ -204,6 +210,7 @@ while modejeu:
 					j = 0
 					avancement += 1
 					niveau.ennemis.ScroolEnnemisFixes()
+					niveau.boss.Scrool()
 
 			cub.Glissement(niveau.obstacles)
 	    
@@ -243,9 +250,9 @@ while modejeu:
 		
 	    
 			#Attendre (contre la surcharge du processeur et l'acceleration trop brutale)
-			surcharge_boucle2 = pygame.time.get_ticks()
-			if surcharge_boucle2 - surcharge_boucle < 5:
-				pygame.time.delay(8)
+			tps_fin_boucle = pygame.time.get_ticks()
+			if tps_fin_boucle - tps_debut_boucle < 9:
+				pygame.time.delay(9 -(tps_fin_boucle - tps_debut_boucle))
 		#Fin de la boucle Continuer
 		if lvl == 0:
 			lvl = menu.MenuAffichage(fenetre, sauvegarde.NiveauActuel())

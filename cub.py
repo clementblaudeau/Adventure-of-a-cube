@@ -15,7 +15,7 @@ from onde import *
 from tir import *
 import general
 
-class Cube:
+class Cub:
 	
 	
 	def __init__(self):
@@ -37,6 +37,8 @@ class Cube:
 		self.tir2 = tir2()
 		self.modelent = ModeLent()
 		self.images = []
+		self.ve = 0
+		self.ho = 0
 		while self.i <= 200:
 			if self.i < 10:
 				self.cube_actuel = "images/cub00"+ str(self.i) +".png"
@@ -89,12 +91,6 @@ class Cube:
 				
 	
 	def Reboot(self):
-		self.position.x = 0
-		self.position.y = 0
-		self.hitbox.x = 0
-		self.hitbox.y = 0
-		self.position = self.position.move(275,350)
-		self.hitbox = self.hitbox.move(303,373)
 		self.glissement_vertical = 0
 		self.glissement_horizontal = 0
 	
@@ -134,6 +130,9 @@ class Cube:
 		self.onde.Affichage(fenetre)
 		self.score.Affichage(fenetre)
 		self.nivtirs.Affichage(fenetre)
+		
+	def Affichage2(self, fenetre):
+		fenetre.blit(self.image, self.position)	
 
 	def AvanceTirs(self):
 	    self.tir1.Progression()

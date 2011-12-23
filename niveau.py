@@ -1,8 +1,8 @@
 
 #------------------------------#
-#			Niveau.py		   #
-#		Clement Blaudeau	   #
-#			******			   #
+#	Niveau.py	       #
+#	Clement Blaudeau       #
+#	******		       #
 #------------------------------#
 
 # -*- coding: utf-8 -*-
@@ -12,6 +12,7 @@ import pygame
 from pygame.locals import *
 from obstacles import * 
 from ennemis import *
+from boss import *
 import general
 
 class Niveau:
@@ -36,6 +37,7 @@ class Niveau:
 		self.son = pygame.mixer.Sound(self.nom_son)
 		self.nombre_obstacles = self.contenu[4]
 		self.obstacles = Obstacles()
+		self.boss = Boss(numero)
 		
 		
 		
@@ -61,7 +63,7 @@ class Niveau:
 			self.ennemis.NouvelEnnemi(int(self.contenu[int(i)]),int(self.contenu[int(i)+1]), int(self.contenu[int(i)+2]))
 			i += 3
 			j += 1
-		i += 1
+		i += 2
 		j=1
 		try :	    
 		    self.nombre_ennemisf = self.contenu[i]
@@ -69,7 +71,6 @@ class Niveau:
 			    self.ennemis.NouvelEnnemiFixe(int(self.contenu[int(i)]),int(self.contenu[int(i)+1]), int(self.contenu[int(i)+2]))
 			    i += 3
 			    j += 1
-			    print "Des ennemis !!!! (fixes)"
 		except:
 		    pass
 			
@@ -77,7 +78,9 @@ class Niveau:
 	def Affichage(self, fenetre, scrool):
 		fenetre.blit(self.fond, scrool)
 		self.ennemis.Tir()
+		self.boss.Tir(self.ennemis)
 		self.ennemis.Deplacements()
+		self.boss.Affichage(fenetre)
 		self.obstacles.Affichage(fenetre)
 		self.ennemis.Affichage(fenetre)
 		
@@ -88,7 +91,8 @@ class Niveau:
 				if self.obstacles.eclat.positions == []:
 					if self.ennemis.eclats.positions == []:
 						if self.ennemis.positionsf == []:
-							return True
+						    if self.boss.Fini() == True:
+								return True
 		return False
 		
 

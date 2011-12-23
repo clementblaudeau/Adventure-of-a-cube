@@ -10,6 +10,8 @@
 import pygame
 from pygame.locals import *
 import general
+from cub import *
+
 
 class Menu:
 	
@@ -26,6 +28,8 @@ class Menu:
 		self.x = 30
 		self.y = 150
 		self.vrai = False
+		self.cube = Cub()
+		self.cube.position = self.cube.position.move(100,100)
 		#self.boutons.NouveauBouton((30,160), 1)
 		#self.boutons.NouveauBouton((30,210), 2)
 		
@@ -49,6 +53,27 @@ class Menu:
 		self.ok = 0
 		while continuer:
 			fenetre.blit(self.fond,(0,0))
+			self.cube.Rotation()
+			if self.cube.ve == 0:
+				self.cube.position = self.cube.position.move(0,-2)
+				if self.cube.position.y <= 0:
+					self.cube.ve = 1
+			elif self.cube.ve == 1:
+				self.cube.position = self.cube.position.move(0,2)
+				if self.cube.position.y + 60 >= general.h:
+					self.cube.ve = 0
+					
+			if self.cube.ho == 0:
+				self.cube.position = self.cube.position.move(-2,0)
+				if self.cube.position.x <= 0:
+					self.cube.ho = 1
+			elif self.cube.ho == 1:
+				self.cube.position = self.cube.position.move(2,0)
+				if self.cube.position.x + 60 >= general.w:
+					self.cube.ho = 0
+			
+			self.cube.Affichage2(fenetre)
+			
 			for event in pygame.event.get():
 				if event.type == QUIT:
 					return 0

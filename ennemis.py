@@ -33,26 +33,24 @@ class Ennemis:
 		self.tirs7 = []
 		self.tirs8 = []
 		self.positions_tirs = []
-		self.bille = pygame.image.load("images/bille.png").convert_alpha()
-		self.ennemis1 = pygame.image.load("images/ennemis1.png").convert_alpha()
-		self.ennemis2 = pygame.image.load("images/ennemis2.png").convert_alpha()
-		self.ennemis3 = pygame.image.load("images/ennemis3.png").convert_alpha()
-		self.ennemis4 = pygame.image.load("images/ennemis4.png").convert_alpha()
-		self.ennemis5 = pygame.image.load("images/ennemis5.png").convert_alpha()
-		self.ennemis6 = pygame.image.load("images/ennemis6.png").convert_alpha()
-		self.ennemis_f1 = pygame.image.load("images/ennemis_f1.png").convert_alpha()
-		self.ennemis_f2 = pygame.image.load("images/ennemis_f2.png").convert_alpha()
-		#self.ennemis_f3 = pygame.image.load("images/ennemis_f3.png").convert_alpha()
-		#self.ennemis_f4 = pygame.image.load("images/ennemis_f4.png").convert_alpha()
-		#self.ennemis_f5 = pygame.image.load("images/ennemis_f5.png").convert_alpha()
-		#self.ennemis_f6 = pygame.image.load("images/ennemis_f6.png").convert_alpha()
+		self.bille = pygame.image.load("images/bille("+str(style)+").png").convert_alpha()
+		self.ennemis1 = pygame.image.load("images/ennemis1("+str(style)+").png").convert_alpha()
+		self.ennemis2 = pygame.image.load("images/ennemis2("+str(style)+").png").convert_alpha()
+		self.ennemis3 = pygame.image.load("images/ennemis3("+str(style)+").png").convert_alpha()
+		self.ennemis4 = pygame.image.load("images/ennemis4("+str(style)+").png").convert_alpha()
+		self.ennemis5 = pygame.image.load("images/ennemis5("+str(style)+").png").convert_alpha()
+		self.ennemis6 = pygame.image.load("images/ennemis6("+str(style)+").png").convert_alpha()
+		self.ennemis_f1 = pygame.image.load("images/ennemis_f1("+str(style)+").png").convert_alpha()
+		self.ennemis_f2 = pygame.image.load("images/ennemis_f2("+str(style)+").png").convert_alpha()
+		self.ennemis_f3 = pygame.image.load("images/ennemis_f3("+str(style)+").png").convert_alpha()
+		self.ennemis_f4 = pygame.image.load("images/ennemis_f4("+str(style)+").png").convert_alpha()
+		self.ennemis_f5 = pygame.image.load("images/ennemis_f5("+str(style)+").png").convert_alpha()
+		self.ennemis_f6 = pygame.image.load("images/ennemis_f6("+str(style)+").png").convert_alpha()
 		self.j = 0
 		self.temps = pygame.time.get_ticks()
 		self.eclats = Eclat()
 		self.fini = 0
 		self.comp = False
-		
-		
 		
 	def NouvelEnnemi(self, sorte, x, y):
 		#Ajout d'un ennemi. A faire avec les niveaux
@@ -124,37 +122,36 @@ class Ennemis:
 				general.ennemis = 0
 				return True
 			i+=1
-		if self.comp == True:
-			for element in self.tirs5:
-				if element.colliderect(hitbox):
-					self.tirs5.remove(element)
-					general.niv = 0
-					general.ennemis = 0
-					return True
-				i+=1
-			for element in self.tirs6:
-				if element.colliderect(hitbox):
-					self.tirs6.remove(element)
-					general.niv = 0
-					general.ennemis = 0
-					return True
-				i+=1
-			for element in self.tirs7:
-				if element.colliderect(hitbox):
-					self.tirs7.remove(element)
-					general.niv = 0
-					general.ennemis = 0
-					return True
-				i+=1
-			for element in self.tirs8:
-				if element.colliderect(hitbox):
-					self.tirs8.remove(element)
-					general.niv = 0
-					general.ennemis = 0
-					return True
-				i+=1
+		for element in self.tirs5:
+			if element.colliderect(hitbox):
+				self.tirs5.remove(element)
+				general.niv = 0
+				general.ennemis = 0
+				return True
+			i+=1
+		for element in self.tirs6:
+			if element.colliderect(hitbox):
+				self.tirs6.remove(element)
+				general.niv = 0
+				general.ennemis = 0
+				return True
+			i+=1
+		for element in self.tirs7:
+			if element.colliderect(hitbox):
+				self.tirs7.remove(element)
+				general.niv = 0
+				general.ennemis = 0
+				return True
+			i+=1
+		for element in self.tirs8:
+			if element.colliderect(hitbox):
+				self.tirs8.remove(element)
+				general.niv = 0
+				general.ennemis = 0
+				return True
+			i+=1
 		return False
-		
+	
 	def CollisionsTirs(self, tirs, degats):
 		#Test la colision avec les tirs
 		i = 0
@@ -172,7 +169,7 @@ class Ennemis:
 							self.eclats.Explosion(self.positions[i],self.sortes[i] * 3)
 							print self.sortes[i]
 							self.vies.remove(self.vies[i])
-							self.sortes.remove(self.sortes[i])
+							self.sortes.pop(i)
 							self.positions.remove(element2)
 					i +=1
 				i = 0
@@ -186,9 +183,8 @@ class Ennemis:
 						if self.viesf[i] <= 0:
 							general.ennemis += 1
 							self.eclats.Explosion(self.positionsf[i],self.sortesf[i] * 3)
-							print self.sortesf[i]
 							self.viesf.remove(self.viesf[i])
-							self.sortesf.remove(self.sortesf[i])
+							self.sortesf.pop(i)
 							self.positionsf.remove(element2)
 					i +=1
 			i = 0
@@ -232,20 +228,17 @@ class Ennemis:
 			#elif element == 6:
 			#elif element == 7:
 			i+=1
-		    
-			
+		    		
 	def ScroolEnnemisFixes(self):
 	    i = 0
 	    for element in self.positionsf:
 		self.positionsf[i] = element.move(0,1)
 		i += 1
 	    
-	    
-	    
 	def Tir(self):
 		#Tirs
 		#Patern en fonction du type.
-		if (pygame.time.get_ticks() - self.temps) > general.h+10:
+		if (pygame.time.get_ticks() - self.temps) > 500:
 			self.temps = pygame.time.get_ticks()
 			i = 0
 			for element in self.sortes:
@@ -269,6 +262,7 @@ class Ennemis:
 						self.tirs6.append(pygame.Rect(self.positions[i].right + 5,self.positions[i].top,10,10))
 						self.tirs7.append(pygame.Rect(self.positions[i].right - 5,self.positions[i].bottom + 5,10,10))
 						self.tirs8.append(pygame.Rect(self.positions[i].left + 5,self.positions[i].bottom + 5,10,10))
+						self.tirs3.append(pygame.Rect(self.positions[i].centerx + 5,self.positions[i].bottom + 5,10,10))
 					
 				i += 1
 			i = 0
@@ -278,20 +272,20 @@ class Ennemis:
 						self.tirs1.append(pygame.Rect(self.positionsf[i].left - 5,self.positionsf[i].top+5,10,10))
 					if element == 2 :
 						self.tirs2.append(pygame.Rect(self.positionsf[i].right + 5,self.positionsf[i].top,10,10))
-					if element == 4 or element == 5:
-						self.tirs4.append(pygame.Rect(self.positionsf[i].centerx,self.positionsf[i].top - 5,10,10))
+					if element == 3:
+						self.tirs2.append(pygame.Rect(self.positionsf[i].right + 5,self.positionsf[i].top,10,10))
+						self.tirs1.append(pygame.Rect(self.positionsf[i].left - 5,self.positionsf[i].top+5,10,10))
+					if element == 4:
 						self.tirs3.append(pygame.Rect(self.positionsf[i].centerx + 5,self.positionsf[i].bottom + 5,10,10))
-						self.tirs1.append(pygame.Rect(self.positionsf[i].left - 5,self.positionsf[i].top,10,10))
+					if element == 5:
+						self.tirs3.append(pygame.Rect(self.positions[i].centerx + 5,self.positionsf[i].bottom + 5,10,10))
 						self.tirs2.append(pygame.Rect(self.positionsf[i].right + 5,self.positionsf[i].top,10,10))
+						self.tirs1.append(pygame.Rect(self.positionsf[i].left - 5,self.positionsf[i].top+5,10,10))
 					if element == 6:
-						self.tirs4.append(pygame.Rect(self.positionsf[i].centerx,self.positionsf[i].top - 5,10,10))
-						self.tirs1.append(pygame.Rect(self.positionsf[i].left - 5,self.positionsf[i].top,10,10))
-						self.tirs2.append(pygame.Rect(self.positionsf[i].right + 5,self.positionsf[i].top,10,10))
 						self.tirs5.append(pygame.Rect(self.positionsf[i].right + 5,self.positionsf[i].top,10,10))
 						self.tirs6.append(pygame.Rect(self.positionsf[i].right + 5,self.positionsf[i].top,10,10))
 						self.tirs7.append(pygame.Rect(self.positionsf[i].right - 5,self.positionsf[i].bottom + 5,10,10))
 						self.tirs8.append(pygame.Rect(self.positionsf[i].left + 5,self.positionsf[i].bottom + 5,10,10))
-					
 				i += 1
 				
 	def Cleaner(self):
@@ -343,8 +337,7 @@ class Ennemis:
 				if self.tirs8[i].top > 490:
 					self.tirs8.remove(element)
 					return 0
-				i+=1
-			
+				i+=1			
 				
 	def Affichage(self, fenetre):
 		#Scrool, 
