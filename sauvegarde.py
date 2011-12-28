@@ -32,7 +32,6 @@ class Sauvegarde:
 			except:
 				return "Erreur de Sauvegarde !"
 		
-		print "ici.....trtzreintoernt"
 		self.score = self.fichier2.read()
 		if int(self.score) >= int(score):
 			return "Meilleur score : "+str(int(self.score))+" ..."

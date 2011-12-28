@@ -23,6 +23,7 @@ from ennemis import *
 from menu import *
 from menuprincipal import *
 from sauvegarde import *
+from bossrush import *
 import general
 
 pygame.init()
@@ -97,11 +98,13 @@ while modejeu:
     if modejeu == 2:
 	#Mode Fast Play : Choix du niveau
 	lvl = menu.MenuAffichage(fenetre, sauvegarde.NiveauActuel())	
-#   elif modejeu == 3:
-#	boss rush...
+    elif modejeu == 3:
+ 	print "boss rush !!!"
+	lvl = 1
+	general.scrool = -100
     elif modejeu == 4:
 	#Affichage des crédits
-	lvl = 0
+	lvl = 1
 	cred.Affichage(fenetre)
     else:
 	#Mode histoire : Niveau 1
@@ -111,17 +114,20 @@ while modejeu:
     while lvl != 0:
 		#Nettoyage pour commencer le niveau
 		menu.Chargement(fenetre)
-		niveau = Niveau(str(lvl))
+		if modejeu != 3:
+		    niveau = Niveau(str(lvl))
+		else:
+		    niveau = BossRush()
 		continuer = 1
 		cub.Nettoyage()
 		mode = "rapide"
 		pygame.display.set_caption(niveau.nom)
 		avancement = 0
 		scrool = fenetre.get_rect()
-		scrool = scrool.move(0,-544)
+		scrool = scrool.move(0,general.scrool)
 		pygame.time.delay(100)
 		
-		#Premier Affichage	
+		#ReAffichage	
 		niveau.Affichage(fenetre,scrool)
 		fenetre.blit(paneau,(general.w,0))
 		chrono.Affichage(pygame.time.get_ticks(), fenetre, "")
@@ -188,6 +194,7 @@ while modejeu:
 			niveau.boss.CollisionTirs(cub.tir2.positions)
 			cub.score.score += niveau.obstacles.eclat.Absorption(cub)
 			cub.score.score += niveau.ennemis.eclats.Absorption(cub)
+			cub.score.score += niveau.boss.eclats.Absorption(cub)
 			
 			if (niveau.ennemis.CollisionCube(cub.hitbox) == True):
 			    if cub.degats == 0:
@@ -201,7 +208,12 @@ while modejeu:
 				cub.Reboot()
 			if cub.vie.vie < 0:
 				continuer = 0
-	
+			
+			if niveau.clear == True:
+			    niveau.Cleaner(cub)
+			    scrool = fenetre.get_rect()
+			    scrool = scrool.move(0,general.scrool)
+			
 			#Scrool
 			j += 1
 			if j > 15:
@@ -246,6 +258,8 @@ while modejeu:
 				cub.vie.vie = -1
 			if niveau.Fini() == True:
 				continuer = 0
+				if modejeu == 3:
+				    lvl = "bossrush"
 				pygame.time.delay(500)
 		
 	    
@@ -257,7 +271,10 @@ while modejeu:
 		if lvl == 0:
 			lvl = menu.MenuAffichage(fenetre, sauvegarde.NiveauActuel())
 		else:
-		    menu.FinNiveau(cub.score.score, cub.vie.vie, fenetre, sauvegarde.MeilleurScore(lvl, cub.score.CalculScore(cub.vie.vie)))
+		    if modejeu != 3:
+			menu.FinNiveau(cub.score.score, cub.vie.vie, fenetre, sauvegarde.MeilleurScore(lvl, cub.score.CalculScore(cub.vie.vie)))
+		    elif modejeu == 3:
+			menu.FinNiveau(cub.score.score, 40 - cub.vie.vies_utilisees - cub.vie.vie, fenetre, sauvegarde.MeilleurScore(lvl, cub.score.CalculScore(cub.vie.vie)))
 		    if cub.vie.vie >= 0:
 			    if modejeu == 1:
 				    if lvl < 30:
@@ -266,8 +283,10 @@ while modejeu:
 					    lvl += 1
 			    elif modejeu == 2:
 				    lvl = menu.MenuAffichage(fenetre, sauvegarde.NiveauActuel())
+			    elif modejeu == 3:
+				    lvl = 0
 		    else:
-			    lvl = menu.MenuAffichage(fenetre, sauvegarde.NiveauActuel())
+			lvl = menu.MenuAffichage(fenetre, sauvegarde.NiveauActuel())
 	    
     modejeu = menuprincipal.MenuAffichage(fenetre, sauvegarde.NiveauActuel())
 pygame.quit()

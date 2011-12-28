@@ -91,6 +91,7 @@ class Vie:
 		self.position = self.text.get_rect()
 		self.position = self.position.move(general.w+65, 85)
 		self.vie = 5
+		self.vies_utilisees = 0
 		self.r = 0
 		self.b = 0
 		self.v = 0

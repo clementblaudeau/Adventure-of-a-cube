@@ -38,6 +38,7 @@ class Niveau:
 		self.nombre_obstacles = self.contenu[4]
 		self.obstacles = Obstacles()
 		self.boss = Boss(numero)
+		self.clear = False
 		
 		
 		
@@ -47,7 +48,7 @@ class Niveau:
 		    try:
 			self.obstacles.NouvelObjet(int(self.contenu[i]),int(self.contenu[i+1]), int(self.contenu[i+2]))
 		    except:
-			print "Pas content !!!!!"+str(i)
+			pass
 		    finally:
 			i += 3
 			j += 1
@@ -78,7 +79,7 @@ class Niveau:
 	def Affichage(self, fenetre, scrool):
 		fenetre.blit(self.fond, scrool)
 		self.ennemis.Tir()
-		self.boss.Tir(self.ennemis)
+		self.boss.Tir(self.ennemis, self.obstacles)
 		self.ennemis.Deplacements()
 		self.boss.Affichage(fenetre)
 		self.obstacles.Affichage(fenetre)
