@@ -11,6 +11,7 @@ import pygame
 from pygame.locals import *	
 
 from cub import *
+from perl import *
 from tir import *
 from onde import *
 from obstacles import *
@@ -56,16 +57,13 @@ scrool = fenetre.get_rect()
 j = 0
 g = 0
 
-#Chargement du chrono
-chrono = Chrono()
-
 #Chargement du son
 #son = pygame.mixer.Sound("son/son_stressant.wav")
 #son.play()
 repeter = 1;
 
 #Chargement et collage du personnage, chargement de variables relatives au personnage
-cub = Cub()
+cub = Perl()
 cub.position = cub.position.move(275,350)
 cub.hitbox = cub.hitbox.move(303,373)
 fenetre.blit(cub.image, cub.position)
@@ -109,13 +107,19 @@ while modejeu:
     else:
 	#Mode histoire : Niveau 1
 	lvl = 1
-	
+    personnage = menuprincipal.ChoixPersonnage(fenetre)
+    if personnage == 1:
+	cub = Cub()
+    else:
+	cub = Perl()
     #Boucle des niveaux
     while lvl != 0:
 		#Nettoyage pour commencer le niveau
+		#menu.DebutNiveau(fenetre,3)
 		menu.Chargement(fenetre)
 		if modejeu != 3:
 		    niveau = Niveau(str(lvl))
+		    general.scrool = -544
 		else:
 		    niveau = BossRush()
 		continuer = 1
@@ -130,7 +134,6 @@ while modejeu:
 		#ReAffichage	
 		niveau.Affichage(fenetre,scrool)
 		fenetre.blit(paneau,(general.w,0))
-		chrono.Affichage(pygame.time.get_ticks(), fenetre, "")
 		cub.Affichage(fenetre)
 		#Rafraichissement
 		pygame.display.flip()
@@ -186,26 +189,7 @@ while modejeu:
 			g += 1
 	
 			#Test des colisions avec les obstacles
-			cub.tir1.positions = niveau.obstacles.ColisionsTir(cub.tir1.positions, 1+general.niv)
-			cub.tir2.positions = niveau.obstacles.ColisionsTir(cub.tir2.positions, 6+general.niv)
-			cub.tir1.positions = niveau.ennemis.CollisionsTirs(cub.tir1.positions, 1+general.niv)
-			cub.tir2.positions = niveau.ennemis.CollisionsTirs(cub.tir2.positions, 6+general.niv)
-			niveau.boss.CollisionTirs(cub.tir1.positions)
-			niveau.boss.CollisionTirs(cub.tir2.positions)
-			cub.score.score += niveau.obstacles.eclat.Absorption(cub)
-			cub.score.score += niveau.ennemis.eclats.Absorption(cub)
-			cub.score.score += niveau.boss.eclats.Absorption(cub)
-			
-			if (niveau.ennemis.CollisionCube(cub.hitbox) == True):
-			    if cub.degats == 0:
-				cub.vie.vie += -1
-				cub.degats +=200
-				cub.Reboot()
-			if (niveau.boss.CollisionCube(cub.hitbox) == True):
-			    if cub.degats == 0:
-				cub.vie.vie += -1
-				cub.degats +=200
-				cub.Reboot()
+			niveau.Collisions(cub)
 			if cub.vie.vie < 0:
 				continuer = 0
 			
@@ -244,7 +228,7 @@ while modejeu:
 			if mode == "lent":
 				fenetre.blit(mode_lent, (0,0))
 				cub.modelent.Affichage(fenetre)
-			chrono.Affichage(pygame.time.get_ticks(), fenetre, "")
+			niveau.chrono.Affichage(pygame.time.get_ticks(), fenetre, "")
 			cub.Affichage(fenetre)
 			#Rafraichissement
 			pygame.display.flip()

@@ -13,6 +13,7 @@ from pygame.locals import *
 from obstacles import * 
 from ennemis import *
 from boss import *
+from text import *
 import general
 
 class Niveau:
@@ -39,6 +40,7 @@ class Niveau:
 		self.obstacles = Obstacles()
 		self.boss = Boss(numero)
 		self.clear = False
+		self.chrono = Chrono()
 		
 		
 		
@@ -76,6 +78,8 @@ class Niveau:
 		    pass
 			
 		
+	
+		
 	def Affichage(self, fenetre, scrool):
 		fenetre.blit(self.fond, scrool)
 		self.ennemis.Tir()
@@ -84,7 +88,28 @@ class Niveau:
 		self.boss.Affichage(fenetre)
 		self.obstacles.Affichage(fenetre)
 		self.ennemis.Affichage(fenetre)
+		self.chrono.Affichage(pygame.time.get_ticks(), fenetre, "")
 		
+	def Collisions(self,cub):
+	    cub.tir1.positions = self.obstacles.ColisionsTir(cub.tir1.positions, 1+general.niv)
+	    cub.tir2.positions = self.obstacles.ColisionsTir(cub.tir2.positions, 6+general.niv)
+	    cub.tir1.positions = self.ennemis.CollisionsTirs(cub.tir1.positions, 1+general.niv)
+	    cub.tir2.positions = self.ennemis.CollisionsTirs(cub.tir2.positions, 6+general.niv)
+	    self.boss.CollisionTirs(cub.tir1.positions)
+	    self.boss.CollisionTirs(cub.tir2.positions)
+	    cub.score.score += self.obstacles.eclat.Absorption(cub)
+	    cub.score.score += self.ennemis.eclats.Absorption(cub)
+	    cub.score.score += self.boss.eclats.Absorption(cub)
+	    if (self.ennemis.CollisionCube(cub.hitbox) == True):
+		if cub.degats == 0:
+		    cub.vie.vie += -1
+		    cub.degats +=200
+		    cub.Reboot()
+	    if (self.boss.CollisionCube(cub.hitbox) == True):
+		if cub.degats == 0:
+		    cub.vie.vie += -1
+		    cub.degats +=200
+		    cub.Reboot()
 		
 	def Fini(self):
 		if self.ennemis.positions == []:

@@ -93,7 +93,16 @@ class Menu:
 			
 			pygame.display.flip()
 				
-				
+	def DebutNiveau(self, fenetre,lvl):
+		movie = pygame.movie.Movie ('videos/2.mpeg')
+		movie_resolution = movie.get_size ()
+		pygame.display.set_mode (movie_resolution)
+		movie.set_display(pygame.display.get_surface())
+		movie.play ()
+		while movie.get_busy ():
+			pygame.time.wait (200)
+			pygame.display.flip()
+		fenetre = pygame.display.set_mode((general.w+200, general.h), DOUBLEBUF)
 				
 
 	def FinNiveau(self, score, vies, fenetre, meilleurScore):
