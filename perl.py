@@ -19,7 +19,7 @@ class Perl:
 	
 	
 	def __init__(self):
-		self.image = pygame.image.load("images/cub001.png").convert_alpha()
+		self.image = pygame.image.load("images/Perl/perl001.png").convert_alpha()
 		self.position = self.image.get_rect()
 		self.i = 1
 		self.k = 0

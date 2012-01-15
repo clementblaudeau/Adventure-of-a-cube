@@ -62,32 +62,32 @@ class Cub:
 	def Deplace(self, direction, obstacles):
 		self.Reboot()
 		if direction == 'bas':
-			if self.position.bottom <= general.h+10 and not obstacles.ColisionsCube(self.hitbox.move(0,3)):
-				self.position = self.position.move(0,3)
-				self.hitbox = self.hitbox.move(0,3)
+			if self.position.bottom <= general.h+10 and not obstacles.ColisionsCube(self.hitbox.move(0,4)):
+				self.position = self.position.move(0,4)
+				self.hitbox = self.hitbox.move(0,4)
 				if self.glissement_vertical < 40:
-					self.glissement_vertical += 3
+					self.glissement_vertical += 2
 
 		elif direction == 'haut':
-			if self.position.top >= 0 and not obstacles.ColisionsCube(self.hitbox.move(0,-3)):
-				self.position = self.position.move(0,-3)
-				self.hitbox = self.hitbox.move(0,-3)
+			if self.position.top >= 0 and not obstacles.ColisionsCube(self.hitbox.move(0,4)):
+				self.position = self.position.move(0,-4)
+				self.hitbox = self.hitbox.move(0,-4)
 				if self.glissement_vertical > -40:
-					self.glissement_vertical += -3
+					self.glissement_vertical += -2
 
 		elif direction == 'gauche':
-			if self.position.left >= -10 and not obstacles.ColisionsCube(self.hitbox.move(-3,0)):
-				self.position = self.position.move(-3,0)
-				self.hitbox = self.hitbox.move(-3,0)
+			if self.position.left >= -10 and not obstacles.ColisionsCube(self.hitbox.move(-4,0)):
+				self.position = self.position.move(-4,0)
+				self.hitbox = self.hitbox.move(-4,0)
 				if self.glissement_horizontal > -40:
-					self.glissement_horizontal += -3
+					self.glissement_horizontal += -2
 
 		elif direction == 'droite':
-			if self.position.right <= general.w+10 and not obstacles.ColisionsCube(self.hitbox.move(3,0)):
-				self.position = self.position.move(3,0)
-				self.hitbox = self.hitbox.move(3,0)
+			if self.position.right <= general.w+10 and not obstacles.ColisionsCube(self.hitbox.move(4,0)):
+				self.position = self.position.move(4,0)
+				self.hitbox = self.hitbox.move(4,0)
 				if self.glissement_horizontal < 40:
-					self.glissement_horizontal += 3
+					self.glissement_horizontal += 2
 				
 				
 	

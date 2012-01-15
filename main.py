@@ -107,19 +107,20 @@ while modejeu:
     else:
 	#Mode histoire : Niveau 1
 	lvl = 1
-    personnage = menuprincipal.ChoixPersonnage(fenetre)
-    if personnage == 1:
-	cub = Cub()
-    else:
-	cub = Perl()
     #Boucle des niveaux
     while lvl != 0:
 		#Nettoyage pour commencer le niveau
-		#menu.DebutNiveau(fenetre,3)
+		
+		personnage = menuprincipal.ChoixPersonnage(fenetre)
+		if personnage == 1:
+		    cub = Cub()
+		else:
+		    cub = Perl()
 		menu.Chargement(fenetre)
 		if modejeu != 3:
 		    niveau = Niveau(str(lvl))
 		    general.scrool = -544
+		    menu.DebutNiveau(fenetre,3)
 		else:
 		    niveau = BossRush()
 		continuer = 1
@@ -170,7 +171,7 @@ while modejeu:
 				if key[275] == True:
 					cub.DeplaceLent('droite', niveau.obstacles)
 				#Tirs
-				if key[97] == True:
+				if (key[97] == True) or (key[65] == True):
 					cub.tir2.Tir(cub.position)
 			else:
 				if key[273] == True:
@@ -182,8 +183,8 @@ while modejeu:
 				if key[275] == True:
 					cub.Deplace('droite', niveau.obstacles)
 				#Tirs
-				if key[97] == True:
-					cub.tir1.Tir(cub.position)
+				if (key[97] == True) or (key[65] == True):
+				    cub.tir1.Tir(cub.position)
 		    
 		    
 			g += 1
