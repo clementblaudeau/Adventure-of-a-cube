@@ -1,5 +1,5 @@
 #------------------------------#
-#			Cub.py			   #
+#			Triangle.py		   #
 #		Clement Blaudeau	   #
 #			******			   #
 #------------------------------#
@@ -15,15 +15,15 @@ from onde import *
 from tir import *
 import general
 
-class Cub:
+class Triangle:
 	
 	
 	def __init__(self):
-		self.image = pygame.image.load("images/cub001.png").convert_alpha()
+		self.image = pygame.image.load("images/Triangle/triangle001.png").convert_alpha()
 		self.position = self.image.get_rect()
 		self.i = 1
 		self.k = 0
-		self.cube_actuel = "images/cub002.png"
+		self.cube_actuel = "images/Triangle/triangle002.png"
 		self.hitbox = Rect(0,0,5,5)
 		self.glissement_vertical = 0
 		self.glissement_horizontal = 0
@@ -41,13 +41,13 @@ class Cub:
 		self.ho = 0
 		while self.i <= 200:
 			if self.i < 10:
-				self.cube_actuel = "images/cub00"+ str(self.i) +".png"
+				self.cube_actuel = "images/Triangle/triangle00"+ str(self.i) +".png"
 			elif self.i < 100:
-				self.cube_actuel = "images/cub0"+ str(self.i) +".png"
+				self.cube_actuel = "images/Triangle/triangle0"+ str(self.i) +".png"
 			elif self.i < 200:
-				self.cube_actuel = "images/cub"+ str(self.i) +".png"
+				self.cube_actuel = "images/Triangle/triangle"+ str(self.i) +".png"
 			elif self.i == 200:
-				self.cube_actuel = "images/cub"+ str(self.i) +".png"
+				self.cube_actuel = "images/Triangle/triangle"+ str(self.i) +".png"
 			self.images.append(pygame.image.load(self.cube_actuel).convert_alpha())
 			self.i += 1
 		self.i = 0
@@ -65,28 +65,28 @@ class Cub:
 				self.position = self.position.move(0,4)
 				self.hitbox = self.hitbox.move(0,4)
 				if self.glissement_vertical < 40:
-					self.glissement_vertical += 2
+					self.glissement_vertical += 3
 
 		elif direction == 'haut':
-			if self.position.top >= 0 and not obstacles.ColisionsCube(self.hitbox.move(0,4)):
+			if self.position.top >= 0 and not obstacles.ColisionsCube(self.hitbox.move(0,-4)):
 				self.position = self.position.move(0,-4)
 				self.hitbox = self.hitbox.move(0,-4)
 				if self.glissement_vertical > -40:
-					self.glissement_vertical += -2
+					self.glissement_vertical += -3
 
 		elif direction == 'gauche':
 			if self.position.left >= -10 and not obstacles.ColisionsCube(self.hitbox.move(-4,0)):
 				self.position = self.position.move(-4,0)
 				self.hitbox = self.hitbox.move(-4,0)
 				if self.glissement_horizontal > -40:
-					self.glissement_horizontal += -2
+					self.glissement_horizontal += -3
 
 		elif direction == 'droite':
 			if self.position.right <= general.w+10 and not obstacles.ColisionsCube(self.hitbox.move(4,0)):
 				self.position = self.position.move(4,0)
 				self.hitbox = self.hitbox.move(4,0)
 				if self.glissement_horizontal < 40:
-					self.glissement_horizontal += 2
+					self.glissement_horizontal += 3
 				
 				
 	
@@ -96,25 +96,26 @@ class Cub:
 	
 			
 	def DeplaceLent(self, direction, obstacles):
+		self.Reboot()
 		if direction == 'bas':
-			if self.position.bottom <= general.h+10 and not obstacles.ColisionsCube(self.hitbox.move(0,2)):
-				self.position = self.position.move(0,2)
-				self.hitbox = self.hitbox.move(0,2)
+			if self.position.bottom <= general.h+10 and not obstacles.ColisionsCube(self.hitbox.move(0,1)):
+				self.position = self.position.move(0,1)
+				self.hitbox = self.hitbox.move(0,1)
 
 		elif direction == 'haut':
-			if self.position.top >= 0 and not obstacles.ColisionsCube(self.hitbox.move(0,-2)):
-				self.position = self.position.move(0,-2)
-				self.hitbox = self.hitbox.move(0,-2)
+			if self.position.top >= 0 and not obstacles.ColisionsCube(self.hitbox.move(0,-1)):
+				self.position = self.position.move(0,-1)
+				self.hitbox = self.hitbox.move(0,-1)
 
 		elif direction == 'gauche':
-			if self.position.left >= -10 and not obstacles.ColisionsCube(self.hitbox.move(-2,0)):
-				self.position = self.position.move(-2,0)
-				self.hitbox = self.hitbox.move(-2,0)
+			if self.position.left >= -10 and not obstacles.ColisionsCube(self.hitbox.move(-1,0)):
+				self.position = self.position.move(-1,0)
+				self.hitbox = self.hitbox.move(-1,0)
 
 		elif direction == 'droite':
-			if self.position.right <= general.w+10 and not obstacles.ColisionsCube(self.hitbox.move(2,0)):
-				self.position = self.position.move(2,0)
-				self.hitbox = self.hitbox.move(2,0)
+			if self.position.right <= general.w+10 and not obstacles.ColisionsCube(self.hitbox.move(1,0)):
+				self.position = self.position.move(1,0)
+				self.hitbox = self.hitbox.move(1,0)
 				
 
 

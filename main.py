@@ -12,6 +12,7 @@ from pygame.locals import *
 
 from cub import *
 from perl import *
+from triangle import *
 from tir import *
 from onde import *
 from obstacles import *
@@ -92,17 +93,20 @@ modejeu = menuprincipal.MenuAffichage(fenetre, sauvegarde.NiveauActuel())
 while modejeu:
     
     #Choix du niveau ou ouverture des crédits ou passage en mode Boss Rush
-    
+    if modejeu == 1:
+	personnage = menuprincipal.ChoixPersonnage(fenetre)
     if modejeu == 2:
 	#Mode Fast Play : Choix du niveau
 	lvl = menu.MenuAffichage(fenetre, sauvegarde.NiveauActuel())	
+	personnage = menuprincipal.ChoixPersonnage(fenetre)
     elif modejeu == 3:
  	print "boss rush !!!"
 	lvl = 1
 	general.scrool = -100
+	personnage = menuprincipal.ChoixPersonnage(fenetre)
     elif modejeu == 4:
 	#Affichage des crédits
-	lvl = 1
+	lvl = 0
 	cred.Affichage(fenetre)
     else:
 	#Mode histoire : Niveau 1
@@ -110,17 +114,17 @@ while modejeu:
     #Boucle des niveaux
     while lvl != 0:
 		#Nettoyage pour commencer le niveau
-		
-		personnage = menuprincipal.ChoixPersonnage(fenetre)
 		if personnage == 1:
 		    cub = Cub()
-		else:
+		elif personnage == 2:
 		    cub = Perl()
+		else:
+		    cub = Triangle()
 		menu.Chargement(fenetre)
 		if modejeu != 3:
 		    niveau = Niveau(str(lvl))
 		    general.scrool = -544
-		    menu.DebutNiveau(fenetre,3)
+		    #menu.DebutNiveau(fenetre,3)
 		else:
 		    niveau = BossRush()
 		continuer = 1
@@ -155,36 +159,37 @@ while modejeu:
 						menu.Pause(fenetre)
 						pygame.event.clear()
 		
-			if key[122] == True and ((pygame.time.get_ticks() - delai) > general.h+10):
+			if key[general.k_slow] == True and ((pygame.time.get_ticks() - delai) > general.h+10):
 				delai = pygame.time.get_ticks()
 				if mode == "lent":
 					mode = "rapide"
 				else:
 					mode = "lent"
+					cub.Reboot()
 			if mode == "lent":
-				if key[273] == True:
+				if key[general.k_up] == True:
 					cub.DeplaceLent('haut', niveau.obstacles)
-				if key[274] == True:
+				if key[general.k_down] == True:
 					cub.DeplaceLent('bas', niveau.obstacles)
-				if key[276] == True:
+				if key[general.k_left] == True:
 					cub.DeplaceLent('gauche', niveau.obstacles)
-				if key[275] == True:
+				if key[general.k_right] == True:
 					cub.DeplaceLent('droite', niveau.obstacles)
 				#Tirs
-				if (key[97] == True) or (key[65] == True):
+				if (key[general.k_shot] == True) or (key[65] == True):
 					cub.tir2.Tir(cub.position)
 			else:
-				if key[273] == True:
+				if key[general.k_up] == True:
 					cub.Deplace('haut', niveau.obstacles)
-				if key[274] == True:
+				if key[general.k_down] == True:
 					cub.Deplace('bas', niveau.obstacles)
-				if key[276] == True:
+				if key[general.k_left] == True:
 					cub.Deplace('gauche', niveau.obstacles)
-				if key[275] == True:
+				if key[general.k_right] == True:
 					cub.Deplace('droite', niveau.obstacles)
 				#Tirs
-				if (key[97] == True) or (key[65] == True):
-				    cub.tir1.Tir(cub.position)
+				if (key[general.k_shot] == True) or (key[65] == True):
+					cub.tir1.Tir(cub.position)
 		    
 		    
 			g += 1

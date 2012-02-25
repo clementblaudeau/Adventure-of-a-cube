@@ -40,9 +40,9 @@ class Menu:
 		self.nb = "0"
 		nb = int(nb)
 		while nb > 0:
-			if self.y >= 460:
+			if self.y >= 440:
 				self.y = 150
-				self.x += 100
+				self.x += 200
 			self.nb = str(int(self.nb)+1)
 			self.boutons.NouveauBouton((self.x,self.y), self.nb)
 			self.y += 50
@@ -297,8 +297,10 @@ class Bouton:
 				if souris[1] > element.top and souris[1] < element.bottom:
 					if clic == 1:
 						fenetre.blit(self.on, element)
-						fenetre.blit(self.numeros[i], (element.centerx - 15, element.centery-10))
-						
+						j = 0
+						for element in self.positions:
+							fenetre.blit(self.numeros[j], (element.centerx - 15, element.centery-10))
+							j += 1
 						return int(self.num[i])
 					else:
 						fenetre.blit(self.hover, element)
