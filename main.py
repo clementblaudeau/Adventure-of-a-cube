@@ -267,6 +267,7 @@ while modejeu:
 			tps_fin_boucle = pygame.time.get_ticks()
 			if tps_fin_boucle - tps_debut_boucle < 9:
 				pygame.time.delay(9 -(tps_fin_boucle - tps_debut_boucle))
+				
 		#Fin de la boucle Continuer
 		if lvl == 0:
 			lvl = menu.MenuAffichage(fenetre, sauvegarde.NiveauActuel())

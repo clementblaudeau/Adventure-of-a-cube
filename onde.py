@@ -34,7 +34,10 @@ class Onde:
 	def NouvelleOnde(self, position):
 		if (pygame.time.get_ticks() - self.temps) > 1500:
 			self.temps = pygame.time.get_ticks()
+			temp = self.onde01.get_rect()
+			position = temp.move(position.x, position.y)
 			self.positions.append(position)
+			print self.positions
 			self.progressions.append(0)
 		
 	def Progression(self):
