@@ -120,6 +120,7 @@ class Triangle:
 
 
 	def Affichage(self, fenetre):
+		self.onde.Protege(self.hitbox)
 		fenetre.blit(self.image, self.position)	
 		if self.degats > 0:
 			self.degats -= 1
@@ -131,7 +132,7 @@ class Triangle:
 		self.onde.Affichage(fenetre)
 		self.score.Affichage(fenetre)
 		self.nivtirs.Affichage(fenetre)
-		
+	
 	def Affichage2(self, fenetre):
 		fenetre.blit(self.image, self.position)	
 

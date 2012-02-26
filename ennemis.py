@@ -47,6 +47,7 @@ class Ennemis:
 		self.ennemis_f5 = pygame.image.load("images/("+str(style)+")/ennemis_f5.png").convert_alpha()
 		self.ennemis_f6 = pygame.image.load("images/("+str(style)+")/ennemis_f6.png").convert_alpha()
 		self.j = 0
+		self.son = pygame.mixer.Sound("son/mort.ogg")
 		self.temps = pygame.time.get_ticks()
 		self.eclats = Eclat()
 		self.fini = 0
@@ -171,6 +172,7 @@ class Ennemis:
 							self.vies.remove(self.vies[i])
 							self.sortes.pop(i)
 							self.positions.remove(element2)
+							self.son.play()
 					i +=1
 				i = 0
 				for element2 in self.positionsf:
@@ -186,6 +188,7 @@ class Ennemis:
 							self.viesf.remove(self.viesf[i])
 							self.sortesf.pop(i)
 							self.positionsf.remove(element2)
+							self.son.play()
 					i +=1
 			i = 0
 		
@@ -279,7 +282,7 @@ class Ennemis:
 						if element == 4:
 							self.tirs3.append(pygame.Rect(self.positionsf[i].centerx + 5,self.positionsf[i].bottom + 5,10,10))
 						if element == 5:
-							self.tirs3.append(pygame.Rect(self.positions[i].centerx + 5,self.positionsf[i].bottom + 5,10,10))
+							self.tirs3.append(pygame.Rect(self.positionsf[i].centerx + 5,self.positionsf[i].bottom + 5,10,10))
 							self.tirs2.append(pygame.Rect(self.positionsf[i].right + 5,self.positionsf[i].top,10,10))
 							self.tirs1.append(pygame.Rect(self.positionsf[i].left - 5,self.positionsf[i].top+5,10,10))
 						if element == 6:

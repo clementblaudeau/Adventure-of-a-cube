@@ -222,8 +222,12 @@ while modejeu:
 					j = 0
 					avancement += 1
 					niveau.ennemis.ScroolEnnemisFixes()
-					niveau.boss.Scrool()
-
+					try:
+					    niveau.boss.Scrool()
+					except:
+					    pass
+			
+			
 			cub.Glissement(niveau.obstacles)
 	    
 			#Avance des attaques

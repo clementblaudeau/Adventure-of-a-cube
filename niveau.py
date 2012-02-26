@@ -38,7 +38,8 @@ class Niveau:
 		self.son = pygame.mixer.Sound(self.nom_son)
 		self.nombre_obstacles = self.contenu[4]
 		self.obstacles = Obstacles()
-		self.boss = Boss(numero)
+		if int(numero)%2 == 0:
+		    self.boss = Boss(numero)
 		self.clear = False
 		self.chrono = Chrono()
 		
@@ -83,9 +84,15 @@ class Niveau:
 	def Affichage(self, fenetre, scrool):
 		fenetre.blit(self.fond, scrool)
 		self.ennemis.Tir()
-		self.boss.Tir(self.ennemis, self.obstacles)
+		try:
+		    self.boss.Tir(self.ennemis, self.obstacles)
+		except:
+		    pass
 		self.ennemis.Deplacements()
-		self.boss.Affichage(fenetre)
+		try:
+		    self.boss.Affichage(fenetre)
+		except:
+		    pass
 		self.obstacles.Affichage(fenetre)
 		self.ennemis.Affichage(fenetre)
 		self.chrono.Affichage(pygame.time.get_ticks(), fenetre, "")
@@ -95,21 +102,27 @@ class Niveau:
 	    cub.tir2.positions = self.obstacles.ColisionsTir(cub.tir2.positions, 6+general.niv)
 	    cub.tir1.positions = self.ennemis.CollisionsTirs(cub.tir1.positions, 1+general.niv)
 	    cub.tir2.positions = self.ennemis.CollisionsTirs(cub.tir2.positions, 6+general.niv)
-	    self.boss.CollisionTirs(cub.tir1.positions)
-	    self.boss.CollisionTirs(cub.tir2.positions)
+	    try:
+		self.boss.CollisionTirs(cub.tir1.positions)
+		self.boss.CollisionTirs(cub.tir2.positions)
+		cub.score.score += self.boss.eclats.Absorption(cub)
+	    except:
+		pass
 	    cub.score.score += self.obstacles.eclat.Absorption(cub)
 	    cub.score.score += self.ennemis.eclats.Absorption(cub)
-	    cub.score.score += self.boss.eclats.Absorption(cub)
 	    if (self.ennemis.CollisionCube(cub.hitbox) == True):
 		if cub.degats == 0:
 		    cub.vie.vie += -1
 		    cub.degats +=200
 		    cub.Reboot()
-	    if (self.boss.CollisionCube(cub.hitbox) == True):
-		if cub.degats == 0:
-		    cub.vie.vie += -1
-		    cub.degats +=200
-		    cub.Reboot()
+	    try:
+		if (self.boss.CollisionCube(cub.hitbox) == True):
+		    if cub.degats == 0:
+			cub.vie.vie += -1
+			cub.degats +=200
+			cub.Reboot()
+	    except:
+		pass
 		
 	def Fini(self):
 		if self.ennemis.positions == []:
@@ -117,7 +130,10 @@ class Niveau:
 				if self.obstacles.eclat.positions == []:
 					if self.ennemis.eclats.positions == []:
 						if self.ennemis.positionsf == []:
-						    if self.boss.Fini() == True:
+						    try:
+							if self.boss.Fini() == True:
+								return True
+						    except:
 								return True
 		return False
 		
