@@ -44,7 +44,7 @@ cred = Credits()
 menu.Chargement(fenetre)
 
 #Icone et titre
-icone = pygame.image.load("images/cub121.png")
+icone = pygame.image.load("images/Cub/cub121.png")
 pygame.display.set_icon(icone)
 pygame.display.set_caption("The adventure of Cub !")
 
@@ -76,7 +76,7 @@ mode_lent = pygame.image.load("images/m_lent.png").convert_alpha()
 surcharge_boucle = pygame.time.get_ticks()
 
 #Chargement du panneau de d'informations de jeu
-paneau = pygame.image.load("images/paneau.png").convert_alpha()
+paneau = pygame.image.load("images/paneau(0).png").convert_alpha()
 fenetre.blit(paneau,(general.w,0))
 
 #Rafraîchissement de l'écran
@@ -94,23 +94,29 @@ while modejeu:
     
     #Choix du niveau ou ouverture des crédits ou passage en mode Boss Rush
     if modejeu == 1:
+	#Mode Histoire
+	general.diff_level = menuprincipal.ChoixNiveau(fenetre)
+	paneau = pygame.image.load("images/paneau("+str(general.diff_level)+").png").convert_alpha()
 	personnage = menuprincipal.ChoixPersonnage(fenetre)
-    if modejeu == 2:
+	lvl = 1
+    elif modejeu == 2:
 	#Mode Fast Play : Choix du niveau
+	general.diff_level = menuprincipal.ChoixNiveau(fenetre)
+	paneau = pygame.image.load("images/paneau("+str(general.diff_level)+").png").convert_alpha()
 	lvl = menu.MenuAffichage(fenetre, sauvegarde.NiveauActuel())	
 	personnage = menuprincipal.ChoixPersonnage(fenetre)
     elif modejeu == 3:
- 	print "boss rush !!!"
+ 	#Mode Boss Rush
 	lvl = 1
 	general.scrool = -100
+	general.diff_level = menuprincipal.ChoixNiveau(fenetre)
+	paneau = pygame.image.load("images/paneau("+str(general.diff_level)+").png").convert_alpha()
 	personnage = menuprincipal.ChoixPersonnage(fenetre)
     elif modejeu == 4:
 	#Affichage des crédits
 	lvl = 0
 	cred.Affichage(fenetre)
-    else:
-	#Mode histoire : Niveau 1
-	lvl = 1
+	
     #Boucle des niveaux
     while lvl != 0:
 		#Nettoyage pour commencer le niveau
@@ -178,6 +184,8 @@ while modejeu:
 				#Tirs
 				if (key[general.k_shot] == True) or (key[65] == True):
 					cub.tir2.Tir(cub.position)
+				if (key[general.k_shot2] == True) or (key[101] == True):
+					cub.onde.NouvelleOnde(cub.position.move(-70,-50))
 			else:
 				if key[general.k_up] == True:
 					cub.Deplace('haut', niveau.obstacles)
@@ -190,12 +198,15 @@ while modejeu:
 				#Tirs
 				if (key[general.k_shot] == True) or (key[65] == True):
 					cub.tir1.Tir(cub.position)
+				if (key[general.k_shot2] == True) or (key[101] == True):
+					cub.onde.NouvelleOnde(cub.position.move(-70,-50))
 		    
 		    
 			g += 1
 	
 			#Test des colisions avec les obstacles
-			niveau.Collisions(cub)
+			if general.c_protect == False:
+			    niveau.Collisions(cub)
 			if cub.vie.vie < 0:
 				continuer = 0
 			
@@ -203,7 +214,6 @@ while modejeu:
 			    niveau.Cleaner(cub)
 			    scrool = fenetre.get_rect()
 			    scrool = scrool.move(0,general.scrool)
-			
 			#Scrool
 			j += 1
 			if j > 15:

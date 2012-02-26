@@ -34,18 +34,18 @@ class Ennemis:
 		self.tirs8 = []
 		self.positions_tirs = []
 		self.bille = pygame.image.load("images/bille("+str(style)+").png").convert_alpha()
-		self.ennemis1 = pygame.image.load("images/ennemis1("+str(style)+").png").convert_alpha()
-		self.ennemis2 = pygame.image.load("images/ennemis2("+str(style)+").png").convert_alpha()
-		self.ennemis3 = pygame.image.load("images/ennemis3("+str(style)+").png").convert_alpha()
-		self.ennemis4 = pygame.image.load("images/ennemis4("+str(style)+").png").convert_alpha()
-		self.ennemis5 = pygame.image.load("images/ennemis5("+str(style)+").png").convert_alpha()
-		self.ennemis6 = pygame.image.load("images/ennemis6("+str(style)+").png").convert_alpha()
-		self.ennemis_f1 = pygame.image.load("images/ennemis_f1("+str(style)+").png").convert_alpha()
-		self.ennemis_f2 = pygame.image.load("images/ennemis_f2("+str(style)+").png").convert_alpha()
-		self.ennemis_f3 = pygame.image.load("images/ennemis_f3("+str(style)+").png").convert_alpha()
-		self.ennemis_f4 = pygame.image.load("images/ennemis_f4("+str(style)+").png").convert_alpha()
-		self.ennemis_f5 = pygame.image.load("images/ennemis_f5("+str(style)+").png").convert_alpha()
-		self.ennemis_f6 = pygame.image.load("images/ennemis_f6("+str(style)+").png").convert_alpha()
+		self.ennemis1 = pygame.image.load("images/("+str(style)+")/ennemis1.png").convert_alpha()
+		self.ennemis2 = pygame.image.load("images/("+str(style)+")/ennemis2.png").convert_alpha()
+		self.ennemis3 = pygame.image.load("images/("+str(style)+")/ennemis3.png").convert_alpha()
+		self.ennemis4 = pygame.image.load("images/("+str(style)+")/ennemis4.png").convert_alpha()
+		self.ennemis5 = pygame.image.load("images/("+str(style)+")/ennemis5.png").convert_alpha()
+		self.ennemis6 = pygame.image.load("images/("+str(style)+")/ennemis6.png").convert_alpha()
+		self.ennemis_f1 = pygame.image.load("images/("+str(style)+")/ennemis_f1.png").convert_alpha()
+		self.ennemis_f2 = pygame.image.load("images/("+str(style)+")/ennemis_f2.png").convert_alpha()
+		self.ennemis_f3 = pygame.image.load("images/("+str(style)+")/ennemis_f3.png").convert_alpha()
+		self.ennemis_f4 = pygame.image.load("images/("+str(style)+")/ennemis_f4.png").convert_alpha()
+		self.ennemis_f5 = pygame.image.load("images/("+str(style)+")/ennemis_f5.png").convert_alpha()
+		self.ennemis_f6 = pygame.image.load("images/("+str(style)+")/ennemis_f6.png").convert_alpha()
 		self.j = 0
 		self.temps = pygame.time.get_ticks()
 		self.eclats = Eclat()
@@ -268,24 +268,27 @@ class Ennemis:
 			i = 0
 			for element in self.sortesf:
 				if self.positionsf[i].bottom >= 0:
-					if element == 1:
-						self.tirs1.append(pygame.Rect(self.positionsf[i].left - 5,self.positionsf[i].top+5,10,10))
-					if element == 2 :
-						self.tirs2.append(pygame.Rect(self.positionsf[i].right + 5,self.positionsf[i].top,10,10))
-					if element == 3:
-						self.tirs2.append(pygame.Rect(self.positionsf[i].right + 5,self.positionsf[i].top,10,10))
-						self.tirs1.append(pygame.Rect(self.positionsf[i].left - 5,self.positionsf[i].top+5,10,10))
-					if element == 4:
-						self.tirs3.append(pygame.Rect(self.positionsf[i].centerx + 5,self.positionsf[i].bottom + 5,10,10))
-					if element == 5:
-						self.tirs3.append(pygame.Rect(self.positions[i].centerx + 5,self.positionsf[i].bottom + 5,10,10))
-						self.tirs2.append(pygame.Rect(self.positionsf[i].right + 5,self.positionsf[i].top,10,10))
-						self.tirs1.append(pygame.Rect(self.positionsf[i].left - 5,self.positionsf[i].top+5,10,10))
-					if element == 6:
-						self.tirs5.append(pygame.Rect(self.positionsf[i].right + 5,self.positionsf[i].top,10,10))
-						self.tirs6.append(pygame.Rect(self.positionsf[i].right + 5,self.positionsf[i].top,10,10))
-						self.tirs7.append(pygame.Rect(self.positionsf[i].right - 5,self.positionsf[i].bottom + 5,10,10))
-						self.tirs8.append(pygame.Rect(self.positionsf[i].left + 5,self.positionsf[i].bottom + 5,10,10))
+					try:
+						if element == 1:
+							self.tirs1.append(pygame.Rect(self.positionsf[i].left - 5,self.positionsf[i].top+5,10,10))
+						if element == 2 :
+							self.tirs2.append(pygame.Rect(self.positionsf[i].right + 5,self.positionsf[i].top,10,10))
+						if element == 3:
+							self.tirs2.append(pygame.Rect(self.positionsf[i].right + 5,self.positionsf[i].top,10,10))
+							self.tirs1.append(pygame.Rect(self.positionsf[i].left - 5,self.positionsf[i].top+5,10,10))
+						if element == 4:
+							self.tirs3.append(pygame.Rect(self.positionsf[i].centerx + 5,self.positionsf[i].bottom + 5,10,10))
+						if element == 5:
+							self.tirs3.append(pygame.Rect(self.positions[i].centerx + 5,self.positionsf[i].bottom + 5,10,10))
+							self.tirs2.append(pygame.Rect(self.positionsf[i].right + 5,self.positionsf[i].top,10,10))
+							self.tirs1.append(pygame.Rect(self.positionsf[i].left - 5,self.positionsf[i].top+5,10,10))
+						if element == 6:
+							self.tirs5.append(pygame.Rect(self.positionsf[i].right + 5,self.positionsf[i].top,10,10))
+							self.tirs6.append(pygame.Rect(self.positionsf[i].right + 5,self.positionsf[i].top,10,10))
+							self.tirs7.append(pygame.Rect(self.positionsf[i].right - 5,self.positionsf[i].bottom + 5,10,10))
+							self.tirs8.append(pygame.Rect(self.positionsf[i].left + 5,self.positionsf[i].bottom + 5,10,10))
+					except:
+						pass
 				i += 1
 				
 	def Cleaner(self):

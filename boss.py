@@ -38,9 +38,9 @@ class Boss:
 		self.ennemisTues = 0
 		self.hitbox = (self.imghitbox.get_rect()).move(general.w/2,50)
 		try:
-			self.fichier = open("niveaux/boss"+str(niv)+".bs", "r")
+			self.fichier = open("niveaux/("+str(general.diff_level)+")/boss"+str(niv)+".bs", "r")
 		except:
-			self.fichier = open("niveaux/boss.bs", "r")
+			self.fichier = open("niveaux/("+str(general.diff_level)+")/boss.bs", "r")
 		self.contenu = self.fichier.readlines()
 		b = 0
 		c = 0

@@ -1,5 +1,7 @@
+# -*- coding: utf-8 -*-
 import pygame
 from pygame.locals import *
+import general
 
 class Onde:
 	
@@ -30,7 +32,7 @@ class Onde:
 		self.temps = 0
 		
 	def NouvelleOnde(self, position):
-		if (pygame.time.get_ticks() - self.temps) > 500:
+		if (pygame.time.get_ticks() - self.temps) > 1500:
 			self.temps = pygame.time.get_ticks()
 			self.positions.append(position)
 			self.progressions.append(0)
@@ -46,11 +48,15 @@ class Onde:
 	
 	def Protege(self, cub):
 		i = 0
-		self.protect = False
+		general.c_protect = False
 		for element in self.positions:
+			print "ici"
 			if self.progressions[i] > 1:
-				if self.positions[i].colliderect(cub):
-					self.protect = True
+				print "	  la!"
+				if element.colliderect(cub) == True:
+					print "        et là !"
+					general.c_protect = True
+					
 				
 			i+=1
 	
@@ -103,6 +109,7 @@ class Onde:
 		i = 0
 		for element in self.positions:
 			fenetre.blit(self.Niveau(self.progressions[i]), element)
+			fenetre.blit(self.Niveau(self.progressions[i]-0.25), element)
 			i +=1
 
 
