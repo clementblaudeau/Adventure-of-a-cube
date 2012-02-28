@@ -244,6 +244,10 @@ class Menu:
 			fenetre.blit(self.chargement,(0,0))
 			pygame.display.flip()
 			
+	def Chargement1(self, fenetre):
+			fenetre.blit(pygame.image.load("images/team.png").convert(),(0,0))
+			pygame.display.flip()
+			
 	def CommencementNiveau(self, fenetre):
 		fenetre.blit(self.font.render("3", 1, (255, 255, 0)), ((general.w/2)-50, 320))
 		pygame.display.flip()

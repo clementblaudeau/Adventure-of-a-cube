@@ -18,14 +18,14 @@ import general
 
 class BossRush:
 	
-	def __init__(self):
+	def __init__(self, pers):
 		
 		self.nom = "Boss Rush !"
 		self.fond = pygame.image.load("images/lv1.jpg").convert()
 	#	self.son = pygame.mixer.Sound("son/bossrush.wav")
 		self.obstacles = Obstacles()
 		self.ennemis = Ennemis(1)
-		self.boss = Boss(1)
+		self.boss = Boss(1, pers)
 		self.niv = 1
 		self.transition = False
 		self.clear = False
@@ -85,7 +85,7 @@ class BossRush:
 									return True
 								else:
 									self.niv += 1
-									self.boss = Boss(self.niv)
+									self.boss = Boss(self.niv,pers)
 									self.transition = True
 									self.clear = True
 									self.compteur = 100

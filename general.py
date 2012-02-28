@@ -9,6 +9,8 @@ avancement = 0
 scrool = -544
 c_protect = False
 diff_level = 1
+caracters_disp = 0
+caracters = ["Cub"]
 
 k_left = 276
 k_right = 275

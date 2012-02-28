@@ -18,8 +18,8 @@ import general
 
 class Niveau:
 	
-	def __init__(self, numero):
-		self.nom_fichier = "niveaux/("+str(general.diff_level)+")/" + numero + ".lvl"
+	def __init__(self, numero, pers):
+		self.nom_fichier = "niveaux/"+pers+"/("+str(general.diff_level)+")/" + numero + ".lvl"
 		self.fichier = open(self.nom_fichier, "r")
 		self.contenu = self.fichier.readlines()
 		b = 0
@@ -39,7 +39,7 @@ class Niveau:
 		self.nombre_obstacles = self.contenu[4]
 		self.obstacles = Obstacles()
 		if int(numero)%2 == 0:
-		    self.boss = Boss(numero)
+		    self.boss = Boss(numero,pers)
 		self.clear = False
 		self.chrono = Chrono()
 		
