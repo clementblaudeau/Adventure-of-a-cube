@@ -18,7 +18,10 @@ k_up = 273
 k_down = 274
 k_shot = 97
 k_shot2 = 101
+k_shot3 = 114
 k_slow = 122
+n_bomb = 3
+back = False
 
 
 

@@ -451,4 +451,17 @@ class Ennemis:
 				fenetre.blit(self.bille, element)
 		
 		self.eclats.Affichage(fenetre)
-
+	
+	def Nettoyage(self):
+		self.tirs1 = []
+		self.tirs2 = []
+		self.tirs3 = []
+		self.tirs4 = []
+		self.tirs5 = []
+		self.tirs6 = []
+		self.tirs7 = []
+		self.tirs8 = []
+		self.CollisionsTirs([pygame.Rect(0,0,1000,1000),pygame.Rect(0,0,1000,1000),pygame.Rect(0,0,1000,1000),pygame.Rect(0,0,1000,1000),pygame.Rect(0,0,1000,1000)], 1000)
+		self.CollisionsTirs([pygame.Rect(0,0,1000,1000),pygame.Rect(0,0,1000,1000),pygame.Rect(0,0,1000,1000),pygame.Rect(0,0,1000,1000),pygame.Rect(0,0,1000,1000)], 1000)
+		self.CollisionsTirs([pygame.Rect(0,0,1000,1000),pygame.Rect(0,0,1000,1000),pygame.Rect(0,0,1000,1000),pygame.Rect(0,0,1000,1000),pygame.Rect(0,0,1000,1000)], 1000)
+		self.CollisionsTirs([pygame.Rect(0,0,1000,1000),pygame.Rect(0,0,1000,1000),pygame.Rect(0,0,1000,1000),pygame.Rect(0,0,1000,1000),pygame.Rect(0,0,1000,1000)], 1000)

@@ -10,6 +10,7 @@ import pygame
 from pygame.locals import *	
 
 import general
+import os
 
 class Sauvegarde:
 	
@@ -66,10 +67,33 @@ class Sauvegarde:
 			self.fichier2.close()
 			return "Nouveau record !"
 		
-	def NouveauNiveau(self):
-		self.fichier = open('sauvegardes/'+pers+'/('+str(general.diff_level)+')/campagne.sa', "w")
-		self.fichier.write(str(int(self.niveau) + 1))
-		self.niveau = str(int(self.niveau) + 1)
-		self.fichier.close()
+	def NouveauNiveau(self,pers):
+		if self.niveau + 1 > 16:
+			if general.diff_level == 2:	
+				os.remove('sauvegardes/'+pers+'/campagne.sa')
+				self.fichier = open('sauvegardes/'+pers+'/campagne.sa', "w")
+				self.fichier.write("3")
+				self.fichier.close()
+			try: 
+				print general.caracters[2]
+			except:
+				try:
+					print general.caracters[1]
+					if pers == "Perl":
+						os.remove('sauvegardes/campagne.sa')
+						self.fichier = open('sauvegardes/campagnes.sa', 'w')
+						self.fichier.write("3")
+				except:
+					os.remove('sauvegardes/campagne.sa')
+					self.fichier = open('sauvegardes/campagnes.sa', 'w')
+					self.fichier.write("2")
+				finally:
+					self.fichier.close()
+						
+		else:
+			self.fichier = open('sauvegardes/'+pers+'/('+str(general.diff_level)+')/campagne.sa', "w")
+			self.fichier.write(str(int(self.niveau) + 1))
+			self.niveau = str(int(self.niveau) + 1)
+			self.fichier.close()
 
 

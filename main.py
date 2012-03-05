@@ -82,41 +82,72 @@ fenetre.blit(paneau,(general.w,0))
 #Rafraîchissement de l'écran
 pygame.time.delay(2500)
 pygame.display.flip()
-
+modejeu = 1
 #Variable de boucle de jeu
 continuer = 1
-print general.caracters
 #Ouverture du menu général
-modejeu = menuprincipal.MenuAffichage(fenetre)
 #Début de la boucle de jeu (enfin ^^)
 while modejeu:
     
-    #Choix du niveau ou ouverture des crédits ou passage en mode Boss Rush
-    if modejeu == 1:
-	#Mode Histoire
-	personnage = menuprincipal.ChoixPersonnage(fenetre)
-	general.diff_level = menuprincipal.ChoixNiveau(fenetre, sauvegarde.Difficulte(personnage - 1))
-	paneau = pygame.image.load("images/paneau("+str(general.diff_level)+").png").convert_alpha()
-	lvl = 1
-    elif modejeu == 2:
-	#Mode Fast Play : Choix du niveau
-	campagne = menuprincipal.ChoixPersonnage(fenetre, "Campagne ")
-	general.diff_level = menuprincipal.ChoixNiveau(fenetre, sauvegarde.Difficulte(campagne - 1))
-	paneau = pygame.image.load("images/paneau("+str(general.diff_level)+").png").convert_alpha()
-	lvl = menu.MenuAffichage(fenetre, sauvegarde.NiveauActuel(general.caracters[campagne - 1]))	
-	personnage = menuprincipal.ChoixPersonnage(fenetre)
-    elif modejeu == 3:
- 	#Mode Boss Rush
-	campagne = menuprincipal.ChoixPersonnage(fenetre, "Campagne ")
-	lvl = 1
-	general.scrool = -100
-	general.diff_level = menuprincipal.ChoixNiveau(fenetre, sauvegarde.Difficulte(campagne - 1))
-	paneau = pygame.image.load("images/paneau("+str(general.diff_level)+").png").convert_alpha()
-	personnage = menuprincipal.ChoixPersonnage(fenetre)
-    elif modejeu == 4:
-	#Affichage des crédits
-	lvl = 0
-	cred.Affichage(fenetre)
+    while general.back == False:
+	modejeu = menuprincipal.MenuAffichage(fenetre)
+	#Choix du niveau ou ouverture des crédits ou passage en mode Boss Rush
+	if modejeu == 1:
+	    #Mode Histoire
+	    personnage = menuprincipal.ChoixPersonnage(fenetre, "Campagne")
+	    if general.back == True:
+		general.back = False
+		continue
+	    general.diff_level = menuprincipal.ChoixNiveau(fenetre, sauvegarde.Difficulte(personnage - 1))
+	    if general.back == True: 
+		general.back = False
+		continue
+	    paneau = pygame.image.load("images/paneau("+str(general.diff_level)+").png").convert_alpha()
+	    general.back = True
+	    lvl = sauvegarde.NiveauActuel(personnage)
+	elif modejeu == 2:
+	    #Mode Fast Play : Choix du niveau
+	    campagne = menuprincipal.ChoixPersonnage(fenetre, "Campagne ")
+	    if general.back == True:
+		general.back = False
+		continue
+	    general.diff_level = menuprincipal.ChoixNiveau(fenetre, sauvegarde.Difficulte(campagne - 1))
+	    if general.back == True:
+		general.back = False
+		continue
+	    paneau = pygame.image.load("images/paneau("+str(general.diff_level)+").png").convert_alpha()
+	    lvl = menu.MenuAffichage(fenetre, sauvegarde.NiveauActuel(general.caracters[campagne - 1]))	
+	    if general.back == True:
+		general.back = False
+		continue
+	    personnage = menuprincipal.ChoixPersonnage(fenetre)
+	    if general.back == True:
+		general.back = False
+		continue
+	    general.back = True
+	elif modejeu == 3:
+	    #Mode Boss Rush
+	    campagne = menuprincipal.ChoixPersonnage(fenetre, "Campagne ")
+	    if general.back == True:
+		general.back = False
+		continue
+	    lvl = 1
+	    general.scrool = -100
+	    general.diff_level = menuprincipal.ChoixNiveau(fenetre, sauvegarde.Difficulte(campagne - 1))
+	    if general.back == True:
+		general.back = False
+		continue
+	    paneau = pygame.image.load("images/paneau("+str(general.diff_level)+").png").convert_alpha()
+	    personnage = menuprincipal.ChoixPersonnage(fenetre)
+	    if general.back == True:
+		general.back = False
+		continue
+	    general.back = True
+	elif modejeu == 4:
+	    #Affichage des crédits
+	    lvl = 0
+	    cred.Affichage(fenetre)
+	
 	
     #Boucle des niveaux
     while lvl != 0:
@@ -187,6 +218,8 @@ while modejeu:
 					cub.tir2.Tir(cub.position)
 				if (key[general.k_shot2] == True) or (key[101] == True):
 					cub.onde.NouvelleOnde(cub.position.move(-70,-50))
+				if (key[general.k_shot3] == True) or (key[114] == True):
+					cub.bomb.Tir(niveau.ennemis, fenetre)
 			else:
 				if key[general.k_up] == True:
 					cub.Deplace('haut', niveau.obstacles)
@@ -201,6 +234,8 @@ while modejeu:
 					cub.tir1.Tir(cub.position)
 				if (key[general.k_shot2] == True) or (key[101] == True):
 					cub.onde.NouvelleOnde(cub.position.move(-70,-50))
+				if (key[general.k_shot3] == True) or (key[114] == True):
+					cub.bomb.Tir(niveau.ennemis, fenetre)
 		    
 		    
 			g += 1
@@ -278,14 +313,14 @@ while modejeu:
 			lvl = menu.MenuAffichage(fenetre, sauvegarde.NiveauActuel(general.caracters[personnage - 1]))
 		else:
 		    if modejeu != 3:
-			menu.FinNiveau(cub.score.score, cub.vie.vie, fenetre, sauvegarde.MeilleurScore(lvl, cub.score.CalculScore(cub.vie.vie)), pers)
+			menu.FinNiveau(cub.score.score, cub.vie.vie, fenetre, sauvegarde.MeilleurScore(lvl, cub.score.CalculScore(cub.vie.vie), general.caracters[personnage - 1]))
 		    elif modejeu == 3:
-			menu.FinNiveau(cub.score.score, 40 - cub.vie.vies_utilisees - cub.vie.vie, fenetre, sauvegarde.MeilleurScore(lvl, cub.score.CalculScore(cub.vie.vie)), campagne)
+			menu.FinNiveau(cub.score.score, 40 - cub.vie.vies_utilisees - cub.vie.vie, fenetre, sauvegarde.MeilleurScore(lvl, cub.score.CalculScore(cub.vie.vie)), general.caracters[campagne - 1])
 		    if cub.vie.vie >= 0:
 			    if modejeu == 1:
 				    if lvl < 30:
-					    if (int(lvl) + 1) > int(sauvegarde.NiveauActuel()):
-						    sauvegarde.NouveauNiveau()
+					    if (int(lvl) + 1) > int(sauvegarde.NiveauActuel(general.caracters[personnage-1])):
+						    sauvegarde.NouveauNiveau(general.caracters[personnage - 1])
 					    lvl += 1
 			    elif modejeu == 2:
 				    lvl = menu.MenuAffichage(fenetre, sauvegarde.NiveauActuel())
@@ -294,6 +329,6 @@ while modejeu:
 		    else:
 			lvl = menu.MenuAffichage(fenetre, sauvegarde.NiveauActuel())
 	    
-    modejeu = menuprincipal.MenuAffichage(fenetre)
+
 pygame.quit()
 

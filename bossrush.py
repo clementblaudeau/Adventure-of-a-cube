@@ -31,6 +31,7 @@ class BossRush:
 		self.clear = False
 		self.imgtransition = pygame.image.load("images/transition.png").convert()
 		self.chrono = Chrono()
+		self.pers = pers
 		
 		
 	def Cleaner(self,cub):
@@ -85,7 +86,7 @@ class BossRush:
 									return True
 								else:
 									self.niv += 1
-									self.boss = Boss(self.niv,pers)
+									self.boss = Boss(self.niv,self.pers)
 									self.transition = True
 									self.clear = True
 									self.compteur = 100

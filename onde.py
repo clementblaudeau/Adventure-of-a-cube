@@ -43,6 +43,7 @@ class Onde:
 	def Progression(self):
 		i = 0
 		for element in self.positions:
+			general.tirs += 2
 			self.progressions[i] += 0.05
 			if self.progressions[i] > 5:
 				self.progressions.remove(self.progressions[i])

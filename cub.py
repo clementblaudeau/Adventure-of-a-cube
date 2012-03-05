@@ -11,6 +11,7 @@ from pygame.locals import *
 from obstacles import * 
 from text import *
 from onde import *
+from bombe import *
 from tir import *
 import general
 
@@ -34,6 +35,7 @@ class Cub:
 		self.onde = Onde()
 		self.tir1 = tir1()
 		self.tir2 = tir2()
+		self.bomb = Bomb()
 		self.modelent = ModeLent()
 		self.images = []
 		self.ve = 0

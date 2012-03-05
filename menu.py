@@ -20,6 +20,7 @@ class Menu:
 		self.gagne = pygame.image.load("images/fin_niveau.png").convert()
 		self.chargement = pygame.image.load("images/chargement.png").convert()
 		self.boutons = Bouton()
+		self.boutons2 = Bouton()
 		self.lastclic = 0
 		self.lastevent = 0
 		self.ok = 0
@@ -35,6 +36,7 @@ class Menu:
 		
 	def MenuAffichage(self,fenetre,nb):
 		self.boutons.Netoyage()
+		self.titre = (self.font.render(str("Choix du level"), 1, (0, 0, 0)))
 		self.x = 30
 		self.y = 150
 		self.nb = "0"
@@ -47,31 +49,17 @@ class Menu:
 			self.boutons.NouveauBouton((self.x,self.y), self.nb)
 			self.y += 50
 			nb -= 1
+		
+		self.boutons2.NouveauBouton((general.w/2 + 100,370), "< Retour")
 		fenetre.blit(self.fond,(0,0))
 		continuer = 1
 		self.boutons.Affichage(fenetre, (0,0), 0)
+		self.boutons2.Affichage(fenetre, (0,0), 0)
 		self.ok = 0
+		self.ok2 = 0
 		while continuer:
 			fenetre.blit(self.fond,(0,0))
 			self.cube.Rotation()
-			if self.cube.ve == 0:
-				self.cube.position = self.cube.position.move(0,-2)
-				if self.cube.position.y <= 0:
-					self.cube.ve = 1
-			elif self.cube.ve == 1:
-				self.cube.position = self.cube.position.move(0,2)
-				if self.cube.position.y + 60 >= general.h:
-					self.cube.ve = 0
-					
-			if self.cube.ho == 0:
-				self.cube.position = self.cube.position.move(-2,0)
-				if self.cube.position.x <= 0:
-					self.cube.ho = 1
-			elif self.cube.ho == 1:
-				self.cube.position = self.cube.position.move(2,0)
-				if self.cube.position.x + 60 >= general.w:
-					self.cube.ho = 0
-			
 			self.cube.Affichage2(fenetre)
 			
 			for event in pygame.event.get():
@@ -86,10 +74,15 @@ class Menu:
 					self.lastevent = 0
 					if self.ok >= 1:
 						return self.ok				
+					if self.ok2 >= 1:
+						general.back = False
+						return 0				
 			if self.lastevent == 1:
 				self.ok = self.boutons.Affichage(fenetre, self.lastpos, 1)
+				self.ok2 = self.boutons2.Affichage(fenetre, self.lastpos, 1)
 			else:
 				self.boutons.Affichage(fenetre, self.lastpos, 0)
+				self.boutons2.Affichage(fenetre, self.lastpos, 0)
 			
 			pygame.display.flip()
 				

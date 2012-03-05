@@ -147,6 +147,9 @@ class NivTirs:
 		self.text = self.font.render(str("Tirs : "+str(general.tirs)), 1, (0, 0, 0))
 		fenetre.blit(self.text, self.position.move(0,50))
 
+		self.text = self.font.render(str("Bombes : "+str(general.n_bomb)), 1, (0, 0, 0))
+		fenetre.blit(self.text, self.position.move(0,150))
+
 
 
 class ModeLent:
