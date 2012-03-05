@@ -13,6 +13,7 @@ from obstacles import *
 from text import *
 from onde import *
 from tir import *
+from bombe import *
 import general
 
 class Perl:
@@ -31,6 +32,7 @@ class Perl:
 		self.img_degat = pygame.image.load("images/degats.png").convert_alpha()
 		self.score = Score()
 		self.vie = Vie()
+		self.bomb = Bomb()
 		self.nivtirs = NivTirs()
 		self.onde = Onde()
 		self.tir1 = tir1()

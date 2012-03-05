@@ -20,7 +20,7 @@ k_shot = 97
 k_shot2 = 101
 k_shot3 = 114
 k_slow = 122
-n_bomb = 3
+n_bomb = 2
 back = False
 
 

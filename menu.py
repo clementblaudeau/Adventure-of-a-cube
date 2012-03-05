@@ -11,6 +11,7 @@ import pygame
 from pygame.locals import *
 import general
 from cub import *
+from boutons import *
 
 
 class Menu:
@@ -19,8 +20,8 @@ class Menu:
 		self.fond = pygame.image.load("images/menu.png").convert_alpha()
 		self.gagne = pygame.image.load("images/fin_niveau.png").convert()
 		self.chargement = pygame.image.load("images/chargement.png").convert()
-		self.boutons = Bouton()
-		self.boutons2 = Bouton()
+		self.boutons = Bouton_Nb()
+		self.boutons2 = Bouton_Text()
 		self.lastclic = 0
 		self.lastevent = 0
 		self.ok = 0
@@ -201,6 +202,10 @@ class Menu:
 	def Pause(self,fenetre):
 		fenetre.blit(pygame.image.load("images/pause.png").convert_alpha(),(0,0));
 		pygame.display.flip()
+		self.boutons2.Netoyage()
+		self.boutons2.NouveauBouton((general.w/2 + 100,370), "< Retour")
+		self.boutons2.Affichage(fenetre, (0,0), 0)
+		self.ok2 = 0
 		pygame.time.delay(100)
 		continuer = 1
 		pygame.event.clear()
@@ -215,6 +220,22 @@ class Menu:
 					continuer = 0
 					pygame.event.clear()
 					break
+				if event.type == MOUSEMOTION:
+					self.lastevent = event.dict["buttons"][0]
+					self.lastpos = event.dict["pos"]
+				if event.type == MOUSEBUTTONDOWN:
+					self.lastevent = 1
+				if event.type == MOUSEBUTTONUP:
+					self.lastevent = 0		
+					if self.ok2 >= 1:
+						general.back = False
+						return 0				
+			if self.lastevent == 1:
+				self.ok2 = self.boutons2.Affichage(fenetre, self.lastpos, 1)
+			else:
+				self.boutons2.Affichage(fenetre, self.lastpos, 0)
+			
+			pygame.display.flip()
 		
 		fenetre.blit(self.font.render("3", 1, (255, 255, 0)), ((general.w/2)-50, 320))
 		pygame.display.flip()
@@ -266,47 +287,6 @@ class Menu:
 
 
 
-class Bouton:
-	
-	def __init__(self):
-		self.off = pygame.image.load("images/bouton.png").convert_alpha()
-		self.hover = pygame.image.load("images/bouton-hover.png").convert_alpha()
-		self.on = pygame.image.load("images/bouton-on.png").convert_alpha()
-		self.positions = []
-		self.numeros = []
-		self.num = []
-		self.font = pygame.font.Font("polices/Coalition.ttf", 32)
-		
-	
-	def NouveauBouton(self, position, numero):
-		temp = self.off.get_rect()
-		self.positions.append(temp.move(position))
-		self.numeros.append(self.font.render(str(numero), 1, (0, 0, 0)))
-		self.num.append(numero)
-	
-	def Affichage(self,fenetre, souris, clic):
-		i = 0
-		for element in self.positions:
-			fenetre.blit(self.off,element)
-		for element in self.positions:
-			fenetre.blit(self.numeros[i], (element.centerx - 15, element.centery-10))
-			if souris[0] > element.left and souris[0] < element.right:
-				if souris[1] > element.top and souris[1] < element.bottom:
-					if clic == 1:
-						fenetre.blit(self.on, element)
-						j = 0
-						for element in self.positions:
-							fenetre.blit(self.numeros[j], (element.centerx - 15, element.centery-10))
-							j += 1
-						return int(self.num[i])
-					else:
-						fenetre.blit(self.hover, element)
-						fenetre.blit(self.numeros[i], (element.centerx - 15, element.centery-10))
-			i +=1
-	def Netoyage(self):
-		self.positions = []
-		self.numeros = []
-		self.num = []
 			
 
 
