@@ -157,6 +157,7 @@ class Cub:
 		self.tir2 = tir2()
 		general.tirs = 0
 		self.degats = 0
+		general.n_bomb = 2
 		
 	def Nettoyage2(self):
 		self.position.x = 0

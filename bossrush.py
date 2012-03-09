@@ -12,6 +12,7 @@ import pygame
 from pygame.locals import *
 from obstacles import * 
 from ennemis import *
+from boss2 import *
 from boss import *
 from text import *
 import general

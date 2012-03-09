@@ -64,10 +64,9 @@ g = 0
 repeter = 1;
 
 #Chargement et collage du personnage, chargement de variables relatives au personnage
-cub = Perl()
+cub = Cub()
 cub.position = cub.position.move(275,350)
 cub.hitbox = cub.hitbox.move(303,373)
-fenetre.blit(cub.image, cub.position)
 mode = "rapide"
 delai = 0
 mode_lent = pygame.image.load("images/m_lent.png").convert_alpha()
@@ -77,7 +76,6 @@ surcharge_boucle = pygame.time.get_ticks()
 
 #Chargement du panneau de d'informations de jeu
 paneau = pygame.image.load("images/paneau(0).png").convert_alpha()
-fenetre.blit(paneau,(general.w,0))
 
 #Rafraîchissement de l'écran
 pygame.time.delay(2500)
@@ -165,6 +163,7 @@ while modejeu:
 		    #menu.DebutNiveau(fenetre,3)
 		else:
 		    niveau = BossRush(general.caracters[campagne - 1])
+		    general.scrool = -100
 		continuer = 1
 		cub.Nettoyage()
 		mode = "rapide"
@@ -181,7 +180,6 @@ while modejeu:
 		#Rafraichissement
 		pygame.display.flip()
 		menu.CommencementNiveau(fenetre)
-		
 		
 		while continuer:
 			tps_debut_boucle = pygame.time.get_ticks()
@@ -202,7 +200,7 @@ while modejeu:
 						    continue
 						pygame.event.clear()
 		
-			if key[general.k_slow] == True and ((pygame.time.get_ticks() - delai) > general.h+10):
+			if ((key[general.k_slow] == True) or (key[122] == True)) and ((pygame.time.get_ticks() - delai) > general.h+10):
 				delai = pygame.time.get_ticks()
 				if mode == "lent":
 					mode = "rapide"
@@ -219,7 +217,7 @@ while modejeu:
 				if key[general.k_right] == True:
 					cub.DeplaceLent('droite', niveau.obstacles)
 				#Tirs
-				if (key[general.k_shot] == True) or (key[65] == True):
+				if (key[general.k_shot] == True) or (key[97] == True):
 					cub.tir2.Tir(cub.position)
 				if (key[general.k_shot2] == True) or (key[101] == True):
 					cub.onde.NouvelleOnde(cub.position.move(-70,-50))
@@ -235,7 +233,7 @@ while modejeu:
 				if key[general.k_right] == True:
 					cub.Deplace('droite', niveau.obstacles)
 				#Tirs
-				if (key[general.k_shot] == True) or (key[65] == True):
+				if (key[general.k_shot] == True) or (key[97] == True):
 					cub.tir1.Tir(cub.position)
 				if (key[general.k_shot2] == True) or (key[101] == True):
 					cub.onde.NouvelleOnde(cub.position.move(-70,-50))
@@ -320,13 +318,12 @@ while modejeu:
 		    if modejeu != 3:
 			menu.FinNiveau(cub.score.score, cub.vie.vie, fenetre, sauvegarde.MeilleurScore(lvl, cub.score.CalculScore(cub.vie.vie), general.caracters[personnage - 1]))
 		    elif modejeu == 3:
-			menu.FinNiveau(cub.score.score, 40 - cub.vie.vies_utilisees - cub.vie.vie, fenetre, sauvegarde.MeilleurScore(lvl, cub.score.CalculScore(cub.vie.vie)), general.caracters[campagne - 1])
+			menu.FinNiveau(cub.score.score, 40 - cub.vie.vies_utilisees - cub.vie.vie, fenetre, sauvegarde.MeilleurScore(lvl, cub.score.CalculScore(cub.vie.vie), general.caracters[personnage - 1]), general.caracters[campagne - 1])
 		    if cub.vie.vie >= 0:
 			    if modejeu == 1:
-				    if lvl < 30:
-					    if (int(lvl) + 1) > int(sauvegarde.NiveauActuel(general.caracters[personnage-1])):
-						    sauvegarde.NouveauNiveau(general.caracters[personnage - 1])
-					    lvl += 1
+				if int(int(lvl) + 1) > sauvegarde.NiveauActuel(general.caracters[personnage - 1]):
+				   sauvegarde.NouveauNiveau(general.caracters[personnage - 1])
+				lvl = str(int(lvl) + 1)
 			    elif modejeu == 2:
 				    lvl = menu.MenuAffichage(fenetre, sauvegarde.NiveauActuel(general.caracters[personnage - 1]))
 			    elif modejeu == 3:

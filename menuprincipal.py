@@ -33,6 +33,7 @@ class MenuPrincipal:
 		self.boutons.NouveauBouton((general.w/2 - 100,320), "Credits")
 		
 	def MenuAffichage(self,fenetre):
+		fenetre.blit(pygame.image.load("images/lv1.jpg").convert(), (general.w,0))
 		fenetre.blit(self.fond,(0,0))
 		continuer = 1
 		self.boutons = Bouton_Text()
@@ -49,6 +50,7 @@ class MenuPrincipal:
 			self.cube.Affichage2(fenetre)
 			for event in pygame.event.get():
 				if event.type == QUIT:
+					pygame.quit()
 					return 0
 				if event.type == MOUSEMOTION:
 					self.lastevent = event.dict["buttons"][0]

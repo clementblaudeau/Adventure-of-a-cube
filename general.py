@@ -16,10 +16,10 @@ k_left = 276
 k_right = 275
 k_up = 273
 k_down = 274
-k_shot = 97
+k_shot = 113
 k_shot2 = 101
 k_shot3 = 114
-k_slow = 122
+k_slow = 119
 n_bomb = 2
 back = False
 

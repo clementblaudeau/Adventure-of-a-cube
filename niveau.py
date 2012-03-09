@@ -12,6 +12,7 @@ import pygame
 from pygame.locals import *
 from obstacles import * 
 from ennemis import *
+from boss2 import *
 from boss import *
 from text import *
 import general
@@ -19,6 +20,7 @@ import general
 class Niveau:
 	
 	def __init__(self, numero, pers):
+		print numero
 		self.nom_fichier = "niveaux/"+pers+"/("+str(general.diff_level)+")/" + numero + ".lvl"
 		self.fichier = open(self.nom_fichier, "r")
 		self.contenu = self.fichier.readlines()
@@ -30,7 +32,6 @@ class Niveau:
 			self.contenu[b]= element[0:c-1]
 			c = 0
 			b += 1
-		
 		self.nom = self.contenu[0]
 		self.nom_background = self.contenu[1]
 		self.fond = pygame.image.load(self.nom_background).convert()
@@ -125,17 +126,16 @@ class Niveau:
 		pass
 		
 	def Fini(self):
-		if self.ennemis.positions == []:
-			if self.obstacles.positions == []:
-				if self.obstacles.eclat.positions == []:
-					if self.ennemis.eclats.positions == []:
-						if self.ennemis.positionsf == []:
-						    try:
-							if self.boss.Fini() == True:
-								return True
-						    except:
-								return True
-		return False
+	    self.ennemis.Cleaner()
+	    if (self.ennemis.positions == []) and (self.ennemis.Fini() == True) and (self.ennemis.positionsf == []):
+		if self.obstacles.positions == []:
+		    if self.obstacles.eclat.positions == [] and self.ennemis.eclats.positions == []:
+			try:
+			    if self.boss.Fini() == True:
+				return True
+			except:
+			    return True
+	    return False
 		
 
 

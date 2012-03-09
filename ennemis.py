@@ -320,30 +320,29 @@ class Ennemis:
 				return 0
 			i+=1
 		i = 0
-		if self.comp == True :
-			for element in self.tirs5:
-				if self.tirs5[i].bottom < 0:
-					self.tirs5.remove(element)
-					return 0
-				i+=1
-			i = 0
-			for element in self.tirs6:
-				if self.tirs6[i].bottom < 0:
-					self.tirs6.remove(element)
-					return 0
-				i+=1
-			i = 0
-			for element in self.tirs7:
-				if self.tirs7[i].top > 490:
-					self.tirs7.remove(element)
-					return 0
-				i+=1
-			i = 0
-			for element in self.tirs8:
-				if self.tirs8[i].top > 490:
-					self.tirs8.remove(element)
-					return 0
-				i+=1			
+		for element in self.tirs5:
+			if self.tirs5[i].bottom < 0:
+				self.tirs5.remove(element)
+				return 0
+			i+=1
+		i = 0
+		for element in self.tirs6:
+			if self.tirs6[i].bottom < 0:
+				self.tirs6.remove(element)
+				return 0
+			i+=1
+		i = 0
+		for element in self.tirs7:
+			if self.tirs7[i].top > 490:
+				self.tirs7.remove(element)
+				return 0
+			i+=1
+		i = 0
+		for element in self.tirs8:
+			if self.tirs8[i].top > 490:
+				self.tirs8.remove(element)
+				return 0
+			i+=1			
 				
 	def Affichage(self, fenetre):
 		#Scrool, 
@@ -451,6 +450,14 @@ class Ennemis:
 				fenetre.blit(self.bille, element)
 		
 		self.eclats.Affichage(fenetre)
+	
+	def Fini(self):
+		self.Cleaner()
+		if self.tirs1 == [] and self.tirs2 == [] and self.tirs3 == [] and self.tirs4 == [] and self.tirs5 == [] and self.tirs6 == [] and self.tirs7 == [] and self.tirs8 == []:
+			return True
+		else:
+			return False
+	
 	
 	def Nettoyage(self):
 		self.tirs1 = []
