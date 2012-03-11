@@ -8,36 +8,50 @@ class Explosions:
 	
 	def __init__(self):
 		self.positions = []
-		self.niveau = []
-		self.etapes = [
-						pygame.image.load("images/explosion1.png").convert_alpha(),
-						pygame.image.load("images/explosion2.png").convert_alpha(),
-						pygame.image.load("images/explosion3.png").convert_alpha(),
-						pygame.image.load("images/explosion4.png").convert_alpha()
-						]
+		self.images = [
+		pygame.image.load("images/explosion1.png").convert_alpha(),
+		pygame.image.load("images/explosion1a.png").convert_alpha(),
+		pygame.image.load("images/explosion1a.png").convert_alpha(),
+		pygame.image.load("images/explosion1b.png").convert_alpha(),
+		pygame.image.load("images/explosion1b.png").convert_alpha(),
+		pygame.image.load("images/explosion2.png").convert_alpha(),
+		pygame.image.load("images/explosion2a.png").convert_alpha(),
+		pygame.image.load("images/explosion2a.png").convert_alpha(),
+		pygame.image.load("images/explosion2b.png").convert_alpha(),
+		pygame.image.load("images/explosion2b.png").convert_alpha(),
+		pygame.image.load("images/explosion3.png").convert_alpha(),
+		pygame.image.load("images/explosion3a.png").convert_alpha(),
+		pygame.image.load("images/explosion3a.png").convert_alpha(),
+		pygame.image.load("images/explosion3b.png").convert_alpha(),
+		pygame.image.load("images/explosion3b.png").convert_alpha(),
+		pygame.image.load("images/explosion4.png").convert_alpha(),
+		pygame.image.load("images/explosion4a.png").convert_alpha(),
+		pygame.image.load("images/explosion4a.png").convert_alpha(),
+		pygame.image.load("images/explosion4b.png").convert_alpha(),
+		pygame.image.load("images/explosion4b.png").convert_alpha()]
 						
 
-	def NouvelleExplosion(self, y, x):
-		ttemp = self.etapes[1].get_rect()
-		self.positions.append(ttemp.move(y,x))
-		self.niveau.append(0)
+	def NouvelleExplosion(self, x, y):
+		self.positions.append([(x,y),0])
+		
 		
 	def Affichage(self, fenetre):
-		i = 0
-		for element in self.positions:
-			self.niveau[i] += 1
-			if self.niveau == 1:
-				fenetre.blit(self.etapes[1], element)
-			if self.niveau == 2:
-				fenetre.blit(self.etapes[2], element)
-			if self.niveau == 3:
-				fenetre.blit(self.etapes[3], element)
-			if self.niveau == 4:
-				fenetre.blit(self.etapes[4], element)
-			if self.niveau == 5:
-				self.niveau.remove(5)
-				self.positions.remove(element)
-			i+=1
+		if self.positions != []:
+			supp = []
+			for i in range(len(self.positions)):
+				fenetre.blit(self.images[self.positions[i][1]],self.positions[i][0])
+				print self.positions[i][1]
+				self.positions[i][1]+= 1
+			for i in range(len(self.positions)):
+				if self.positions[i][1] > 11:
+					supp.append(i)
+			for element in supp:
+				try:
+					self.positions.pop(element)
+				except:
+					pass
+			
+		
 			
 
 class Eclat:
@@ -45,9 +59,11 @@ class Eclat:
 	def __init__(self):
 		self.eclat = pygame.image.load("images/eclat.png").convert_alpha()
 		self.positions = []
+		self.explosions = Explosions()
 		self.j = 0
 
 	def Explosion(self, position, sorte):
+		self.explosions.NouvelleExplosion(position.left-50,position.top-50)
 		if sorte > 0:
 			self.positions.append(position.move(12,12))
 			self.positions.append(position.move(-12,-12))
@@ -70,6 +86,7 @@ class Eclat:
 		return retour
 
 	def Affichage(self, fenetre):
+		self.explosions.Affichage(fenetre)
 		self.j += 1
 		i = 0
 		if self.j > 10:

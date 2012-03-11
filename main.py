@@ -287,7 +287,7 @@ while modejeu:
 			if mode == "lent":
 				fenetre.blit(mode_lent, (0,0))
 				cub.modelent.Affichage(fenetre)
-			niveau.chrono.Affichage(pygame.time.get_ticks(), fenetre, "")
+			#niveau.chrono.Affichage(pygame.time.get_ticks(), fenetre, "")
 			cub.Affichage(fenetre)
 			#Rafraichissement
 			pygame.display.flip()
