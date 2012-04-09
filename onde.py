@@ -37,7 +37,6 @@ class Onde:
 			temp = self.onde01.get_rect()
 			position = temp.move(position.x, position.y)
 			self.positions.append(position)
-			print self.positions
 			self.progressions.append(0)
 		
 	def Progression(self):
@@ -54,11 +53,8 @@ class Onde:
 		i = 0
 		general.c_protect = False
 		for element in self.positions:
-			print "ici"
 			if self.progressions[i] > 1:
-				print "	  la!"
 				if element.colliderect(cub) == True:
-					print "        et là !"
 					general.c_protect = True
 					
 				

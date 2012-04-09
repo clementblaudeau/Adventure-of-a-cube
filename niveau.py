@@ -20,7 +20,6 @@ import general
 class Niveau:
 	
 	def __init__(self, numero, pers):
-		print numero
 		self.nom_fichier = "niveaux/"+pers+"/("+str(general.diff_level)+")/" + numero + ".lvl"
 		self.fichier = open(self.nom_fichier, "r")
 		self.contenu = self.fichier.readlines()

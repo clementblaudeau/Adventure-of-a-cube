@@ -39,8 +39,7 @@ class Explosions:
 		if self.positions != []:
 			supp = []
 			for i in range(len(self.positions)):
-				fenetre.blit(self.images[self.positions[i][1]],self.positions[i][0])
-				print self.positions[i][1]
+				fenetre.blit(self.images[self.positions[i][1]],self.positions[i][0]
 				self.positions[i][1]+= 1
 			for i in range(len(self.positions)):
 				if self.positions[i][1] > 11:

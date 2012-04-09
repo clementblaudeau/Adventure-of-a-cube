@@ -33,7 +33,10 @@ class Ennemis:
 		self.tirs7 = []
 		self.tirs8 = []
 		self.positions_tirs = []
-		self.bille = pygame.image.load("images/bille("+str(style)+").png").convert_alpha()
+		self.bille1 = pygame.image.load("images/bille("+str(style)+").png").convert_alpha()
+		self.bille2 = pygame.image.load("images/bille("+str(style)+")(2).png").convert_alpha()
+		self.bille3 = pygame.image.load("images/bille("+str(style)+")(3).png").convert_alpha()
+		self.bille = self.bille1
 		self.ennemis1 = pygame.image.load("images/("+str(style)+")/ennemis1.png").convert_alpha()
 		self.ennemis2 = pygame.image.load("images/("+str(style)+")/ennemis2.png").convert_alpha()
 		self.ennemis3 = pygame.image.load("images/("+str(style)+")/ennemis3.png").convert_alpha()
@@ -52,6 +55,8 @@ class Ennemis:
 		self.eclats = Eclat()
 		self.fini = 0
 		self.comp = False
+		self.t_bille = 0
+		self.t_bille2 = 0
 		
 	def NouvelEnnemi(self, sorte, x, y):
 		#Ajout d'un ennemi. A faire avec les niveaux
@@ -168,7 +173,6 @@ class Ennemis:
 						if self.vies[i] <= 0:
 							general.ennemis += 1
 							self.eclats.Explosion(self.positions[i],self.sortes[i] * 3)
-							print self.sortes[i]
 							self.vies.remove(self.vies[i])
 							self.sortes.pop(i)
 							self.positions.remove(element2)
@@ -349,7 +353,14 @@ class Ennemis:
 		#Affichage
 		self.Cleaner()
 		
-
+		if (pygame.time.get_ticks() - self.t_bille) >= 150:
+			self.t_bille = pygame.time.get_ticks()
+			if self.bille == self.bille1:
+				self.bille = self.bille2
+			elif self.bille == self.bille2:
+				self.bille = self.bille3
+			else:
+				self.bille = self.bille1
 		i = 0
 		for element in self.tirs1:
 			self.tirs1[i].right -= 1
@@ -416,7 +427,9 @@ class Ennemis:
 			if self.sortesf[i] == 6:
 				fenetre.blit(self.ennemis_f6, element)
 			i+=1
-			
+		
+		
+		
 		for element in self.tirs1:
 			if not (element.right > 690) and not (element.left < -10) and not (element.top < -5) and not (element.bottom > 490):
 				fenetre.blit(self.bille, element)

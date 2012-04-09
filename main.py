@@ -321,7 +321,7 @@ while modejeu:
 			menu.FinNiveau(cub.score.score, 40 - cub.vie.vies_utilisees - cub.vie.vie, fenetre, sauvegarde.MeilleurScore(lvl, cub.score.CalculScore(cub.vie.vie), general.caracters[personnage - 1]), general.caracters[campagne - 1])
 		    if cub.vie.vie >= 0:
 			    if modejeu == 1:
-				if int(int(lvl) + 1) > sauvegarde.NiveauActuel(general.caracters[personnage - 1]):
+				if int(int(lvl) + 1) > int(sauvegarde.NiveauActuel(general.caracters[personnage - 1])):
 				   sauvegarde.NouveauNiveau(general.caracters[personnage - 1])
 				lvl = str(int(lvl) + 1)
 			    elif modejeu == 2:

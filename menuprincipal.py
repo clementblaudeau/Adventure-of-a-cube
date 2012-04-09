@@ -44,6 +44,7 @@ class MenuPrincipal:
 		
 		self.boutons.Affichage(fenetre, (0,0), 0)
 		self.ok = 0
+		self.ok2 = 0
 		while continuer:
 			fenetre.blit(self.fond,(0,0))
 			self.cube.Rotation()

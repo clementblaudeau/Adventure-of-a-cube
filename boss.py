@@ -22,7 +22,7 @@ class Boss:
 		try:
 			self.image = pygame.image.load("images/boss"+str(niv)+".png")
 		except:
-			self.image = pygame.image.load("images/boss.png")
+			self.image = pygame.image.load("images/boss1.png")
 		try:
 			self.fichier = open("niveaux/"+str(pers)+"/("+str(general.diff_level)+")/boss"+str(niv)+".bs", "r")
 			boss = pickle.load(self.fichier)
@@ -39,7 +39,6 @@ class Boss:
 			self.fichier.close()
 			for i in range(len(self.hitboxs)):
 				self.hitboxs[i][1].top = general.scrool
-		print self.tirs
 		self.position = self.image.get_rect().move(0,general.scrool)
 		self.time = 0
 		self.son = pygame.mixer.Sound("son/mort.ogg")

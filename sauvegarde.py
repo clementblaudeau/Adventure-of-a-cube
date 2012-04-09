@@ -69,8 +69,7 @@ class Sauvegarde:
 			return "Nouveau record !"
 		
 	def NouveauNiveau(self,pers):
-		print "[[[[[[[[[ => => "+str(int(self.niveau + 1))+" <= <=]]]]]]]]]"
-		if self.niveau + 1 > 16:
+		if int(self.niveau) + 1 > 16:
 			if general.diff_level == 2:	
 				os.remove('sauvegardes/'+pers+'/campagne.sa')
 				self.fichier = open('sauvegardes/'+pers+'/campagne.sa', "w")
