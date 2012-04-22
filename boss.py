@@ -25,12 +25,14 @@ class Boss:
 			self.image = pygame.image.load("images/boss1.png")
 		try:
 			self.fichier = open("niveaux/"+str(pers)+"/("+str(general.diff_level)+")/boss"+str(niv)+".bs", "r")
+			print "niveaux/"+str(pers)+"/("+str(general.diff_level)+")/boss"+str(niv)+".bs"
 			boss = pickle.load(self.fichier)
 			self.hitboxs = boss[0]
 			self.timer = boss[1]
 			self.tirs = boss[2]
 			self.fichier.close()
 		except:
+			print "Erreur de chargement du boss !"
 			self.fichier = open("niveaux/Cub/(1)/boss1.bs", "r")
 			boss = pickle.load(self.fichier)
 			self.hitboxs = boss[0]

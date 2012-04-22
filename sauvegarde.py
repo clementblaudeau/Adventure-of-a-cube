@@ -14,7 +14,7 @@ import os
 
 class Sauvegarde:
 	
-	def __init__(self):
+	def __init__(self, sav=1):
 		try:
 			self.fichier = open('sauvegardes/campagne.sa', "r")
 			self.persos = int(self.fichier.read())
@@ -42,8 +42,9 @@ class Sauvegarde:
 	
 	def NiveauActuel(self, pers):
 		self.fichier = open('sauvegardes/'+pers+'/('+str(general.diff_level)+')/campagne.sa', "r")
-		self.niveau = self.fichier.read()
-		self.niveau = self.niveau[0:len(self.niveau) - 1]
+		self.niveau = self.fichier.readline()
+		self.niveau = self.niveau[0]
+		print self.niveau
 		return self.niveau
 	
 	def MeilleurScore(self, numero, score,pers):
