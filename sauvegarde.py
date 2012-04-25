@@ -15,17 +15,17 @@ import os
 class Sauvegarde:
 	
 	def __init__(self, sav=1):
-		self.sav = sav
-		try:
+			self.sav = sav
+		#try:
 			self.saves = open("save/"+str(self.sav)+"/general.sa", "r")
 			self.data_saves = pickle.load(self.saves)
 			self.scores = open("save/"+str(self.sav)+"/score.sa", "r")
 			self.data_scores = pickle.load(self.scores)
 			general.caracters = self.data_saves[0]
-		except:
+		#except:
 			general.error = "Save Error"
 			#self.Reset()
-		finally:
+		#finally:
 			self.saves.close()
 			self.scores.close()
 	
@@ -48,10 +48,10 @@ class Sauvegarde:
 		print pers
 		if pers == "Cub":
 			if self.data_scores[0][1][int(general.diff_level - 1)][int(int(numero)-1)] >= score:
-				return "Meilleur score : "+str(int(self.data_scores[0][general.diff_level -1][int(numero) - 1]))+"..."
+				return "Meilleur score : "+str(self.data_scores[0][1][int(general.diff_level - 1)][int(int(numero)-1)])+"..."
 			else:
 				self.data_scores[0][1][general.diff_level -1][int(numero) - 1] = score
-				self.scores = open("save/"+str(self.sav)+"/general.sa", "w")
+				self.scores = open("save/"+str(self.sav)+"/score.sa", "w")
 				pickle.dump(self.data_scores,self.scores)
 				self.scores.close()
 				return "Nouveau record !"
@@ -60,7 +60,7 @@ class Sauvegarde:
 				return "Meilleur score : "+str(int(self.data_scores[1][general.diff_level -1][int(numero) - 1]))+"..."
 			else:
 				self.data_scores[1][1][general.diff_level -1][int(numero) - 1] = score
-				self.scores = open("save/"+str(self.sav)+"/general.sa", "w")
+				self.scores = open("save/"+str(self.sav)+"/score.sa", "w")
 				pickle.dump(self.data_scores,self.scores)
 				self.scores.close()
 				return "Nouveau record !"
@@ -69,7 +69,7 @@ class Sauvegarde:
 				return "Meilleur score : "+str(int(self.data_scores[2][general.diff_level -1][int(numero) - 1]))+"..."
 			else:
 				self.data_scores[2][1][general.diff_level -1][int(numero) - 1] = score
-				self.scores = open("save/"+str(self.sav)+"/general.sa", "w")
+				self.scores = open("save/"+str(self.sav)+"/score.sa", "w")
 				pickle.dump(self.data_scores,self.scores)
 				self.scores.close()
 				return "Nouveau record !"
@@ -78,26 +78,26 @@ class Sauvegarde:
 		
 	def NouveauNiveau(self,pers):
 		if pers == "Cub":
-			if self.data_saves[1][1][int(general.diff_level + 1)][1] + 1 > 16:
-				self.data_saves[1][1][int(general.diff_level + 1)][1] = 16
-				self.data_saves[1][2][int(general.diff_level + 1)][0] = True
+			if self.data_saves[1][1][int(general.diff_level)][1] + 1 > 16:
+				self.data_saves[1][1][int(general.diff_level)][1] = 16
+				self.data_saves[1][2][int(general.diff_level)][0] = True
 			else:
-				self.data_saves[1][1][int(general.diff_level + 1)][1] += 1
+				self.data_saves[1][1][int(general.diff_level)][1] += 1
 			self.saves = open("save/"+str(self.sav)+"/general.sa", "w")
-			pickle.dump(self.data_saves,self.daves)
+			pickle.dump(self.data_saves,self.saves)
 			self.saves.close()
 		elif pers == "Perl":
-			if self.data_saves[1][2][int(general.diff_level + 1)][1] + 1 > 16:
-				self.data_saves[1][2][int(general.diff_level + 1)][1] = 16
-				self.data_saves[1][3][int(general.diff_level + 1)][0] = True
+			if self.data_saves[1][2][int(general.diff_level)][1] + 1 > 16:
+				self.data_saves[1][2][int(general.diff_level)][1] = 16
+				self.data_saves[1][3][int(general.diff_level)][0] = True
 			else:
-				self.data_saves[1][2][int(general.diff_level + 1)][1] += 1
+				self.data_saves[1][2][int(general.diff_level)][1] += 1
 			self.saves = open("save/"+str(self.sav)+"/general.sa", "w")
 			pickle.dump(self.data_saves,self.saves)
 			self.saves.close()
 		elif pers == "Sneeze":
-			if self.data_saves[1][1][int(general.diff_level + 1)][1] + 1 > 16:
-				self.data_saves[1][1][int(general.diff_level + 1)][1] = 16
+			if self.data_saves[1][1][int(general.diff_level)][1] + 1 > 16:
+				self.data_saves[1][1][int(general.diff_level)][1] = 16
 				self.data_saves[2][1][1][0] = True
 				self.data_saves[2][1][2][0] = True
 				self.data_saves[2][1][3][0] = True
@@ -108,9 +108,9 @@ class Sauvegarde:
 				self.data_saves[2][3][2][0] = True
 				self.data_saves[2][3][3][0] = True
 			else:
-				self.data_saves[1][1][int(general.diff_level + 1)][1] += 1
+				self.data_saves[1][1][int(general.diff_level)][1] += 1
 			self.saves = open("save/"+str(self.sav)+"/general.sa", "w")
-			pickle.dump(self.data_saves,self.daves)
+			pickle.dump(self.data_saves,self.saves)
 			self.saves.close()
 	
 	def BossRush(self):

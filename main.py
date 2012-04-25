@@ -26,6 +26,7 @@ from menu import *
 from menuprincipal import *
 from sauvegarde import *
 from bossrush import *
+from game import *
 import general
 
 pygame.init()
@@ -33,7 +34,8 @@ pygame.init()
 #Ouverture de la fenetre Pygame
 fenetre = pygame.display.set_mode((general.w+200, general.h), DOUBLEBUF)
 
-#Chargement du niveau
+#Chargement des elements du moteur
+jeu = Game()
 
 #Chargement des menus et crédits
 menu = Menu()
@@ -147,8 +149,8 @@ while modejeu:
 	    cred.Affichage(fenetre)
 	
 	
-    #Boucle des niveaux
-    while lvl != 0:
+	#Boucle des niveaux
+	while lvl != 0:
 		#Nettoyage pour commencer le niveau
 		if personnage == 1:
 		    cub = Cub()
@@ -329,6 +331,7 @@ while modejeu:
 			    elif modejeu == 3:
 				    lvl = 0
 		    else:
+			lvl = 0
 			continue
 	    
 

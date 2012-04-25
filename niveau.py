@@ -98,31 +98,32 @@ class Niveau:
 		self.chrono.Affichage(pygame.time.get_ticks(), fenetre, "")
 		
 	def Collisions(self,cub):
-	    cub.tir1.positions = self.obstacles.ColisionsTir(cub.tir1.positions, 1+general.niv)
-	    cub.tir2.positions = self.obstacles.ColisionsTir(cub.tir2.positions, 6+general.niv)
-	    cub.tir1.positions = self.ennemis.CollisionsTirs(cub.tir1.positions, 1+general.niv)
-	    cub.tir2.positions = self.ennemis.CollisionsTirs(cub.tir2.positions, 6+general.niv)
-	    try:
-		self.boss.CollisionTirs(cub.tir1.positions)
-		self.boss.CollisionTirs(cub.tir2.positions)
-		cub.score.score += self.boss.eclats.Absorption(cub)
-	    except:
-		pass
-	    cub.score.score += self.obstacles.eclat.Absorption(cub)
-	    cub.score.score += self.ennemis.eclats.Absorption(cub)
-	    if (self.ennemis.CollisionCube(cub.hitbox) == True):
-		if cub.degats == 0:
-		    cub.vie.vie += -1
-		    cub.degats +=200
-		    cub.Reboot()
-	    try:
-		if (self.boss.CollisionCube(cub.hitbox) == True):
+	    if general.c_protect == False:
+		cub.tir1.positions = self.obstacles.ColisionsTir(cub.tir1.positions, 1+general.niv)
+		cub.tir2.positions = self.obstacles.ColisionsTir(cub.tir2.positions, 6+general.niv)
+		cub.tir1.positions = self.ennemis.CollisionsTirs(cub.tir1.positions, 1+general.niv)
+		cub.tir2.positions = self.ennemis.CollisionsTirs(cub.tir2.positions, 6+general.niv)
+		try:
+		    self.boss.CollisionTirs(cub.tir1.positions)
+		    self.boss.CollisionTirs(cub.tir2.positions)
+		    cub.score.score += self.boss.eclats.Absorption(cub)
+		except:
+		    pass
+		cub.score.score += self.obstacles.eclat.Absorption(cub)
+		cub.score.score += self.ennemis.eclats.Absorption(cub)
+		if (self.ennemis.CollisionCube(cub.hitbox) == True):
 		    if cub.degats == 0:
 			cub.vie.vie += -1
 			cub.degats +=200
 			cub.Reboot()
-	    except:
-		pass
+		try:
+		    if (self.boss.CollisionCube(cub.hitbox) == True):
+			if cub.degats == 0:
+			    cub.vie.vie += -1
+			    cub.degats +=200
+			    cub.Reboot()
+		except:
+		    pass
 		
 	def Fini(self):
 	    self.ennemis.Cleaner()
