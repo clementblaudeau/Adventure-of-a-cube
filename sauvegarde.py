@@ -8,94 +8,114 @@
 
 import pygame
 from pygame.locals import *	
-
+import pickle
 import general
 import os
 
 class Sauvegarde:
 	
 	def __init__(self, sav=1):
+		self.sav = sav
 		try:
-			self.fichier = open('sauvegardes/campagne.sa', "r")
-			self.persos = int(self.fichier.read())
-			if self.persos >= 2:
-				general.caracters.append("Perl")
-			if self.persos >= 3:
-				general.caracters.append("Sneeze")
+			self.saves = open("save/"+str(self.sav)+"/general.sa", "r")
+			self.data_saves = pickle.load(self.saves)
+			self.scores = open("save/"+str(self.sav)+"/score.sa", "r")
+			self.data_scores = pickle.load(self.scores)
+			general.caracters = self.data_saves[0]
 		except:
-			self.fichier = open('sauvegardes/campagnes.sa', 'w')
-			self.fichier.write("1")
+			general.error = "Save Error"
+			#self.Reset()
 		finally:
-			self.fichier.close()
+			self.saves.close()
+			self.scores.close()
 	
 	def Difficulte(self, caracter):
-		try:
-			self.fichier = open('sauvegardes/'+str(general.caracters[caracter])+'/campagne.sa', 'r')
-			self.contenu = self.fichier.read()
-			self.fichier.close()
-			return int(self.contenu)
-		except:
-			self.fichier = open('sauvegardes/'+str(general.caracters[caracter])+'/campagne.sa', 'w')
-			self.fichier.write("1")
-			self.fichier.close()
-			return 1
+			if self.data_saves[1][int(int(caracter)+1)][3][0] == True:
+				return 3
+			elif self.data_saves[1][int(int(caracter)+1)][2][0] == True:
+				return 2
+			else:
+				return 1
 	
 	def NiveauActuel(self, pers):
-		self.fichier = open('sauvegardes/'+pers+'/('+str(general.diff_level)+')/campagne.sa', "r")
-		self.niveau = self.fichier.readline()
-		self.niveau = self.niveau[0]
-		print self.niveau
-		return self.niveau
+		return self.data_saves[1][int(pers)][general.diff_level][1]
+		
 	
 	def MeilleurScore(self, numero, score,pers):
-		try :
-			self.fichier2 = open('sauvegardes/'+pers+'/('+str(general.diff_level)+')/'+str(numero)+'.sa', 'r')
-		except:
-			try:
-				self.fichier2 = open('sauvegardes/'+pers+'/('+str(general.diff_level)+')/'+str(numero)+'.sa', 'w')
-				self.fichier2.write(str(score))
-				self.fichier2.close()	
+		print general.diff_level
+		print numero
+		print score
+		print pers
+		if pers == "Cub":
+			if self.data_scores[0][1][int(general.diff_level - 1)][int(int(numero)-1)] >= score:
+				return "Meilleur score : "+str(int(self.data_scores[0][general.diff_level -1][int(numero) - 1]))+"..."
+			else:
+				self.data_scores[0][1][general.diff_level -1][int(numero) - 1] = score
+				self.scores = open("save/"+str(self.sav)+"/general.sa", "w")
+				pickle.dump(self.data_scores,self.scores)
+				self.scores.close()
 				return "Nouveau record !"
-			except:
-				return "Erreur de Sauvegarde !"
-		
-		self.score = self.fichier2.read()
-		if int(self.score) >= int(score):
-			return "Meilleur score : "+str(int(self.score))+" ..."
-		else:
-			self.fichier2.close()
-			self.fichier2 = open('sauvegardes/'+pers+'/('+str(general.diff_level)+')/'+str(numero)+'.sa','w')
-			self.fichier2.write(str(score))
-			self.fichier2.close()
-			return "Nouveau record !"
+		elif pers == "Perl":
+			if self.data_scores[1][1][general.diff_level -1][int(numero) - 1] >= score:
+				return "Meilleur score : "+str(int(self.data_scores[1][general.diff_level -1][int(numero) - 1]))+"..."
+			else:
+				self.data_scores[1][1][general.diff_level -1][int(numero) - 1] = score
+				self.scores = open("save/"+str(self.sav)+"/general.sa", "w")
+				pickle.dump(self.data_scores,self.scores)
+				self.scores.close()
+				return "Nouveau record !"
+		elif pers == "Sneeze":
+			if self.data_scores[2][1][general.diff_level -1][int(numero) - 1] >= score:
+				return "Meilleur score : "+str(int(self.data_scores[2][general.diff_level -1][int(numero) - 1]))+"..."
+			else:
+				self.data_scores[2][1][general.diff_level -1][int(numero) - 1] = score
+				self.scores = open("save/"+str(self.sav)+"/general.sa", "w")
+				pickle.dump(self.data_scores,self.scores)
+				self.scores.close()
+				return "Nouveau record !"
+				
+				return
 		
 	def NouveauNiveau(self,pers):
-		if int(self.niveau) + 1 > 16:
-			if general.diff_level == 2:	
-				os.remove('sauvegardes/'+pers+'/campagne.sa')
-				self.fichier = open('sauvegardes/'+pers+'/campagne.sa', "w")
-				self.fichier.write("3")
-				self.fichier.close()
-			try: 
-				print general.caracters[2]
-			except:
-				try:
-					print general.caracters[1]
-					if pers == "Perl":
-						os.remove('sauvegardes/campagne.sa')
-						self.fichier = open('sauvegardes/campagnes.sa', 'w')
-						self.fichier.write("3")
-				except:
-					os.remove('sauvegardes/campagne.sa')
-					self.fichier = open('sauvegardes/campagnes.sa', 'w')
-					self.fichier.write("2")
-				finally:
-					self.fichier.close()
-						
-		else:
-			self.fichier = open('sauvegardes/'+pers+'/('+str(general.diff_level)+')/campagne.sa', "w")
-			self.fichier.write(str(int(self.niveau) + 1))
-			self.niveau = str(int(self.niveau) + 1)
-			self.fichier.close()
-
+		if pers == "Cub":
+			if self.data_saves[1][1][int(general.diff_level + 1)][1] + 1 > 16:
+				self.data_saves[1][1][int(general.diff_level + 1)][1] = 16
+				self.data_saves[1][2][int(general.diff_level + 1)][0] = True
+			else:
+				self.data_saves[1][1][int(general.diff_level + 1)][1] += 1
+			self.saves = open("save/"+str(self.sav)+"/general.sa", "w")
+			pickle.dump(self.data_saves,self.daves)
+			self.saves.close()
+		elif pers == "Perl":
+			if self.data_saves[1][2][int(general.diff_level + 1)][1] + 1 > 16:
+				self.data_saves[1][2][int(general.diff_level + 1)][1] = 16
+				self.data_saves[1][3][int(general.diff_level + 1)][0] = True
+			else:
+				self.data_saves[1][2][int(general.diff_level + 1)][1] += 1
+			self.saves = open("save/"+str(self.sav)+"/general.sa", "w")
+			pickle.dump(self.data_saves,self.saves)
+			self.saves.close()
+		elif pers == "Sneeze":
+			if self.data_saves[1][1][int(general.diff_level + 1)][1] + 1 > 16:
+				self.data_saves[1][1][int(general.diff_level + 1)][1] = 16
+				self.data_saves[2][1][1][0] = True
+				self.data_saves[2][1][2][0] = True
+				self.data_saves[2][1][3][0] = True
+				self.data_saves[2][2][1][0] = True
+				self.data_saves[2][2][2][0] = True
+				self.data_saves[2][2][3][0] = True
+				self.data_saves[2][3][1][0] = True
+				self.data_saves[2][3][2][0] = True
+				self.data_saves[2][3][3][0] = True
+			else:
+				self.data_saves[1][1][int(general.diff_level + 1)][1] += 1
+			self.saves = open("save/"+str(self.sav)+"/general.sa", "w")
+			pickle.dump(self.data_saves,self.daves)
+			self.saves.close()
+	
+	def BossRush(self):
+		return self.data_saves[2][1][1][0]
+	
+	def History(self,pers):
+		return [self.data_saves[1][pers][1][0],self.data_saves[1][pers][2][0],self.data_saves[1][pers][3][0]]
 

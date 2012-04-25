@@ -29,17 +29,17 @@ class MenuPrincipal:
 		self.cube.position = self.cube.position.move(100,100)
 		self.boutons.NouveauBouton((general.w/2 - 100,170), "Histoire")
 		self.boutons.NouveauBouton((general.w/2 - 100,220), "Fast Play")
-		self.boutons.NouveauBouton((general.w/2 - 100,270), "Boss Rush")
+		self.boutons.NouveauBouton((general.w/2 - 100,270), "Boss Rush",20,False)
 		self.boutons.NouveauBouton((general.w/2 - 100,320), "Credits")
 		
-	def MenuAffichage(self,fenetre):
+	def MenuAffichage(self,fenetre,boss):
 		fenetre.blit(pygame.image.load("images/lv1.jpg").convert(), (general.w,0))
 		fenetre.blit(self.fond,(0,0))
 		continuer = 1
 		self.boutons = Bouton_Text()
 		self.boutons.NouveauBouton((general.w/2 - 100,170), "Histoire")
 		self.boutons.NouveauBouton((general.w/2 - 100,220), "Fast Play")
-		self.boutons.NouveauBouton((general.w/2 - 100,270), "Boss Rush")
+		self.boutons.NouveauBouton((general.w/2 - 100,270), "Boss Rush",20,boss)
 		self.boutons.NouveauBouton((general.w/2 - 100,320), "Credits")
 		
 		self.boutons.Affichage(fenetre, (0,0), 0)
@@ -116,15 +116,15 @@ class MenuPrincipal:
 			
 			pygame.display.flip()
 				
-	def ChoixNiveau(self,fenetre, niv):
+	def ChoixNiveau(self,fenetre, niv,lock):
 		self.boutons = Bouton_Text()
 		self.boutons2 = Bouton_Text()
 		self.font = pygame.font.Font("polices/Coalition.ttf", 35)
-		self.boutons.NouveauBouton((general.w/2 - 100,170), "Facile")
-		if niv >= 2:
-			self.boutons.NouveauBouton((general.w/2 - 100,220), "Moyen")
-		if niv >= 3:
-			self.boutons.NouveauBouton((general.w/2 - 100,270), "Difficile")
+		
+		self.boutons.NouveauBouton((general.w/2 - 100,170), "Facile",20,lock[0])
+		self.boutons.NouveauBouton((general.w/2 - 100,220), "Moyen",20,lock[1])
+		self.boutons.NouveauBouton((general.w/2 - 100,270), "Difficile",20,lock[2])
+		
 		self.boutons2.NouveauBouton((general.w/2 + 100,370), "< Retour")
 		fenetre.blit(self.fond,(0,0))
 		continuer = 1
