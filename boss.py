@@ -20,9 +20,9 @@ class Boss:
 	
 	def __init__(self, niv, pers):
 		try:
-			self.image = pygame.image.load("images/boss"+str(niv)+".png")
+			self.image = pygame.image.load("images/"+general.screen+"/boss"+str(niv)+".png")
 		except:
-			self.image = pygame.image.load("images/boss1.png")
+			self.image = pygame.image.load("images/"+general.screen+"/boss1.png")
 		try:
 			self.fichier = open("niveaux/"+str(pers)+"/("+str(general.diff_level)+")/boss"+str(niv)+".bs", "r")
 			print "niveaux/"+str(pers)+"/("+str(general.diff_level)+")/boss"+str(niv)+".bs"

@@ -18,8 +18,8 @@ from boutons import *
 class MenuPrincipal:
 	
 	def __init__(self):
-		self.fond = pygame.image.load("images/menu.png").convert_alpha()
-		self.gagne = pygame.image.load("images/fin_niveau.png").convert()
+		self.fond = pygame.image.load("images/"+general.screen+"/menu.png").convert_alpha()
+		self.gagne = pygame.image.load("images/"+general.screen+"/fin_niveau.png").convert()
 		self.boutons = Bouton_Text()
 		self.lastclic = 0
 		self.lastevent = 0
@@ -33,7 +33,7 @@ class MenuPrincipal:
 		self.boutons.NouveauBouton((general.w/2 - 100,320), "Credits")
 		
 	def MenuAffichage(self,fenetre,boss):
-		fenetre.blit(pygame.image.load("images/lv1.jpg").convert(), (general.w,0))
+		fenetre.blit(pygame.image.load("images/"+general.screen+"/lv1.jpg").convert(), (general.w,0))
 		fenetre.blit(self.fond,(0,0))
 		continuer = 1
 		self.boutons = Bouton_Text()
@@ -41,11 +41,13 @@ class MenuPrincipal:
 		self.boutons.NouveauBouton((general.w/2 - 100,220), "Fast Play")
 		self.boutons.NouveauBouton((general.w/2 - 100,270), "Boss Rush",20,boss)
 		self.boutons.NouveauBouton((general.w/2 - 100,320), "Credits")
+		self.boutons.NouveauBouton((general.w/2 - 100,370), "Quitter")
 		
 		self.boutons.Affichage(fenetre, (0,0), 0)
 		self.ok = 0
 		self.ok2 = 0
 		while continuer:
+			tps_debut_boucle = pygame.time.get_ticks()
 			fenetre.blit(self.fond,(0,0))
 			self.cube.Rotation()
 			self.cube.Affichage2(fenetre)
@@ -61,6 +63,8 @@ class MenuPrincipal:
 				if event.type == MOUSEBUTTONUP:
 					self.lastevent = 0
 					if self.ok >= 1:
+						if self.ok == 5:
+							pygame.quit()
 						return self.ok				
 			if self.lastevent == 1:
 				self.ok = self.boutons.Affichage(fenetre, self.lastpos, 1)
@@ -68,6 +72,9 @@ class MenuPrincipal:
 				self.boutons.Affichage(fenetre, self.lastpos, 0)
 			
 			pygame.display.flip()
+			tps_fin_boucle = pygame.time.get_ticks()
+			if tps_fin_boucle - tps_debut_boucle < 9:
+				pygame.time.delay(9 -(tps_fin_boucle - tps_debut_boucle))
 				
 				
 	def ChoixPersonnage(self,fenetre, ajout=""):
@@ -88,6 +95,7 @@ class MenuPrincipal:
 		self.boutons.Affichage(fenetre, (0,0), 0)
 		self.ok = 0
 		while continuer:
+			tps_debut_boucle = pygame.time.get_ticks()
 			fenetre.blit(self.fond,(0,0))
 			self.cube.Rotation()
 			fenetre.blit(self.titre,(general.w / 2 - 150,130))
@@ -115,6 +123,9 @@ class MenuPrincipal:
 				self.boutons2.Affichage(fenetre, self.lastpos, 0)
 			
 			pygame.display.flip()
+			tps_fin_boucle = pygame.time.get_ticks()
+			if tps_fin_boucle - tps_debut_boucle < 9:
+				pygame.time.delay(9 -(tps_fin_boucle - tps_debut_boucle))
 				
 	def ChoixNiveau(self,fenetre, niv,lock):
 		self.boutons = Bouton_Text()
@@ -134,6 +145,7 @@ class MenuPrincipal:
 		self.boutons2.Affichage(fenetre, (0,0), 0)
 		self.ok = 0
 		while continuer:
+			tps_debut_boucle = pygame.time.get_ticks()
 			fenetre.blit(self.fond,(0,0))
 			self.cube.Rotation()
 			fenetre.blit(self.titre,(general.w / 2 - 150,130))
@@ -161,6 +173,9 @@ class MenuPrincipal:
 				self.boutons2.Affichage(fenetre, self.lastpos, 0)
 			
 			pygame.display.flip()
+			tps_fin_boucle = pygame.time.get_ticks()
+			if tps_fin_boucle - tps_debut_boucle < 9:
+				pygame.time.delay(9 -(tps_fin_boucle - tps_debut_boucle))
 	
 
 

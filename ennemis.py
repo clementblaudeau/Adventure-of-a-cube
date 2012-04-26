@@ -222,13 +222,13 @@ class Ennemis:
 					self.positions.remove(self.positions[i])
 			elif element == 4:
 				self.positions[i] = self.positions[i].move(-1,1)
-				if self.positions[i].right < 0 or self.positions[i].top > 490:
+				if self.positions[i].right < 0 or self.positions[i].top > int(general.h) + 10:
 					self.vies.remove(self.vies[i])
 					self.sortes.remove(self.sortes[i])
 					self.positions.remove(self.positions[i])
 			elif element == 5:
 				self.positions[i] = self.positions[i].move(1,1)
-				if self.positions[i].left > 680 or self.positions[i].top > 490:
+				if self.positions[i].left > 680 or self.positions[i].top > int(general.h) + 10:
 					self.vies.remove(self.vies[i])
 					self.sortes.remove(self.sortes[i])
 					self.positions.remove(self.positions[i])
@@ -313,7 +313,7 @@ class Ennemis:
 			i+=1
 		i = 0
 		for element in self.tirs3:
-			if self.tirs3[i].top > 490:
+			if self.tirs3[i].top > int(general.h) + 10:
 				self.tirs3.remove(element)
 				return 0
 			i+=1
@@ -337,13 +337,13 @@ class Ennemis:
 			i+=1
 		i = 0
 		for element in self.tirs7:
-			if self.tirs7[i].top > 490:
+			if self.tirs7[i].top > int(general.h) + 10:
 				self.tirs7.remove(element)
 				return 0
 			i+=1
 		i = 0
 		for element in self.tirs8:
-			if self.tirs8[i].top > 490:
+			if self.tirs8[i].top > int(general.h) + 10:
 				self.tirs8.remove(element)
 				return 0
 			i+=1			
@@ -431,35 +431,35 @@ class Ennemis:
 		
 		
 		for element in self.tirs1:
-			if not (element.right > 690) and not (element.left < -10) and not (element.top < -5) and not (element.bottom > 490):
+			if not (element.right > int(general.w) + 10) and not (element.left < -10) and not (element.top < -5) and not (element.bottom > int(general.h) + 10):
 				fenetre.blit(self.bille, element)
 				
 		for element in self.tirs2:
-			if not (element.right > 690) and not (element.left < -10) and not (element.top < -5) and not (element.bottom > 490):
+			if not (element.right > int(general.w) + 10) and not (element.left < -10) and not (element.top < -5) and not (element.bottom > int(general.h) + 10):
 				fenetre.blit(self.bille, element)
 				
 		for element in self.tirs3:
-			if not (element.right > 690) and not (element.left < -10) and not (element.top < -5) and not (element.bottom > 490):
+			if not (element.right > int(general.w) + 10) and not (element.left < -10) and not (element.top < -5) and not (element.bottom > int(general.h) + 10):
 				fenetre.blit(self.bille, element)
 				
 		for element in self.tirs4:
-			if not (element.right > 690) and not (element.left < -10) and not (element.top < -5) and not (element.bottom > 490):
+			if not (element.right > int(general.w) + 10) and not (element.left < -10) and not (element.top < -5) and not (element.bottom > int(general.h) + 10):
 				fenetre.blit(self.bille, element)
 				
 		for element in self.tirs5:
-			if not (element.right > 690) and not (element.left < -10) and not (element.top < -5) and not (element.bottom > 490):
+			if not (element.right > int(general.w) + 10) and not (element.left < -10) and not (element.top < -5) and not (element.bottom > int(general.h) + 10):
 				fenetre.blit(self.bille, element)
 				
 		for element in self.tirs6:
-			if not (element.right > 690) and not (element.left < -10) and not (element.top < -5) and not (element.bottom > 490):
+			if not (element.right > int(general.w) + 10) and not (element.left < -10) and not (element.top < -5) and not (element.bottom > int(general.h) + 10):
 				fenetre.blit(self.bille, element)
 				
 		for element in self.tirs7:
-			if not (element.right > 690) and not (element.left < -10) and not (element.top < -5) and not (element.bottom > 490):
+			if not (element.right > int(general.w) + 10) and not (element.left < -10) and not (element.top < -5) and not (element.bottom > int(general.h) + 10):
 				fenetre.blit(self.bille, element)
 				
 		for element in self.tirs8:
-			if not (element.right > 690) and not (element.left < -10) and not (element.top < -5) and not (element.bottom > 490):
+			if not (element.right > int(general.w) + 10) and not (element.left < -10) and not (element.top < -5) and not (element.bottom > int(general.h) + 10):
 				fenetre.blit(self.bille, element)
 		
 		self.eclats.Affichage(fenetre)

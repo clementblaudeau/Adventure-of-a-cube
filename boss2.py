@@ -22,9 +22,9 @@ class Boss2:
 		self.position = 0
 		self.vie = 0
 		try:
-			self.image = pygame.image.load("images/boss"+str(niv)+str(pers)+".png").convert_alpha()
+			self.image = pygame.image.load("images/"+general.screen+"/boss"+str(niv)+str(pers)+".png").convert_alpha()
 		except:
-			self.image = pygame.image.load("images/boss1.png").convert_alpha()
+			self.image = pygame.image.load("images/"+general.screen+"/boss1.png").convert_alpha()
 		self.imghitbox = pygame.image.load("images/hitbox_boss.png").convert_alpha()
 		self.j = 0
 		self.temps = 0

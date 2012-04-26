@@ -33,7 +33,9 @@ class Niveau:
 			b += 1
 		self.nom = self.contenu[0]
 		self.nom_background = self.contenu[1]
-		self.fond = pygame.image.load(self.nom_background).convert()
+		#self.fond = pygame.image.load(self.nom_background).convert()
+		self.nom_background = self.nom_background.split("/")
+		self.fond = pygame.image.load(self.nom_background[0] + "/" + str(general.screen) + "/" + self.nom_background[1]).convert()
 		self.nom_son = self.contenu[2]
 		self.son = pygame.mixer.Sound(self.nom_son)
 		self.nombre_obstacles = self.contenu[4]

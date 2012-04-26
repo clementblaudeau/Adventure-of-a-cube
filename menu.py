@@ -17,9 +17,9 @@ from boutons import *
 class Menu:
 	
 	def __init__(self):
-		self.fond = pygame.image.load("images/menu.png").convert_alpha()
-		self.gagne = pygame.image.load("images/fin_niveau.png").convert()
-		self.chargement = pygame.image.load("images/chargement.png").convert()
+		self.fond = pygame.image.load("images/"+general.screen+"/menu.png").convert_alpha()
+		self.gagne = pygame.image.load("images/"+general.screen+"/fin_niveau.png").convert()
+		self.chargement = pygame.image.load("images/"+general.screen+"/chargement.png").convert()
 		self.boutons = Bouton_Nb()
 		self.boutons2 = Bouton_Text()
 		self.lastclic = 0
@@ -109,7 +109,7 @@ class Menu:
 			vrai = True
 			self.vrai = True
 		else:
-			image = pygame.image.load("images/game_over.png").convert()
+			image = pygame.image.load("images/"+general.screen+"/game_over.png").convert()
 			vrai = False
 			self.vrai = False
 		fenetre.blit(image,(0,0))
@@ -200,7 +200,7 @@ class Menu:
 							continuer = 0
 							
 	def Pause(self,fenetre):
-		fenetre.blit(pygame.image.load("images/pause.png").convert_alpha(),(0,0));
+		fenetre.blit(pygame.image.load("images/"+general.screen+"/pause.png").convert_alpha(),(0,0));
 		pygame.display.flip()
 		self.boutons2.Netoyage()
 		self.boutons2.NouveauBouton((general.w/2 + 100,370), "< Retour")
@@ -259,7 +259,7 @@ class Menu:
 			pygame.display.flip()
 			
 	def Chargement1(self, fenetre):
-			fenetre.blit(pygame.image.load("images/team.png").convert(),(0,0))
+			fenetre.blit(pygame.image.load("images/"+general.screen+"/team.png").convert(),(0,0))
 			pygame.display.flip()
 			
 	def CommencementNiveau(self, fenetre):

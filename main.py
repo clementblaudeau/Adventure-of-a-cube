@@ -33,6 +33,11 @@ pygame.init()
 
 #Ouverture de la fenetre Pygame
 fenetre = pygame.display.set_mode((general.w+200, general.h), DOUBLEBUF)
+#fenetre = pygame.display.set_mode((0,0),pygame.FULLSCREEN)
+#taille = fenetre.get_rect()
+#general.h = fenetre.get_height()
+#general.w = int(fenetre.get_width()) - 200
+#general.screen = "full"
 
 #Chargement des elements du moteur
 jeu = Game()
@@ -71,13 +76,13 @@ cub.position = cub.position.move(275,350)
 cub.hitbox = cub.hitbox.move(303,373)
 mode = "rapide"
 delai = 0
-mode_lent = pygame.image.load("images/m_lent.png").convert_alpha()
+mode_lent = pygame.image.load("images/"+general.screen+"/m_lent.png").convert_alpha()
 
 #Chargement du timer de début de boucle
 surcharge_boucle = pygame.time.get_ticks()
 
 #Chargement du panneau de d'informations de jeu
-paneau = pygame.image.load("images/paneau(0).png").convert_alpha()
+paneau = pygame.image.load("images/"+general.screen+"/paneau(0).png").convert_alpha()
 
 #Rafraîchissement de l'écran
 pygame.time.delay(2500)
@@ -102,7 +107,7 @@ while modejeu:
 	    if general.back == True: 
 		general.back = False
 		continue
-	    paneau = pygame.image.load("images/paneau("+str(general.diff_level)+").png").convert_alpha()
+	    paneau = pygame.image.load("images/"+general.screen+"/paneau("+str(general.diff_level)+").png").convert_alpha()
 	    general.back = True
 	    lvl = sauvegarde.NiveauActuel(str(personnage))
 	elif modejeu == 2:
@@ -115,7 +120,7 @@ while modejeu:
 	    if general.back == True:
 		general.back = False
 		continue
-	    paneau = pygame.image.load("images/paneau("+str(general.diff_level)+").png").convert_alpha()
+	    paneau = pygame.image.load("images/"+general.screen+"/paneau("+str(general.diff_level)+").png").convert_alpha()
 	    lvl = menu.MenuAffichage(fenetre, sauvegarde.NiveauActuel(campagne))	
 	    if general.back == True:
 		general.back = False
@@ -137,7 +142,7 @@ while modejeu:
 	    if general.back == True:
 		general.back = False
 		continue
-	    paneau = pygame.image.load("images/paneau("+str(general.diff_level)+").png").convert_alpha()
+	    paneau = pygame.image.load("images/"+general.screen+"/paneau("+str(general.diff_level)+").png").convert_alpha()
 	    personnage = menuprincipal.ChoixPersonnage(fenetre)
 	    if general.back == True:
 		general.back = False

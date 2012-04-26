@@ -21,7 +21,7 @@ class BossRush:
 	def __init__(self, pers):
 		
 		self.nom = "Boss Rush !"
-		self.fond = pygame.image.load("images/lv1.jpg").convert()
+		self.fond = pygame.image.load("images/"+general.screen+"/lv1.jpg").convert()
 	#	self.son = pygame.mixer.Sound("son/bossrush.wav")
 		self.obstacles = Obstacles()
 		self.ennemis = Ennemis(1)
@@ -29,7 +29,7 @@ class BossRush:
 		self.niv = 1
 		self.transition = False
 		self.clear = False
-		self.imgtransition = pygame.image.load("images/transition.png").convert()
+		self.imgtransition = pygame.image.load("images/"+general.screen+"/transition.png").convert()
 		self.chrono = Chrono()
 		self.pers = pers
 		

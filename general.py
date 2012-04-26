@@ -11,6 +11,7 @@ c_protect = False
 diff_level = 1
 caracters_disp = 0
 caracters = ["Cub"]
+screen = "window"
 
 k_left = 276
 k_right = 275
