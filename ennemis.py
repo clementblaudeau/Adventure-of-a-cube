@@ -176,6 +176,7 @@ class Ennemis:
 							self.vies.remove(self.vies[i])
 							self.sortes.pop(i)
 							self.positions.remove(element2)
+							self.son.set_volume(0.2)
 							self.son.play()
 					i +=1
 				i = 0
@@ -485,3 +486,4 @@ class Ennemis:
 		self.CollisionsTirs([pygame.Rect(0,0,1000,1000),pygame.Rect(0,0,1000,1000),pygame.Rect(0,0,1000,1000),pygame.Rect(0,0,1000,1000),pygame.Rect(0,0,1000,1000)], 1000)
 		self.CollisionsTirs([pygame.Rect(0,0,1000,1000),pygame.Rect(0,0,1000,1000),pygame.Rect(0,0,1000,1000),pygame.Rect(0,0,1000,1000),pygame.Rect(0,0,1000,1000)], 1000)
 		self.CollisionsTirs([pygame.Rect(0,0,1000,1000),pygame.Rect(0,0,1000,1000),pygame.Rect(0,0,1000,1000),pygame.Rect(0,0,1000,1000),pygame.Rect(0,0,1000,1000)], 1000)
+		

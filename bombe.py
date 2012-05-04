@@ -58,7 +58,7 @@ class Bomb:
 		pygame.image.load("images/"+general.screen+"/bomb40.png")]
 		
 	def Tir(self, ennemis,fenetre):
-		if ((pygame.time.get_ticks() - self.k) > 10):
+		if ((pygame.time.get_ticks() - self.k) > 5000):
 			if general.n_bomb >= 0:
 				general.n_bomb -= 1
 				pygame.time.delay(300)

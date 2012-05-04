@@ -77,14 +77,14 @@ class MenuPrincipal:
 				pygame.time.delay(9 -(tps_fin_boucle - tps_debut_boucle))
 				
 				
-	def ChoixPersonnage(self,fenetre, ajout=""):
+	def ChoixPersonnage(self,fenetre,pers=[True,True,True], ajout=""):
 		self.boutons = Bouton_Text()
 		self.boutons2 = Bouton_Text()
 		self.font = pygame.font.Font("polices/Coalition.ttf", 35)
-		self.boutons.NouveauBouton((general.w/2 - 100,170), "Cub")
+		self.boutons.NouveauBouton((general.w/2 - 100,170), "Cub",20,pers[0])
 		try:
-			self.boutons.NouveauBouton((general.w/2 - 100,220), str(general.caracters[1]))
-			self.boutons.NouveauBouton((general.w/2 - 100,270), str(general.caracters[2]))
+			self.boutons.NouveauBouton((general.w/2 - 100,220), str(general.caracters[1]),20,pers[1])
+			self.boutons.NouveauBouton((general.w/2 - 100,270), str(general.caracters[2]),20,pers[2])
 		except:
 			pass
 		self.boutons2.NouveauBouton((general.w/2 + 100,370), "< Retour")

@@ -31,6 +31,7 @@ class Menu:
 		self.y = 150
 		self.vrai = False
 		self.cube = Cub()
+		self.progression = 0
 		self.cube.position = self.cube.position.move(100,100)
 		#self.boutons.NouveauBouton((30,160), 1)
 		#self.boutons.NouveauBouton((30,210), 2)
@@ -93,12 +94,16 @@ class Menu:
 		except:
 			movie = pygame.movie.Movie ('videos/intro.mpg')
 		movie_resolution = movie.get_size ()
-		pygame.display.set_mode (movie_resolution)
+		#pygame.display.set_mode (movie_resolution)
 		movie.set_display(pygame.display.get_surface())
 		movie.play ()
 		while movie.get_busy ():
 			pygame.time.wait (200)
-		fenetre = pygame.display.set_mode((general.w+200, general.h), DOUBLEBUF)
+			for event in pygame.event.get():	#Attente des événements
+				#print event
+				if event.type == KEYDOWN:
+					return 0
+		#fenetre = pygame.display.set_mode((general.w+200, general.h), DOUBLEBUF)
 				
 
 	def FinNiveau(self, score, vies, fenetre, meilleurScore):
@@ -120,61 +125,24 @@ class Menu:
 			fenetre.blit(self.font.render(" Score : " + str(score), 1, (255, 255, 0)), (80, 320))
 			pygame.display.flip()
 			pygame.time.delay(700)
-			fenetre.blit(image,(0,0))
-			fenetre.blit(self.font.render(" Score : " + str(score), 1, (255, 255, 0)), (80, 320))
 			fenetre.blit(self.font.render(" + Vies Restantes : " + str(vies), 1, (255, 255, 0)), (80, 340))
-			
 			pygame.display.flip()
-			
 			pygame.time.delay(700)
-			fenetre.blit(image,(0,0))
-			fenetre.blit(self.font.render(" Score : " + str(score), 1, (255, 255, 0)), (80, 320))
-			fenetre.blit(self.font.render(" + Vies Restantes : " + str(vies) + " x 100 : " + str(vies * 100), 1, (255, 255, 0)), (80, 340))
-			pygame.display.flip()
-			pygame.display.flip()
-			
-			pygame.time.delay(700)
-			fenetre.blit(image,(0,0))
-			fenetre.blit(self.font.render(" Score : " + str(score), 1, (255, 255, 0)), (80, 320))
 			fenetre.blit(self.font.render(" + Vies Restantes : " + str(vies) + " x 100 : " + str(vies * 100), 1, (255, 255, 0)), (80, 340))
 			fenetre.blit(self.font.render(" - Tirs : " + str(general.tirs), 1, (255, 0, 0)), (80, 360))
 			pygame.display.flip()
-			
 			pygame.time.delay(700)
-			fenetre.blit(image,(0,0))
-			fenetre.blit(self.font.render(" Score : " + str(score), 1, (255, 255, 0)), (80, 320))
-			fenetre.blit(self.font.render(" + Vies Restantes : " + str(vies) + " x 100 : " + str(vies * 100), 1, (255, 255, 0)), (80, 340))
 			fenetre.blit(self.font.render(" - Tirs : " + str(general.tirs) +" x 2 : " + str(general.tirs*2), 1, (255, 0, 0)), (80, 360))
 			pygame.display.flip()
-			
 			pygame.time.delay(700)
-			fenetre.blit(image,(0,0))
-			fenetre.blit(self.font.render(" Score : " + str(score), 1, (255, 255, 0)), (80, 320))
-			fenetre.blit(self.font.render(" + Vies Restantes : " + str(vies) + " x 100 : " + str(vies * 100), 1, (255, 255, 0)), (80, 340))
-			fenetre.blit(self.font.render(" - Tirs : " + str(general.tirs) +" x 2 : " + str(general.tirs*2), 1, (255, 0, 0)), (80, 360))
 			fenetre.blit(self.font.render("---------", 1, (255, 255, 0)), (130, 380))
 			pygame.display.flip()
-			
 			pygame.time.delay(700)
-			fenetre.blit(image,(0,0))
-			fenetre.blit(self.font.render(" Score : " + str(score), 1, (255, 255, 0)), (80, 320))
-			fenetre.blit(self.font.render(" + Vies Restantes : " + str(vies) + " x 100 : " + str(vies * 100), 1, (255, 255, 0)), (80, 340))
-			fenetre.blit(self.font.render(" - Tirs : " + str(general.tirs) +" x 2 : " + str(general.tirs*2), 1, (255, 0, 0)), (80, 360))
-			fenetre.blit(self.font.render("---------", 1, (255, 255, 0)), (130, 380))
 			fenetre.blit(self.font.render(" Total : " +  str((vies * 100 + score)- (2*general.tirs)), 1, (255, 185, 0)), (80, 400))
 			pygame.display.flip()
-			
-			
 			pygame.time.delay(700)
-			fenetre.blit(image,(0,0))
-			fenetre.blit(self.font.render(" Score : " + str(score), 1, (255, 255, 0)), (80, 320))
-			fenetre.blit(self.font.render(" + Vies Restantes : " + str(vies) + " x 100 : " + str(vies * 100), 1, (255, 255, 0)), (80, 340))
-			fenetre.blit(self.font.render(" - Tirs : " + str(general.tirs) +" x 2 : " + str(general.tirs*2), 1, (255, 0, 0)), (80, 360))
-			fenetre.blit(self.font.render("---------", 1, (255, 255, 0)), (130, 380))
-			fenetre.blit(self.font.render(" Total : " +  str((vies * 100 + score)- (2*general.tirs)), 1, (255, 185, 0)), (80, 400))
 			fenetre.blit(self.font.render(str(meilleurScore), 1, (255, 185, 0)), (250, 50))
 			pygame.display.flip()
-			
 			pygame.time.delay(700)
 			
 			
@@ -240,15 +208,9 @@ class Menu:
 		fenetre.blit(self.font.render("3", 1, (255, 255, 0)), ((general.w/2)-50, 320))
 		pygame.display.flip()
 		pygame.time.delay(700)
-		
-		fenetre.blit(self.font.render("3", 1, (255, 255, 0)), ((general.w/2)-50, 320))
 		fenetre.blit(self.font.render("2", 1, (255, 255, 0)), ((general.w/2), 320))
 		pygame.display.flip()
 		pygame.time.delay(700)
-		
-		
-		fenetre.blit(self.font.render("3", 1, (255, 255, 0)), ((general.w/2)-50, 320))
-		fenetre.blit(self.font.render("2", 1, (255, 255, 0)), ((general.w/2), 320))
 		fenetre.blit(self.font.render("1", 1, (255, 255, 0)), ((general.w/2)+50, 320))
 		pygame.display.flip()
 		pygame.time.delay(700)
@@ -259,22 +221,46 @@ class Menu:
 			pygame.display.flip()
 			
 	def Chargement1(self, fenetre):
-			fenetre.blit(pygame.image.load("images/"+general.screen+"/team.png").convert(),(0,0))
+			self.team = pygame.image.load("images/"+general.screen+"/team.png").convert_alpha()
+			fenetre.blit(self.team,(0,0))
+			self.barre = pygame.image.load("images/"+general.screen+"/barre-chargement.png").convert()
+			fenetre.blit(pygame.image.load("images/"+general.screen+"/barre-chargement.png").convert(),(-1000,general.h -100))
+			self.contour = pygame.image.load("images/"+general.screen+"/contour_chargement.png").convert_alpha()
+			fenetre.blit(self.contour,(0,general.h -150))
+			self.contour2 = pygame.image.load("images/"+general.screen+"/contour_chargement-g.png").convert()
+			fenetre.blit(self.contour2,(general.w-25,general.h -150))
 			pygame.display.flip()
+	
+	def ChargementProgression(self,fenetre,progression):
+			while general.w/100*progression > self.progression:
+				fenetre.blit(self.team,(0,0))
+				fenetre.blit(self.barre,(self.progression-1000,general.h - 100))
+				fenetre.blit(self.contour,(0,general.h -150))
+				fenetre.blit(self.contour2,(general.w-25,general.h -150))
+				pygame.time.delay(1)
+				self.progression += 1
+				pygame.display.flip()
+			
+	def Chargement2(self, fenetre):
+			fenetre.blit(pygame.image.load("images/"+general.screen+"/start.png").convert(),(0,0))
+			fenetre.blit(self.barre,(self.progression-1000,general.h - 100))
+			fenetre.blit(self.contour,(0,general.h -150))
+			fenetre.blit(self.contour2,(general.w-25,general.h -150))
+			pygame.display.flip()
+			continuer = 1
+			while continuer:
+				for event in pygame.event.get():
+					if event.type == KEYDOWN:
+						continuer = 0
+			
 			
 	def CommencementNiveau(self, fenetre):
 		fenetre.blit(self.font.render("3", 1, (255, 255, 0)), ((general.w/2)-50, 320))
 		pygame.display.flip()
 		pygame.time.delay(700)
-		
-		fenetre.blit(self.font.render("3", 1, (255, 255, 0)), ((general.w/2)-50, 320))
 		fenetre.blit(self.font.render("2", 1, (255, 255, 0)), ((general.w/2), 320))
 		pygame.display.flip()
 		pygame.time.delay(700)
-		
-		
-		fenetre.blit(self.font.render("3", 1, (255, 255, 0)), ((general.w/2)-50, 320))
-		fenetre.blit(self.font.render("2", 1, (255, 255, 0)), ((general.w/2), 320))
 		fenetre.blit(self.font.render("1", 1, (255, 255, 0)), ((general.w/2)+50, 320))
 		pygame.display.flip()
 		pygame.time.delay(700)

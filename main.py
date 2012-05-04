@@ -12,7 +12,7 @@ from pygame.locals import *
 
 from cub import *
 from perl import *
-from triangle import *
+from sneeze import *
 from tir import *
 from onde import *
 from obstacles import *
@@ -54,9 +54,12 @@ menu.Chargement1(fenetre)
 icone = pygame.image.load("images/Cub/cub121.png")
 pygame.display.set_icon(icone)
 pygame.display.set_caption("The adventure of Cub !")
+menu.ChargementProgression(fenetre,30)
 
 #Chargement des sauvegardes
 sauvegarde = Sauvegarde()
+
+menu.ChargementProgression(fenetre,40)
 
 #Chargement du scrool
 scrool = fenetre.get_rect()
@@ -66,6 +69,7 @@ j = 0
 g = 0
 
 #Chargement du son
+pygame.mixer.init()
 #son = pygame.mixer.Sound("son/son_stressant.wav")
 #son.play()
 repeter = 1;
@@ -77,16 +81,19 @@ cub.hitbox = cub.hitbox.move(303,373)
 mode = "rapide"
 delai = 0
 mode_lent = pygame.image.load("images/"+general.screen+"/m_lent.png").convert_alpha()
-
+mode_lent2 = pygame.image.load("images/"+general.screen+"/m_lent2.png").convert_alpha()
+menu.ChargementProgression(fenetre,50)
 #Chargement du timer de début de boucle
 surcharge_boucle = pygame.time.get_ticks()
 
 #Chargement du panneau de d'informations de jeu
 paneau = pygame.image.load("images/"+general.screen+"/paneau(0).png").convert_alpha()
 
+menu.ChargementProgression(fenetre,95)
 #Rafraîchissement de l'écran
-pygame.time.delay(2500)
-pygame.display.flip()
+menu.ChargementProgression(fenetre,105)
+menu.Chargement2(fenetre)
+
 modejeu = 1
 #Variable de boucle de jeu
 continuer = 1
@@ -132,13 +139,13 @@ while modejeu:
 	    general.back = True
 	elif modejeu == 3:
 	    #Mode Boss Rush
-	    campagne = menuprincipal.ChoixPersonnage(fenetre, "Campagne ")
+	    campagne = menuprincipal.ChoixPersonnage(fenetre,sauvegarde.BossRushes(), "Campagne ")
 	    if general.back == True:
 		general.back = False
 		continue
 	    lvl = 1
 	    general.scrool = -100
-	    general.diff_level = menuprincipal.ChoixNiveau(fenetre, sauvegarde.Difficulte(campagne - 1),sauvegarde.History(campagne))
+	    general.diff_level = menuprincipal.ChoixNiveau(fenetre, sauvegarde.Difficulte(campagne - 1),sauvegarde.BossRushesDifficulty(campagne))
 	    if general.back == True:
 		general.back = False
 		continue
@@ -162,12 +169,12 @@ while modejeu:
 		elif personnage == 2:
 		    cub = Perl()
 		else:
-		    cub = Triangle()
+		    cub = Sneeze()
 		menu.Chargement(fenetre)
 		if modejeu != 3:
 		    niveau = Niveau(str(lvl), str(general.caracters[personnage - 1]))
 		    general.scrool = -544
-		    #menu.DebutNiveau(fenetre,3)
+		    menu.DebutNiveau(fenetre,lvl)
 		else:
 		    niveau = BossRush(general.caracters[campagne - 1])
 		    general.scrool = -100
@@ -179,6 +186,8 @@ while modejeu:
 		scrool = fenetre.get_rect()
 		scrool = scrool.move(0,general.scrool)
 		pygame.time.delay(100)
+		niveau.son.play(-1)
+		niveau.son.set_volume(0.9)
 		
 		#ReAffichage	
 		niveau.Affichage(fenetre,scrool)
@@ -287,12 +296,13 @@ while modejeu:
 			if niveau.obstacles.ColisionsCube(cub.hitbox) == True:
 				cub.position = cub.position.move(0,1)
 				cub.hitbox = cub.hitbox.move(0,1)
-	
+			
 			#Re-collage + Affichage des murs et ennemis
 			niveau.Affichage(fenetre, scrool)
 			fenetre.blit(paneau,(general.w,0))
 			if mode == "lent":
 				fenetre.blit(mode_lent, (0,0))
+				fenetre.blit(mode_lent2, (general.w,0))
 				cub.modelent.Affichage(fenetre)
 			#niveau.chrono.Affichage(pygame.time.get_ticks(), fenetre, "")
 			cub.Affichage(fenetre)
@@ -303,14 +313,17 @@ while modejeu:
 			#Survie
 			if cub.position.top < -50:
 				continuer = 0
+				niveau.son.stop()
 			if cub.position.top > general.h+10:
 				continuer = 0
+				niveau.son.stop()
 				cub.vie.vie = -1
 			if niveau.Fini() == True:
 				continuer = 0
 				if modejeu == 3:
 				    lvl = "bossrush"
 				pygame.time.delay(500)
+				niveau.son.stop()
 		
 	    
 			#Attendre (contre la surcharge du processeur et l'acceleration trop brutale)
@@ -319,6 +332,8 @@ while modejeu:
 				pygame.time.delay(9 -(tps_fin_boucle - tps_debut_boucle))
 				
 		#Fin de la boucle Continuer
+		
+		niveau.son.stop()
 		if lvl == 0:
 			continue
 		else:
@@ -329,8 +344,12 @@ while modejeu:
 		    if cub.vie.vie >= 0:
 			    if modejeu == 1:
 				if int(int(lvl) + 1) > int(sauvegarde.NiveauActuel(personnage)):
-				   sauvegarde.NouveauNiveau(general.caracters[personnage - 1])
-				lvl = str(int(lvl) + 1)
+				    sauvegarde.NouveauNiveau(general.caracters[personnage - 1])
+				if lvl != 16:
+				    lvl = str(int(lvl) + 1)
+				else:
+				    menu.DebutNiveau(fenetre,"final")
+				    lvl = 0
 			    elif modejeu == 2:
 				    lvl = menu.MenuAffichage(fenetre, sauvegarde.NiveauActuel(personnage))
 			    elif modejeu == 3:

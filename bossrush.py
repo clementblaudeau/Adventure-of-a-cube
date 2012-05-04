@@ -22,10 +22,13 @@ class BossRush:
 		
 		self.nom = "Boss Rush !"
 		self.fond = pygame.image.load("images/"+general.screen+"/lv1.jpg").convert()
-	#	self.son = pygame.mixer.Sound("son/bossrush.wav")
+		try:
+		    self.son = pygame.mixer.Sound("son/bossrush.wav")
+		except:
+		    self.son = pygame.mixer.Sound("son/Cub/1.wav")
 		self.obstacles = Obstacles()
 		self.ennemis = Ennemis(1)
-		self.boss = Boss(1, pers)
+		self.boss = Boss(2, pers)
 		self.niv = 1
 		self.transition = False
 		self.clear = False
@@ -69,11 +72,15 @@ class BossRush:
 				cub.vie.vie += -1
 				cub.degats +=200
 				cub.Reboot()
-	    if (self.boss.CollisionCube(cub.hitbox) == True):
+	    try:
+		if (self.boss.CollisionCube(cub.hitbox) == True):
 			if cub.degats == 0:
 				cub.vie.vie += -1
 				cub.degats +=200
 				cub.Reboot()
+	    except:
+		pass
+		
 		
 	def Fini(self):
 		if self.ennemis.positions == []:
@@ -86,7 +93,7 @@ class BossRush:
 									return True
 								else:
 									self.niv += 1
-									self.boss = Boss(self.niv,self.pers)
+									self.boss = Boss(self.niv*2,self.pers)
 									self.transition = True
 									self.clear = True
 									self.compteur = 100

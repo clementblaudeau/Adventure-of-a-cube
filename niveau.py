@@ -37,7 +37,12 @@ class Niveau:
 		self.nom_background = self.nom_background.split("/")
 		self.fond = pygame.image.load(self.nom_background[0] + "/" + str(general.screen) + "/" + self.nom_background[1]).convert()
 		self.nom_son = self.contenu[2]
-		self.son = pygame.mixer.Sound(self.nom_son)
+		#try:
+		#    self.son = pygame.mixer.Sound(self.nom_son)
+		#except Exception:
+		  #  print Exception
+		print self.nom_son
+		self.son = pygame.mixer.Sound("son/Cub/1.wav")
 		self.nombre_obstacles = self.contenu[4]
 		self.obstacles = Obstacles()
 		if int(numero)%2 == 0:
@@ -69,16 +74,18 @@ class Niveau:
 			self.ennemis.NouvelEnnemi(int(self.contenu[int(i)]),int(self.contenu[int(i)+1]), int(self.contenu[int(i)+2]))
 			i += 3
 			j += 1
-		i += 2
+		i += 1
 		j=1
 		try :	    
 		    self.nombre_ennemisf = self.contenu[i]
+		    i += 1
+		    print self.nombre_ennemisf
 		    while j <= int(self.nombre_ennemisf):
 			    self.ennemis.NouvelEnnemiFixe(int(self.contenu[int(i)]),int(self.contenu[int(i)+1]), int(self.contenu[int(i)+2]))
 			    i += 3
 			    j += 1
 		except:
-		    pass
+		    print "Pas d'ennemis fixes"
 			
 		
 	

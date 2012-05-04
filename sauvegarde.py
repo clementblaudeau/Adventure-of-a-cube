@@ -80,6 +80,7 @@ class Sauvegarde:
 		if pers == "Cub":
 			if self.data_saves[1][1][int(general.diff_level)][1] + 1 > 16:
 				self.data_saves[1][1][int(general.diff_level)][1] = 16
+				self.data_saves[1][1][int(general.diff_level + 1)][0] = True
 				self.data_saves[1][2][int(general.diff_level)][0] = True
 			else:
 				self.data_saves[1][1][int(general.diff_level)][1] += 1
@@ -89,6 +90,7 @@ class Sauvegarde:
 		elif pers == "Perl":
 			if self.data_saves[1][2][int(general.diff_level)][1] + 1 > 16:
 				self.data_saves[1][2][int(general.diff_level)][1] = 16
+				self.data_saves[1][2][int(general.diff_level + 1)][0] = True
 				self.data_saves[1][3][int(general.diff_level)][0] = True
 			else:
 				self.data_saves[1][2][int(general.diff_level)][1] += 1
@@ -114,8 +116,16 @@ class Sauvegarde:
 			self.saves.close()
 	
 	def BossRush(self):
-		return self.data_saves[2][1][1][0]
+		return self.data_saves[2][1][1][0] + self.data_saves[2][1][1][1]
+	
+	def BossRushes(self):
+		return [self.data_saves[2][1][1][0] + self.data_saves[2][1][1][1],self.data_saves[2][2][1][0] + self.data_saves[2][2][1][1],self.data_saves[2][3][1][0] + self.data_saves[2][3][1][1]]
+	
+	def BossRushesDifficulty(self,pers):
+		return self.data_saves[2][pers][1]	
 	
 	def History(self,pers):
 		return [self.data_saves[1][pers][1][0],self.data_saves[1][pers][2][0],self.data_saves[1][pers][3][0]]
 
+
+	

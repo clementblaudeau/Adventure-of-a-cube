@@ -38,6 +38,7 @@ class tir1:
 		if ((pygame.time.get_ticks() - self.k) > 100-(5*general.niv)):
 		    self.k = pygame.time.get_ticks()
 		    general.tirs += 1
+		    self.son.set_volume(0.2)
 		    self.son.play()
 		    self.positions.append(Rect(0,0,20,30).move(position.left + 20, position.top - 10))
 		
@@ -69,6 +70,7 @@ class tir2:
 		    self.k = pygame.time.get_ticks()
 		    self.positions.append(Rect(0,0,20,30).move(position.left + 20, position.top - 20))
 		    self.son.play()
+		    self.son.set_volume(0.2)
 		    general.tirs += 3
 		
 	
