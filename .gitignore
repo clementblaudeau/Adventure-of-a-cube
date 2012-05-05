@@ -1,0 +1,7 @@
+*.pyc
+images/*
+son/*
+videos/*
+polices/*
+niveaux/*
+save/*
