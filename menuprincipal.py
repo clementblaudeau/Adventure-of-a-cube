@@ -1,11 +1,14 @@
-
 # -*- coding: utf-8 -*-
 
-#------------------------------#
-# 		Menu Principal.py	   #
-#		Clement Blaudeau	   #
-#			******			   #
-#------------------------------#
+#------------------------------
+# 	menuprincipal.py
+#	Clement Blaudeau       
+#	******	       
+#------------------------------
+#	Fichier des menus à texte
+#	(mode de jeu, difficulte, 
+#	personnage, etc...)
+#------------------------------
 
 
 import pygame

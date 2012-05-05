@@ -1,10 +1,13 @@
 # -*- coding: utf-8 -*-
 
-#------------------------------#
-#			Bombe.py		   #
-#		Clement Blaudeau       #
-#	    	******	 	       #
-#------------------------------#
+#------------------------------
+#	bombe.py		   
+#	Clement Blaudeau       
+#	******	       
+#------------------------------
+#	Fichier qui gère l'utilisation
+#	de la bombe
+#------------------------------
 
 import pygame
 from pygame.locals import *	

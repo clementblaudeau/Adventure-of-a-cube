@@ -1,11 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-#------------------------------#
-#             Main.py          #
-#	Clement Blaudeau       #
-#	    ******	       #
-#------------------------------#
+#------------------------------
+#	main.py          
+#	Clement Blaudeau       
+#	******	       
+#------------------------------
+#	Fichier principal
+#------------------------------
 
 import pygame
 from pygame.locals import *	

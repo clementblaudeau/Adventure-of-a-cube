@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
 
-#------------------------------#
-# 	    	Boutons.py	       #
-#		Clement Blaudeau	   #
-#			******			   #
-#------------------------------#
-
+#------------------------------
+# 	boutons.py	       
+#	Clement Blaudeau       
+#	******	       
+#------------------------------
+#	Fichier chargé des boutons
+#	ou interupteurs des menus
+#------------------------------
 
 import pygame
 from pygame.locals import *

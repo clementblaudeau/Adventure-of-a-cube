@@ -1,11 +1,14 @@
-
-#------------------------------#
-#	Niveau.py	       #
-#	Clement Blaudeau       #
-#	******		       #
-#------------------------------#
-
 # -*- coding: utf-8 -*-
+
+#------------------------------
+#	niveau.py
+#	Clement Blaudeau       
+#	******	       
+#------------------------------
+#	Fichier qui gère les niveaux : 
+#	les ennemis, le son, le jeu 
+#	d'images, etc...
+#------------------------------
 
 
 import pygame

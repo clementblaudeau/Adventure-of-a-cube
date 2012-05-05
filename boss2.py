@@ -1,10 +1,13 @@
 # -*- coding: utf-8 -*-
-#------------------------------#
-#           Boss.py            #
-#		Clement Blaudeau	   #
-#			******			   #
-#------------------------------#
 
+#------------------------------
+#   boss2.py
+#	Clement Blaudeau       
+#	******	       
+#------------------------------
+#	Fichier qui gère le boss particulier
+#	du niveau 7.2
+#------------------------------
 
 
 import pygame

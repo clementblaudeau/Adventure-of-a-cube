@@ -1,11 +1,13 @@
-
-#------------------------------#
-#	Niveau.py	       #
-#	Clement Blaudeau       #
-#	******		       #
-#------------------------------#
-
 # -*- coding: utf-8 -*-
+
+#------------------------------
+#	BossRush.py	       
+#	Clement Blaudeau       
+#	******	       
+#------------------------------
+#	Fichier qui gère les niveaux
+#	en mode BossRush
+#------------------------------
 
 
 import pygame

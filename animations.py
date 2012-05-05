@@ -1,3 +1,16 @@
+# -*- coding: utf-8 -*-
+
+#------------------------------
+#	animations.py
+#	Clement Blaudeau       
+#	******	       
+#------------------------------
+#	Fichier qui gère les animations
+#	des explosions et les points de
+#	score lachés par les ennemis
+#------------------------------
+
+
 import pygame
 from pygame.locals import *	
 import general

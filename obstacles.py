@@ -1,10 +1,13 @@
-#------------------------------#
-#		  Obstacles.py		   #
-#		Clement Blaudeau	   #
-#			******			   #
-#------------------------------#
-  
 # -*- coding: utf-8 -*-
+
+#------------------------------
+#	obstacles.py
+#	Clement Blaudeau       
+#	******	       
+#------------------------------
+#	Fichier qui gère les obstacles,
+#	les murs.
+#------------------------------
 
 import pygame
 from pygame.locals import *	

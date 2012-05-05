@@ -1,4 +1,12 @@
+# -*- coding: utf-8 -*-
 
+#------------------------------
+#	general.py
+#	Clement Blaudeau       
+#	******	       
+#------------------------------
+#	Fichier des variables globales
+#------------------------------
 
 h = 480
 w = 640

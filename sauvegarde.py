@@ -1,10 +1,13 @@
 # -*- coding: utf-8 -*-
-#!/usr/bin/env python
-#------------------------------#
-#		Sauvegardes.py		   #
-#		Clement Blaudeau	   #
-#			******			   #
-#------------------------------#
+
+#------------------------------
+#	sauvegarde.py	
+#	Clement Blaudeau       
+#	******	       
+#------------------------------
+#	Fichier qui se charge des
+#	sauvegardes : lecture, ecriture.
+#------------------------------
 
 import pygame
 from pygame.locals import *	

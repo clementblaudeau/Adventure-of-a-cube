@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
-#------------------------------#
-#           Boss.py            #
-#		Clement Blaudeau	   #
-#			******			   #
-#------------------------------#
 
-
+#------------------------------
+#   boss.py
+#	Clement Blaudeau       
+#	******	       
+#------------------------------
+#	Fichier qui gère le système 
+#	du boss.
+#------------------------------
 
 import pygame
 from pygame.locals import *

@@ -1,11 +1,13 @@
-#------------------------------#
-#          Ennemis.py          #
-#		Clement Blaudeau	   #
-#			******			   #
-#------------------------------#
-
 # -*- coding: utf-8 -*-
 
+#------------------------------
+#   ennemis.py
+#	Clement Blaudeau       
+#	******	       
+#------------------------------
+#	Fichier qui gère les ennemis,
+#	leurs tirs, leur affichage,etc..
+#------------------------------
 
 import pygame
 from pygame.locals import *

@@ -1,4 +1,14 @@
 # -*- coding: utf-8 -*-
+
+#------------------------------
+#	onde.py
+#	Clement Blaudeau       
+#	******	       
+#------------------------------
+#	Fichier qui prend en charge
+#	les attaques d'ondes.
+#------------------------------
+
 import pygame
 from pygame.locals import *
 import general

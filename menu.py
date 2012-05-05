@@ -1,10 +1,15 @@
-
 # -*- coding: utf-8 -*-
-#------------------------------#
-#			Menu.py			   #
-#		Clement Blaudeau	   #
-#			******			   #
-#------------------------------#
+
+#------------------------------
+#	menu.py			   
+#	Clement Blaudeau       
+#	******	       
+#------------------------------
+#	Fichier important qui se charge
+#	des menu de niveau, des cinématiques
+#	des pauses, des game-over et des 
+#	barres de chargement
+#------------------------------
 
 
 import pygame

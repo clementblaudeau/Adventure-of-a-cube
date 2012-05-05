@@ -1,11 +1,13 @@
-
 # -*- coding: utf-8 -*-
 
-#------------------------------#
-# 		Menu Principal.py	   #
-#		Clement Blaudeau	   #
-#			******			   #
-#------------------------------#
+#------------------------------
+# 	credit.py
+#	Clement Blaudeau       
+#	******	       
+#------------------------------
+#	Fichier simple pour l'affichage 
+#	des crédits
+#------------------------------
 
 
 import pygame

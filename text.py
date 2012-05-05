@@ -1,8 +1,13 @@
-#------------------------------#
-#	       Chrono.py           #
-#   	Clement Blaudeau       #
-#            ******	           #
-#------------------------------#
+# -*- coding: utf-8 -*-
+
+#------------------------------
+#	text.py
+#	Clement Blaudeau       
+#	******	       
+#------------------------------
+#	Fichier utilisé pour les 
+#	affichages de certains textes
+#------------------------------
 
 
 import general
