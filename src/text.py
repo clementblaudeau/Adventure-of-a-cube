@@ -142,7 +142,7 @@ class Vie:
 class NivTirs:
 	
 	def __init__(self):
-		self.font = pygame.font.Font("polices/Bank.ttf", 20)
+		self.font = pygame.font.Font("../polices/Bank.ttf", 20)
 		self.text = self.font.render("", 1, (0,0,0))
 		self.position = self.text.get_rect()
 		self.position = self.position.move(general.w+70, 200)
@@ -175,7 +175,7 @@ class NivTirs:
 class ModeLent:
 	
 	def __init__(self):
-		self.font = pygame.font.Font("polices/Bank.ttf", 20)
+		self.font = pygame.font.Font("../polices/Bank.ttf", 20)
 		self.text = self.font.render("Mode Lent", 1, (1,1,0))
 		
 		

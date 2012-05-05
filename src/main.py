@@ -18,18 +18,6 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 '''
-
->>>>>>> 16d283cc6ef2abbed5b5af7363aa246c52e2564e
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-'''
 #------------------------------
 #	main.py          
 #	Clement Blaudeau       
@@ -43,7 +31,7 @@ from pygame.locals import *
 
 from cub import *
 from perl import *
-from sneeze import *
+#from sneeze import *
 from tir import *
 from onde import *
 from obstacles import *
@@ -57,7 +45,6 @@ from menu import *
 from menuprincipal import *
 from sauvegarde import *
 from bossrush import *
-from game import *
 import general
 
 pygame.init()
@@ -71,7 +58,7 @@ fenetre = pygame.display.set_mode((general.w+200, general.h), DOUBLEBUF)
 #general.screen = "full"
 
 #Chargement des elements du moteur
-jeu = Game()
+#jeu = Game()
 
 #Chargement des menus et crédits
 menu = Menu()
@@ -82,7 +69,7 @@ cred = Credits()
 menu.Chargement1(fenetre)
 
 #Icone et titre
-icone = pygame.image.load("images/Cub/cub121.png")
+icone = pygame.image.load("../images/Cub/cub121.png")
 pygame.display.set_icon(icone)
 pygame.display.set_caption("The adventure of Cub !")
 menu.ChargementProgression(fenetre,30)
@@ -99,9 +86,9 @@ scrool = fenetre.get_rect()
 j = 0
 g = 0
 
-#Chargement du son
+#Chargement du ../son/
 pygame.mixer.init()
-#son = pygame.mixer.Sound("son/son_stressant.wav")
+#son = pygame.mixer.Sound("../son/../son/_stressant.wav")
 #son.play()
 repeter = 1;
 
@@ -111,14 +98,14 @@ cub.position = cub.position.move(275,350)
 cub.hitbox = cub.hitbox.move(303,373)
 mode = "rapide"
 delai = 0
-mode_lent = pygame.image.load("images/"+general.screen+"/m_lent.png").convert_alpha()
-mode_lent2 = pygame.image.load("images/"+general.screen+"/m_lent2.png").convert_alpha()
+mode_lent = pygame.image.load("../images/"+general.screen+"/m_lent.png").convert_alpha()
+mode_lent2 = pygame.image.load("../images/"+general.screen+"/m_lent2.png").convert_alpha()
 menu.ChargementProgression(fenetre,50)
 #Chargement du timer de début de boucle
 surcharge_boucle = pygame.time.get_ticks()
 
 #Chargement du panneau de d'informations de jeu
-paneau = pygame.image.load("images/"+general.screen+"/paneau(0).png").convert_alpha()
+paneau = pygame.image.load("../images/"+general.screen+"/paneau(0).png").convert_alpha()
 
 menu.ChargementProgression(fenetre,95)
 #Rafraîchissement de l'écran
@@ -137,7 +124,7 @@ while modejeu:
 	#Choix du niveau ou ouverture des crédits ou passage en mode Boss Rush
 	if modejeu == 1:
 	    #Mode Histoire
-	    personnage = menuprincipal.ChoixPersonnage(fenetre, "Campagne")
+	    personnage = menuprincipal.Choixpersonnage(fenetre, "Campagne")
 	    if general.back == True:
 		general.back = False
 		continue
@@ -145,12 +132,12 @@ while modejeu:
 	    if general.back == True: 
 		general.back = False
 		continue
-	    paneau = pygame.image.load("images/"+general.screen+"/paneau("+str(general.diff_level)+").png").convert_alpha()
+	    paneau = pygame.image.load("../images/"+general.screen+"/paneau("+str(general.diff_level)+").png").convert_alpha()
 	    general.back = True
 	    lvl = sauvegarde.NiveauActuel(str(personnage))
 	elif modejeu == 2:
 	    #Mode Fast Play : Choix du niveau
-	    campagne = menuprincipal.ChoixPersonnage(fenetre, "Campagne ")
+	    campagne = menuprincipal.Choixpersonnage(fenetre, "Campagne ")
 	    if general.back == True:
 		general.back = False
 		continue
@@ -158,19 +145,19 @@ while modejeu:
 	    if general.back == True:
 		general.back = False
 		continue
-	    paneau = pygame.image.load("images/"+general.screen+"/paneau("+str(general.diff_level)+").png").convert_alpha()
+	    paneau = pygame.image.load("../images/"+general.screen+"/paneau("+str(general.diff_level)+").png").convert_alpha()
 	    lvl = menu.MenuAffichage(fenetre, sauvegarde.NiveauActuel(campagne))	
 	    if general.back == True:
 		general.back = False
 		continue
-	    personnage = menuprincipal.ChoixPersonnage(fenetre)
+	    personnage = menuprincipal.Choixpersonnage(fenetre)
 	    if general.back == True:
 		general.back = False
 		continue
 	    general.back = True
 	elif modejeu == 3:
 	    #Mode Boss Rush
-	    campagne = menuprincipal.ChoixPersonnage(fenetre,sauvegarde.BossRushes(), "Campagne ")
+	    campagne = menuprincipal.Choixpersonnage(fenetre,sauvegarde.BossRushes(), "Campagne ")
 	    if general.back == True:
 		general.back = False
 		continue
@@ -180,8 +167,8 @@ while modejeu:
 	    if general.back == True:
 		general.back = False
 		continue
-	    paneau = pygame.image.load("images/"+general.screen+"/paneau("+str(general.diff_level)+").png").convert_alpha()
-	    personnage = menuprincipal.ChoixPersonnage(fenetre)
+	    paneau = pygame.image.load("../images/"+general.screen+"/paneau("+str(general.diff_level)+").png").convert_alpha()
+	    personnage = menuprincipal.Choixpersonnage(fenetre)
 	    if general.back == True:
 		general.back = False
 		continue

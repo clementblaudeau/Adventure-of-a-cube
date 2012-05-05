@@ -38,16 +38,16 @@ class Cub:
 	
 	
 	def __init__(self):
-		self.image = pygame.image.load("images/Cub/cub001.png").convert_alpha()
+		self.image = pygame.image.load("../images/Cub/cub001.png").convert_alpha()
 		self.position = self.image.get_rect()
 		self.i = 1
 		self.k = 0
-		self.cube_actuel = "images/Cub/cub002.png"
+		self.cube_actuel = "../images/Cub/cub002.png"
 		self.hitbox = Rect(0,0,5,5)
 		self.glissement_vertical = 0
 		self.glissement_horizontal = 0
 		self.degats = 0
-		self.img_degat = pygame.image.load("images/degats.png").convert_alpha()
+		self.img_degat = pygame.image.load("../images/degats.png").convert_alpha()
 		self.score = Score()
 		self.vie = Vie()
 		self.nivtirs = NivTirs()
@@ -61,13 +61,13 @@ class Cub:
 		self.ho = 0
 		while self.i <= 200:
 			if self.i < 10:
-				self.cube_actuel = "images/Cub/cub00"+ str(self.i) +".png"
+				self.cube_actuel = "../images/Cub/cub00"+ str(self.i) +".png"
 			elif self.i < 100:
-				self.cube_actuel = "images/Cub/cub0"+ str(self.i) +".png"
+				self.cube_actuel = "../images/Cub/cub0"+ str(self.i) +".png"
 			elif self.i < 200:
-				self.cube_actuel = "images/Cub/cub"+ str(self.i) +".png"
+				self.cube_actuel = "../images/Cub/cub"+ str(self.i) +".png"
 			elif self.i == 200:
-				self.cube_actuel = "images/Cub/cub"+ str(self.i) +".png"
+				self.cube_actuel = "../images/Cub/cub"+ str(self.i) +".png"
 			self.images.append(pygame.image.load(self.cube_actuel).convert_alpha())
 			self.i += 1
 		self.i = 0

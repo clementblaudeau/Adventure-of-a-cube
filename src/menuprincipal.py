@@ -36,8 +36,8 @@ from boutons import *
 class MenuPrincipal:
 	
 	def __init__(self):
-		self.fond = pygame.image.load("images/"+general.screen+"/menu.png").convert_alpha()
-		self.gagne = pygame.image.load("images/"+general.screen+"/fin_niveau.png").convert()
+		self.fond = pygame.image.load("../images/"+general.screen+"/menu.png").convert_alpha()
+		self.gagne = pygame.image.load("../images/"+general.screen+"/fin_niveau.png").convert()
 		self.boutons = Bouton_Text()
 		self.lastclic = 0
 		self.lastevent = 0
@@ -51,7 +51,7 @@ class MenuPrincipal:
 		self.boutons.NouveauBouton((general.w/2 - 100,320), "Credits")
 		
 	def MenuAffichage(self,fenetre,boss):
-		fenetre.blit(pygame.image.load("images/"+general.screen+"/lv1.jpg").convert(), (general.w,0))
+		fenetre.blit(pygame.image.load("../images/"+general.screen+"/lv1.jpg").convert(), (general.w,0))
 		fenetre.blit(self.fond,(0,0))
 		continuer = 1
 		self.boutons = Bouton_Text()
@@ -95,10 +95,10 @@ class MenuPrincipal:
 				pygame.time.delay(9 -(tps_fin_boucle - tps_debut_boucle))
 				
 				
-	def ChoixPersonnage(self,fenetre,pers=[True,True,True], ajout=""):
+	def Choixpersonnage(self,fenetre,pers=[True,True,True], ajout=""):
 		self.boutons = Bouton_Text()
 		self.boutons2 = Bouton_Text()
-		self.font = pygame.font.Font("polices/Coalition.ttf", 35)
+		self.font = pygame.font.Font("../polices/Coalition.ttf", 35)
 		self.boutons.NouveauBouton((general.w/2 - 100,170), "Cub",20,pers[0])
 		try:
 			self.boutons.NouveauBouton((general.w/2 - 100,220), str(general.caracters[1]),20,pers[1])
@@ -148,7 +148,7 @@ class MenuPrincipal:
 	def ChoixNiveau(self,fenetre, niv,lock):
 		self.boutons = Bouton_Text()
 		self.boutons2 = Bouton_Text()
-		self.font = pygame.font.Font("polices/Coalition.ttf", 35)
+		self.font = pygame.font.Font("../polices/Coalition.ttf", 35)
 		
 		self.boutons.NouveauBouton((general.w/2 - 100,170), "Facile",20,lock[0])
 		self.boutons.NouveauBouton((general.w/2 - 100,220), "Moyen",20,lock[1])

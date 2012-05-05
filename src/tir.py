@@ -36,8 +36,8 @@ import general
 class tir1:
 	
 	def __init__(self):
-		self.image = [pygame.image.load("images/tir.png").convert_alpha(),pygame.image.load("images/tir2.png").convert_alpha(),pygame.image.load("images/tir3.png").convert_alpha()]
-		self.son = pygame.mixer.Sound("son/tir.ogg")
+		self.image = [pygame.image.load("../images/tir.png").convert_alpha(),pygame.image.load("../images/tir2.png").convert_alpha(),pygame.image.load("../images/tir3.png").convert_alpha()]
+		self.son = pygame.mixer.Sound("../son/tir.ogg")
 		self.positions = []
 		self.k = 0
 	
@@ -66,9 +66,9 @@ class tir1:
 class tir2:
 	
 	def __init__(self):
-		self.image = [pygame.image.load("images/attaque.png").convert_alpha(),pygame.image.load("images/attaque2.png").convert_alpha(),pygame.image.load("images/attaque3.png").convert_alpha()]
+		self.image = [pygame.image.load("../images/attaque.png").convert_alpha(),pygame.image.load("../images/attaque2.png").convert_alpha(),pygame.image.load("../images/attaque3.png").convert_alpha()]
 		self.positions = []
-		self.son = pygame.mixer.Sound("son/tir2.ogg")
+		self.son = pygame.mixer.Sound("../son/tir2.ogg")
 		self.k = 0
 		
 		

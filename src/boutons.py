@@ -31,16 +31,16 @@ from pygame.locals import *
 class Bouton_Text:
 	
 	def __init__(self):
-		self.off = pygame.image.load("images/bouton_l.png").convert_alpha()
-		self.hover = pygame.image.load("images/bouton-hover_l.png").convert_alpha()
-		self.on = pygame.image.load("images/bouton-on_l.png").convert_alpha()
-		self.lock = pygame.image.load("images/bouton_lock.png").convert_alpha()
+		self.off = pygame.image.load("../images/bouton_l.png").convert_alpha()
+		self.hover = pygame.image.load("../images/bouton-hover_l.png").convert_alpha()
+		self.on = pygame.image.load("../images/bouton-on_l.png").convert_alpha()
+		self.lock = pygame.image.load("../images/bouton_lock.png").convert_alpha()
 		self.boutons = []
-		self.font = pygame.font.Font("polices/Coalition.ttf", 20)
+		self.font = pygame.font.Font("../polices/Coalition.ttf", 20)
 		
 	
 	def NouveauBouton(self, position, nom, taille=20, unlock=True):
-		self.font = pygame.font.Font("polices/Coalition.ttf", taille)
+		self.font = pygame.font.Font("../polices/Coalition.ttf", taille)
 		temp = self.off.get_rect()
 		self.boutons.append([temp.move(position),self.font.render(str(nom), 1, (0, 0, 0)),unlock])
 
@@ -86,13 +86,13 @@ class Bouton_Text:
 class Bouton_Nb:
 	
 	def __init__(self):
-		self.off = pygame.image.load("images/bouton.png").convert_alpha()
-		self.hover = pygame.image.load("images/bouton-hover.png").convert_alpha()
-		self.on = pygame.image.load("images/bouton-on.png").convert_alpha()
+		self.off = pygame.image.load("../images/bouton.png").convert_alpha()
+		self.hover = pygame.image.load("../images/bouton-hover.png").convert_alpha()
+		self.on = pygame.image.load("../images/bouton-on.png").convert_alpha()
 		self.positions = []
 		self.numeros = []
 		self.num = []
-		self.font = pygame.font.Font("polices/Coalition.ttf", 32)
+		self.font = pygame.font.Font("../polices/Coalition.ttf", 32)
 		
 	
 	def NouveauBouton(self, position, numero):

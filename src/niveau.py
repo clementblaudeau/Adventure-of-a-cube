@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #	******	       
 #------------------------------
 #	Fichier qui gère les niveaux : 
-#	les ennemis, le son, le jeu 
-#	d'images, etc...
+#	les ennemis, le ../son/, le jeu 
+#	d'images/, etc...
 #------------------------------
 
 
@@ -38,7 +38,7 @@ import general
 class Niveau:
 	
 	def __init__(self, numero, pers):
-		self.nom_fichier = "niveaux/"+pers+"/("+str(general.diff_level)+")/" + numero + ".lvl"
+		self.nom_fichier = "../niveaux/"+pers+"/("+str(general.diff_level)+")/" + numero + ".lvl"
 		self.fichier = open(self.nom_fichier, "r")
 		self.contenu = self.fichier.readlines()
 		b = 0
@@ -53,14 +53,14 @@ class Niveau:
 		self.nom_background = self.contenu[1]
 		#self.fond = pygame.image.load(self.nom_background).convert()
 		self.nom_background = self.nom_background.split("/")
-		self.fond = pygame.image.load(self.nom_background[0] + "/" + str(general.screen) + "/" + self.nom_background[1]).convert()
+		self.fond = pygame.image.load("../"+self.nom_background[0] + "/" + str(general.screen) + "/" + self.nom_background[1]).convert()
 		self.nom_son = self.contenu[2]
 		#try:
-		#    self.son = pygame.mixer.Sound(self.nom_son)
+		#    self.son = pygame.mixer.Sound(self.nom_../son/)
 		#except Exception:
 		  #  print Exception
 		print self.nom_son
-		self.son = pygame.mixer.Sound("son/Cub/1.wav")
+		self.son = pygame.mixer.Sound("../son/Cub/1.wav")
 		self.nombre_obstacles = self.contenu[4]
 		self.obstacles = Obstacles()
 		if int(numero)%2 == 0:

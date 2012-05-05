@@ -34,7 +34,7 @@ class Credits:
 		self.e = 2
 		
 	def Affichage(self, fenetre):
-		image = pygame.image.load("images/"+general.screen+"/credits.png").convert_alpha()
+		image = pygame.image.load("../images/"+general.screen+"/credits.png").convert_alpha()
 		continuer = 1
 		while continuer:
 			pygame.display.flip()

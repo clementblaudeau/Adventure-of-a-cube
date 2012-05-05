@@ -38,13 +38,13 @@ class Boss:
 	
 	def __init__(self, niv, pers):
 		try:
-			self.image = pygame.image.load("images/"+general.screen+"/boss"+str(niv)+".png")
+			self.image = pygame.image.load("../images/"+general.screen+"/boss"+str(niv)+".png")
 		except:
-			self.image = pygame.image.load("images/"+general.screen+"/boss1.png")
+			self.image = pygame.image.load("../images/"+general.screen+"/boss1.png")
 			print "erreur de chargement de l'image"
 		try:
-			self.fichier = open("niveaux/"+str(pers)+"/("+str(general.diff_level)+")/boss"+str(niv)+".bs", "r")
-			print "niveaux/"+str(pers)+"/("+str(general.diff_level)+")/boss"+str(niv)+".bs"
+			self.fichier = open("../niveaux/"+str(pers)+"/("+str(general.diff_level)+")/boss"+str(niv)+".bs", "r")
+			print "../niveaux/"+str(pers)+"/("+str(general.diff_level)+")/boss"+str(niv)+".bs"
 			boss = pickle.load(self.fichier)
 			self.hitboxs = boss[0]
 			self.timer = boss[1]
@@ -52,7 +52,7 @@ class Boss:
 			self.fichier.close()
 		except:
 			print "Erreur de chargement du boss !"
-			self.fichier = open("niveaux/Cub/(1)/boss2.bs", "r")
+			self.fichier = open("../niveaux/Cub/(1)/boss2.bs", "r")
 			boss = pickle.load(self.fichier)
 			self.hitboxs = boss[0]
 			self.timer = boss[1]
@@ -62,8 +62,8 @@ class Boss:
 				self.hitboxs[i][1].top = general.scrool
 		self.position = self.image.get_rect().move(0,general.scrool)
 		self.time = 0
-		self.son = pygame.mixer.Sound("son/mort.ogg")
-		self.img_hitbox = pygame.image.load("images/hitbox.png").convert_alpha()
+		self.son = pygame.mixer.Sound("../son/mort.ogg")
+		self.img_hitbox = pygame.image.load("../images/hitbox.png").convert_alpha()
 		self.eclats = Eclat()
 		
 		

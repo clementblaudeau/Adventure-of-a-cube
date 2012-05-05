@@ -38,18 +38,18 @@ class BossRush:
 	def __init__(self, pers):
 		
 		self.nom = "Boss Rush !"
-		self.fond = pygame.image.load("images/"+general.screen+"/lv1.jpg").convert()
+		self.fond = pygame.image.load("../images/"+general.screen+"/lv1.jpg").convert()
 		try:
-		    self.son = pygame.mixer.Sound("son/bossrush.wav")
+		    self.son = pygame.mixer.Sound("../son/bossrush.wav")
 		except:
-		    self.son = pygame.mixer.Sound("son/Cub/1.wav")
+		    self.son = pygame.mixer.Sound("../son/Cub/1.wav")
 		self.obstacles = Obstacles()
 		self.ennemis = Ennemis(1)
 		self.boss = Boss(2, pers)
 		self.niv = 1
 		self.transition = False
 		self.clear = False
-		self.imgtransition = pygame.image.load("images/"+general.screen+"/transition.png").convert()
+		self.imgtransition = pygame.image.load("../images/"+general.screen+"/transition.png").convert()
 		self.chrono = Chrono()
 		self.pers = pers
 		

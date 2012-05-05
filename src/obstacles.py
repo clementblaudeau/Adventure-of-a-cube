@@ -35,13 +35,13 @@ class Obstacles:
 	
 	def __init__(self):
 		self.positions = []
-		self.style1 = pygame.image.load("images/debris1.png").convert_alpha()
-		self.style2 = pygame.image.load("images/mur.png").convert_alpha()
-		self.style3 = pygame.image.load("images/mur.png").convert_alpha()
-		self.style4 = pygame.image.load("images/mur.png").convert_alpha()
-		self.style5 = pygame.image.load("images/mur.png").convert_alpha()
-		self.style6 = pygame.image.load("images/mur.png").convert_alpha()
-		self.style7 = pygame.image.load("images/mur.png").convert_alpha()
+		self.style1 = pygame.image.load("../images/debris1.png").convert_alpha()
+		self.style2 = pygame.image.load("../images/mur.png").convert_alpha()
+		self.style3 = pygame.image.load("../images/mur.png").convert_alpha()
+		self.style4 = pygame.image.load("../images/mur.png").convert_alpha()
+		self.style5 = pygame.image.load("../images/mur.png").convert_alpha()
+		self.style6 = pygame.image.load("../images/mur.png").convert_alpha()
+		self.style7 = pygame.image.load("../images/mur.png").convert_alpha()
 		self.vies = []
 		self.sortes = []
 		self.j = 0

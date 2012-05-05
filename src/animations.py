@@ -37,26 +37,26 @@ class Explosions:
 	def __init__(self):
 		self.positions = []
 		self.images = [
-		pygame.image.load("images/explosion1.png").convert_alpha(),
-		pygame.image.load("images/explosion1a.png").convert_alpha(),
-		pygame.image.load("images/explosion1a.png").convert_alpha(),
-		pygame.image.load("images/explosion1b.png").convert_alpha(),
-		pygame.image.load("images/explosion1b.png").convert_alpha(),
-		pygame.image.load("images/explosion2.png").convert_alpha(),
-		pygame.image.load("images/explosion2a.png").convert_alpha(),
-		pygame.image.load("images/explosion2a.png").convert_alpha(),
-		pygame.image.load("images/explosion2b.png").convert_alpha(),
-		pygame.image.load("images/explosion2b.png").convert_alpha(),
-		pygame.image.load("images/explosion3.png").convert_alpha(),
-		pygame.image.load("images/explosion3a.png").convert_alpha(),
-		pygame.image.load("images/explosion3a.png").convert_alpha(),
-		pygame.image.load("images/explosion3b.png").convert_alpha(),
-		pygame.image.load("images/explosion3b.png").convert_alpha(),
-		pygame.image.load("images/explosion4.png").convert_alpha(),
-		pygame.image.load("images/explosion4a.png").convert_alpha(),
-		pygame.image.load("images/explosion4a.png").convert_alpha(),
-		pygame.image.load("images/explosion4b.png").convert_alpha(),
-		pygame.image.load("images/explosion4b.png").convert_alpha()]
+		pygame.image.load("../images/explosion1.png").convert_alpha(),
+		pygame.image.load("../images/explosion1a.png").convert_alpha(),
+		pygame.image.load("../images/explosion1a.png").convert_alpha(),
+		pygame.image.load("../images/explosion1b.png").convert_alpha(),
+		pygame.image.load("../images/explosion1b.png").convert_alpha(),
+		pygame.image.load("../images/explosion2.png").convert_alpha(),
+		pygame.image.load("../images/explosion2a.png").convert_alpha(),
+		pygame.image.load("../images/explosion2a.png").convert_alpha(),
+		pygame.image.load("../images/explosion2b.png").convert_alpha(),
+		pygame.image.load("../images/explosion2b.png").convert_alpha(),
+		pygame.image.load("../images/explosion3.png").convert_alpha(),
+		pygame.image.load("../images/explosion3a.png").convert_alpha(),
+		pygame.image.load("../images/explosion3a.png").convert_alpha(),
+		pygame.image.load("../images/explosion3b.png").convert_alpha(),
+		pygame.image.load("../images/explosion3b.png").convert_alpha(),
+		pygame.image.load("../images/explosion4.png").convert_alpha(),
+		pygame.image.load("../images/explosion4a.png").convert_alpha(),
+		pygame.image.load("../images/explosion4a.png").convert_alpha(),
+		pygame.image.load("../images/explosion4b.png").convert_alpha(),
+		pygame.image.load("../images/explosion4b.png").convert_alpha()]
 						
 
 	def NouvelleExplosion(self, x, y):
@@ -84,7 +84,7 @@ class Explosions:
 class Eclat:
 	
 	def __init__(self):
-		self.eclat = pygame.image.load("images/eclat.png").convert_alpha()
+		self.eclat = pygame.image.load("../images/eclat.png").convert_alpha()
 		self.positions = []
 		self.explosions = Explosions()
 		self.j = 0

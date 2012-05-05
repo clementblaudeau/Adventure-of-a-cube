@@ -40,10 +40,10 @@ class Boss2:
 		self.position = 0
 		self.vie = 0
 		try:
-			self.image = pygame.image.load("images/"+general.screen+"/boss"+str(niv)+str(pers)+".png").convert_alpha()
+			self.image = pygame.image.load("../images/"+general.screen+"/boss"+str(niv)+str(pers)+".png").convert_alpha()
 		except:
-			self.image = pygame.image.load("images/"+general.screen+"/boss1.png").convert_alpha()
-		self.imghitbox = pygame.image.load("images/hitbox_boss.png").convert_alpha()
+			self.image = pygame.image.load("../images/"+general.screen+"/boss1.png").convert_alpha()
+		self.imghitbox = pygame.image.load("../images/hitbox_boss.png").convert_alpha()
 		self.j = 0
 		self.temps = 0
 		self.eclats = Eclat()
@@ -56,9 +56,9 @@ class Boss2:
 		self.ennemisTues = 0
 		self.hitbox = (self.imghitbox.get_rect()).move(general.w/2,50)
 		try:
-			self.fichier = open("niveaux/"+pers+"/("+str(general.diff_level)+")/boss"+str(niv)+".bs", "r")
+			self.fichier = open("../niveaux/"+pers+"/("+str(general.diff_level)+")/boss"+str(niv)+".bs", "r")
 		except:
-			self.fichier = open("niveaux/"+pers+"/("+str(general.diff_level)+")/boss.bs", "r")
+			self.fichier = open("../niveaux/"+pers+"/("+str(general.diff_level)+")/boss.bs", "r")
 		self.contenu = self.fichier.readlines()
 		b = 0
 		c = 0
