@@ -54,26 +54,26 @@ class Obstacles:
 		self.vies.append(sorte * 3)
 		self.sortes.append(sorte)
 		
-	def Affichage(self, fenetre):
+	def Affichage(self, window):
 		i = 0
-		self.eclat.Affichage(fenetre)
+		self.eclat.Affichage(window)
 		for element in self.positions:
 			if self.sortes[i] == 1:
-				fenetre.blit(self.style1, element)
+				window.blit(self.style1, element)
 			elif self.sortes[i] == 2:
-				fenetre.blit(self.style2, element)
+				window.blit(self.style2, element)
 			elif self.sortes[i] == 3:
-				fenetre.blit(self.style3, element)
+				window.blit(self.style3, element)
 			elif self.sortes[i] == 4:
-				fenetre.blit(self.style4, element)
+				window.blit(self.style4, element)
 			elif self.sortes[i] == 5:
-				fenetre.blit(self.style5, element)
+				window.blit(self.style5, element)
 			elif self.sortes[i] == 6:
-				fenetre.blit(self.style6, element)
+				window.blit(self.style6, element)
 			elif self.sortes[i] == 7:
-				fenetre.blit(self.style7, element)
+				window.blit(self.style7, element)
 			else:
-				fenetre.blit(self.style1, element)
+				window.blit(self.style1, element)
 			i+=1
 	
 	def ColisionsCube(self, cub):

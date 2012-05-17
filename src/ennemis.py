@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #	******	       
 #------------------------------
 #	Fichier qui gère les ennemis,
-#	leurs tirs, leur affichage,etc..
+#	leurs tirs, leur Affichage,etc..
 #------------------------------
 
 import pygame
@@ -366,7 +366,7 @@ class Ennemis:
 				return 0
 			i+=1			
 				
-	def Affichage(self, fenetre):
+	def Affichage(self, window):
 		#Scrool, 
 		#Affichage
 		self.Cleaner()
@@ -418,69 +418,69 @@ class Ennemis:
 		i = 0
 		for element in self.positions:
 			if self.sortes[i] == 1:
-				fenetre.blit(self.ennemis1, element)
+				window.blit(self.ennemis1, element)
 			if self.sortes[i] == 2:
-				fenetre.blit(self.ennemis2, element)
+				window.blit(self.ennemis2, element)
 			if self.sortes[i] == 3:
-				fenetre.blit(self.ennemis3, element)
+				window.blit(self.ennemis3, element)
 			if self.sortes[i] == 4:
-				fenetre.blit(self.ennemis4, element)
+				window.blit(self.ennemis4, element)
 			if self.sortes[i] == 5:
-				fenetre.blit(self.ennemis5, element)
+				window.blit(self.ennemis5, element)
 			if self.sortes[i] == 6:
-				fenetre.blit(self.ennemis6, element)
+				window.blit(self.ennemis6, element)
 			i+=1
 		i = 0
 		for element in self.positionsf:
 			if self.sortesf[i] == 1:
-				fenetre.blit(self.ennemis_f1, element)
+				window.blit(self.ennemis_f1, element)
 			if self.sortesf[i] == 2:
-				fenetre.blit(self.ennemis_f2, element)
+				window.blit(self.ennemis_f2, element)
 			if self.sortesf[i] == 3:
-				fenetre.blit(self.ennemis_f3, element)
+				window.blit(self.ennemis_f3, element)
 			if self.sortesf[i] == 4:
-				fenetre.blit(self.ennemis_f4, element)
+				window.blit(self.ennemis_f4, element)
 			if self.sortesf[i] == 5:
-				fenetre.blit(self.ennemis_f5, element)
+				window.blit(self.ennemis_f5, element)
 			if self.sortesf[i] == 6:
-				fenetre.blit(self.ennemis_f6, element)
+				window.blit(self.ennemis_f6, element)
 			i+=1
 		
 		
 		
 		for element in self.tirs1:
 			if not (element.right > int(general.w) + 10) and not (element.left < -10) and not (element.top < -5) and not (element.bottom > int(general.h) + 10):
-				fenetre.blit(self.bille, element)
+				window.blit(self.bille, element)
 				
 		for element in self.tirs2:
 			if not (element.right > int(general.w) + 10) and not (element.left < -10) and not (element.top < -5) and not (element.bottom > int(general.h) + 10):
-				fenetre.blit(self.bille, element)
+				window.blit(self.bille, element)
 				
 		for element in self.tirs3:
 			if not (element.right > int(general.w) + 10) and not (element.left < -10) and not (element.top < -5) and not (element.bottom > int(general.h) + 10):
-				fenetre.blit(self.bille, element)
+				window.blit(self.bille, element)
 				
 		for element in self.tirs4:
 			if not (element.right > int(general.w) + 10) and not (element.left < -10) and not (element.top < -5) and not (element.bottom > int(general.h) + 10):
-				fenetre.blit(self.bille, element)
+				window.blit(self.bille, element)
 				
 		for element in self.tirs5:
 			if not (element.right > int(general.w) + 10) and not (element.left < -10) and not (element.top < -5) and not (element.bottom > int(general.h) + 10):
-				fenetre.blit(self.bille, element)
+				window.blit(self.bille, element)
 				
 		for element in self.tirs6:
 			if not (element.right > int(general.w) + 10) and not (element.left < -10) and not (element.top < -5) and not (element.bottom > int(general.h) + 10):
-				fenetre.blit(self.bille, element)
+				window.blit(self.bille, element)
 				
 		for element in self.tirs7:
 			if not (element.right > int(general.w) + 10) and not (element.left < -10) and not (element.top < -5) and not (element.bottom > int(general.h) + 10):
-				fenetre.blit(self.bille, element)
+				window.blit(self.bille, element)
 				
 		for element in self.tirs8:
 			if not (element.right > int(general.w) + 10) and not (element.left < -10) and not (element.top < -5) and not (element.bottom > int(general.h) + 10):
-				fenetre.blit(self.bille, element)
+				window.blit(self.bille, element)
 		
-		self.eclats.Affichage(fenetre)
+		self.eclats.Affichage(window)
 	
 	def Fini(self):
 		self.Cleaner()

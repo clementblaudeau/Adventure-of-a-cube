@@ -53,7 +53,7 @@ class Niveau:
 		self.nom_background = self.contenu[1]
 		#self.fond = pygame.image.load(self.nom_background).convert()
 		self.nom_background = self.nom_background.split("/")
-		self.fond = pygame.image.load("../"+self.nom_background[0] + "/" + str(general.screen) + "/" + self.nom_background[1]).convert()
+		self.fond = pygame.image.load("../"+self.nom_background[0] + "/" + self.nom_background[1]).convert()
 		self.nom_son = self.contenu[2]
 		#try:
 		#    self.son = pygame.mixer.Sound(self.nom_../son/)
@@ -108,8 +108,8 @@ class Niveau:
 		
 	
 		
-	def Affichage(self, fenetre, scrool):
-		fenetre.blit(self.fond, scrool)
+	def Affichage(self, window, scrool):
+		window.blit(self.fond, scrool)
 		self.ennemis.Tir()
 		try:
 		    self.boss.Tir(self.ennemis, self.obstacles)
@@ -117,12 +117,12 @@ class Niveau:
 		    pass
 		self.ennemis.Deplacements()
 		try:
-		    self.boss.Affichage(fenetre)
+		    self.boss.Affichage(window)
 		except:
 		    pass
-		self.obstacles.Affichage(fenetre)
-		self.ennemis.Affichage(fenetre)
-		self.chrono.Affichage(pygame.time.get_ticks(), fenetre, "")
+		self.obstacles.Affichage(window)
+		self.ennemis.Affichage(window)
+		self.chrono.Affichage(pygame.time.get_ticks(), window, "")
 		
 	def Collisions(self,cub):
 	    if general.c_protect == False:

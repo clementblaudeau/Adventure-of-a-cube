@@ -38,10 +38,10 @@ class Boss:
 	
 	def __init__(self, niv, pers):
 		try:
-			self.image = pygame.image.load("../images/"+general.screen+"/boss"+str(niv)+".png")
+			self.image = pygame.image.load("../images/boss"+str(niv)+".png")
 		except:
-			self.image = pygame.image.load("../images/"+general.screen+"/boss1.png")
-			print "erreur de chargement de l'image"
+			self.image = pygame.image.load("../images/boss1.png")
+			print "erreur de Load de l'image"
 		try:
 			self.fichier = open("../niveaux/"+str(pers)+"/("+str(general.diff_level)+")/boss"+str(niv)+".bs", "r")
 			print "../niveaux/"+str(pers)+"/("+str(general.diff_level)+")/boss"+str(niv)+".bs"
@@ -51,7 +51,7 @@ class Boss:
 			self.tirs = boss[2]
 			self.fichier.close()
 		except:
-			print "Erreur de chargement du boss !"
+			print "Erreur de Load du boss !"
 			self.fichier = open("../niveaux/Cub/(1)/boss2.bs", "r")
 			boss = pickle.load(self.fichier)
 			self.hitboxs = boss[0]
@@ -195,12 +195,12 @@ class Boss:
 									pass
 
 				
-	def Affichage(self, fenetre):
+	def Affichage(self, window):
 		if self.position.bottom >= -5:
 			self.Move()
-		fenetre.blit(self.image, self.position)
+		window.blit(self.image, self.position)
 		for element in self.hitboxs:
 			if element[0] >= 0:
-				fenetre.blit(self.img_hitbox,element[1].move(-5,-5))
-		self.eclats.Affichage(fenetre)
+				window.blit(self.img_hitbox,element[1].move(-5,-5))
+		self.eclats.Affichage(window)
 	

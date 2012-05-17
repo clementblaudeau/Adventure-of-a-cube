@@ -40,9 +40,9 @@ class Boss2:
 		self.position = 0
 		self.vie = 0
 		try:
-			self.image = pygame.image.load("../images/"+general.screen+"/boss"+str(niv)+str(pers)+".png").convert_alpha()
+			self.image = pygame.image.load("../images/boss"+str(niv)+str(pers)+".png").convert_alpha()
 		except:
-			self.image = pygame.image.load("../images/"+general.screen+"/boss1.png").convert_alpha()
+			self.image = pygame.image.load("../images/boss1.png").convert_alpha()
 		self.imghitbox = pygame.image.load("../images/hitbox_boss.png").convert_alpha()
 		self.j = 0
 		self.temps = 0
@@ -140,12 +140,12 @@ class Boss2:
 			else:
 				return True
 				
-	def Affichage(self, fenetre):
+	def Affichage(self, window):
 		if self.position.y >= -100:
 			if self.detruit == False:
-				fenetre.blit(self.image, self.position)
+				window.blit(self.image, self.position)
 				if self.vagues >= self.nbVagues:
-					fenetre.blit(self.imghitbox, self.hitbox)
+					window.blit(self.imghitbox, self.hitbox)
 		
-		self.eclats.Affichage(fenetre)
+		self.eclats.Affichage(window)
 	

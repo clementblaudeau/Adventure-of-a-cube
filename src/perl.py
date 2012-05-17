@@ -38,7 +38,7 @@ class Perl:
 	
 	
 	def __init__(self):
-		self.image = pygame.image.load("../images/Perl/perl001.png").convert_alpha()
+		self.image = pygame.image.load("../images/Perl/perl0001.png").convert_alpha()
 		self.position = self.image.get_rect()
 		self.i = 1
 		self.k = 0
@@ -61,13 +61,13 @@ class Perl:
 		self.ho = 0
 		while self.i <= 200:
 			if self.i < 10:
-				self.cube_actuel = "../images/Perl/perl00"+ str(self.i) +".png"
+				self.cube_actuel = "../images/Perl/perl000"+ str(self.i) +".png"
 			elif self.i < 100:
-				self.cube_actuel = "../images/Perl/perl0"+ str(self.i) +".png"
+				self.cube_actuel = "../images/Perl/perl00"+ str(self.i) +".png"
 			elif self.i < 200:
-				self.cube_actuel = "../images/Perl/perl"+ str(self.i) +".png"
+				self.cube_actuel = "../images/Perl/perl0"+ str(self.i) +".png"
 			elif self.i == 200:
-				self.cube_actuel = "../images/Perl/perl"+ str(self.i) +".png"
+				self.cube_actuel = "../images/Perl/perl0"+ str(self.i) +".png"
 			self.images.append(pygame.image.load(self.cube_actuel).convert_alpha())
 			self.i += 1
 		self.i = 0
@@ -108,6 +108,34 @@ class Perl:
 				if self.glissement_horizontal < 40:
 					self.glissement_horizontal += 3
 				
+	def Action(self,key,mode,obstacles):
+		
+		if mode == "lent":
+				if key[general.k_up] == True:
+					self.DeplaceLent('haut', obstacles)
+				if key[general.k_down] == True:
+					self.DeplaceLent('bas', obstacles)
+				if key[general.k_left] == True:
+					self.DeplaceLent('gauche', obstacles)
+				if key[general.k_right] == True:
+					self.DeplaceLent('droite', obstacles)
+				if (key[general.k_shot] == True) or (key[97] == True):
+					self.tir2.Tir(self.position)
+				if (key[general.k_shot2] == True) or (key[101] == True):
+					self.onde.NewOnde(self.position.move(-70,-50))
+		else:
+				if key[general.k_up] == True:
+					self.Deplace('haut',obstacles)
+				if key[general.k_down] == True:
+					self.Deplace('bas', obstacles)
+				if key[general.k_left] == True:
+					self.Deplace('gauche', obstacles)
+				if key[general.k_right] == True:
+					self.Deplace('droite', obstacles)
+				if (key[general.k_shot] == True) or (key[97] == True):
+					self.tir1.Tir(self.position)
+				if (key[general.k_shot2] == True) or (key[101] == True):
+					self.onde.NewOnde(self.position.move(-70,-50))
 				
 	
 	def Reboot(self):
@@ -139,27 +167,27 @@ class Perl:
 				
 
 
-	def Affichage(self, fenetre):
-		self.onde.Protege(self.hitbox)
-		fenetre.blit(self.image, self.position)	
+	def Affichage(self, window):
+		self.onde.Protect(self.hitbox)
+		window.blit(self.image, self.position)	
 		if self.degats > 0:
 			self.degats -= 1
 			if self.degats % 10:
-				fenetre.blit(self.img_degat, self.position.move(7,7))
-		self.vie.Affichage(fenetre)
-		self.tir1.Affichage(fenetre)
-		self.tir2.Affichage(fenetre)
-		self.onde.Affichage(fenetre)
-		self.score.Affichage(fenetre)
-		self.nivtirs.Affichage(fenetre)
+				window.blit(self.img_degat, self.position.move(7,7))
+		self.vie.Affichage(window)
+		self.tir1.Affichage(window)
+		self.tir2.Affichage(window)
+		self.onde.Affichage(window)
+		self.score.Affichage(window)
+		self.nivtirs.Affichage(window)
 
 		
-	def Affichage2(self, fenetre):
-		fenetre.blit(self.image, self.position)	
+	def Affichage2(self, window):
+		window.blit(self.image, self.position)	
 
 	def AvanceTirs(self):
-	    self.tir1.Progression()
-	    self.tir2.Progression()
+	    self.tir1.Progress()
+	    self.tir2.Progress()
 
 	def Nettoyage(self):
 		self.position.x = 0

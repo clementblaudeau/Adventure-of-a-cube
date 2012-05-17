@@ -31,111 +31,64 @@ import general
 class Onde:
 	
 	def __init__(self):
-		self.onde01 = pygame.image.load("../images/onde01.png").convert_alpha()
-		self.onde02 = pygame.image.load("../images/onde02.png").convert_alpha()
-		self.onde03 = pygame.image.load("../images/onde03.png").convert_alpha()
-		self.onde04 = pygame.image.load("../images/onde04.png").convert_alpha()
-		self.onde05 = pygame.image.load("../images/onde05.png").convert_alpha()
-		self.onde06 = pygame.image.load("../images/onde06.png").convert_alpha()
-		self.onde07 = pygame.image.load("../images/onde07.png").convert_alpha()
-		self.onde08 = pygame.image.load("../images/onde08.png").convert_alpha()
-		self.onde09 = pygame.image.load("../images/onde09.png").convert_alpha()
-		self.onde10 = pygame.image.load("../images/onde10.png").convert_alpha()
-		self.onde11 = pygame.image.load("../images/onde11.png").convert_alpha()
-		self.onde12 = pygame.image.load("../images/onde12.png").convert_alpha()
-		self.onde13 = pygame.image.load("../images/onde13.png").convert_alpha()
-		self.onde14 = pygame.image.load("../images/onde14.png").convert_alpha()
-		self.onde15 = pygame.image.load("../images/onde15.png").convert_alpha()
-		self.onde16 = pygame.image.load("../images/onde16.png").convert_alpha()
-		self.onde17 = pygame.image.load("../images/onde17.png").convert_alpha()
-		self.onde18 = pygame.image.load("../images/onde18.png").convert_alpha()
-		self.onde19 = pygame.image.load("../images/onde19.png").convert_alpha()
-		self.onde20 = pygame.image.load("../images/onde20.png").convert_alpha()
-		self.positions = []
-		self.progressions = []
-		self.protect = True
+		self.images = [pygame.image.load("../images/Wave/onde01.png").convert_alpha(),
+		pygame.image.load("../images/Wave/onde02.png").convert_alpha(),
+		pygame.image.load("../images/Wave/onde03.png").convert_alpha(),
+		pygame.image.load("../images/Wave/onde04.png").convert_alpha(),
+		pygame.image.load("../images/Wave/onde05.png").convert_alpha(),
+		pygame.image.load("../images/Wave/onde06.png").convert_alpha(),
+		pygame.image.load("../images/Wave/onde07.png").convert_alpha(),
+		pygame.image.load("../images/Wave/onde08.png").convert_alpha(),
+		pygame.image.load("../images/Wave/onde09.png").convert_alpha(),
+		pygame.image.load("../images/Wave/onde10.png").convert_alpha(),
+		pygame.image.load("../images/Wave/onde11.png").convert_alpha(),
+		pygame.image.load("../images/Wave/onde12.png").convert_alpha(),
+		pygame.image.load("../images/Wave/onde13.png").convert_alpha(),
+		pygame.image.load("../images/Wave/onde14.png").convert_alpha(),
+		pygame.image.load("../images/Wave/onde15.png").convert_alpha(),
+		pygame.image.load("../images/Wave/onde16.png").convert_alpha(),
+		pygame.image.load("../images/Wave/onde17.png").convert_alpha(),
+		pygame.image.load("../images/Wave/onde18.png").convert_alpha(),
+		pygame.image.load("../images/Wave/onde19.png").convert_alpha(),
+		pygame.image.load("../images/Wave/onde20.png").convert_alpha()]
+		self.position = False
+		self.progress = 0
 		self.temps = 0
+		self.time_progress = 0
+		general.c_protect = False
 		
-	def NouvelleOnde(self, position):
+	def NewOnde(self, position):
 		if (pygame.time.get_ticks() - self.temps) > 1500:
 			self.temps = pygame.time.get_ticks()
-			temp = self.onde01.get_rect()
-			position = temp.move(position.x, position.y)
-			self.positions.append(position)
-			self.progressions.append(0)
+			temp = self.images[0].get_rect()
+			self.position = temp.move(position.x, position.y)
+			self.progress = 0
 		
-	def Progression(self):
-		i = 0
-		for element in self.positions:
-			general.tirs += 2
-			self.progressions[i] += 0.05
-			if self.progressions[i] > 5:
-				self.progressions.remove(self.progressions[i])
-				self.positions.remove(self.positions[i])
-			i +=1
-	
-	def Protege(self, cub):
-		i = 0
-		general.c_protect = False
-		for element in self.positions:
-			if self.progressions[i] > 1:
-				if element.colliderect(cub) == True:
+	def Progress(self):
+		if self.position != False:
+			if pygame.time.get_ticks() - self.time_progress > 50:
+				self.time_progress = pygame.time.get_ticks()
+				self.progress += 1
+				if self.progress >= 20:
+					self.progress = 0
+					self.position = False
+					general.c_protect = False
+			
+	def Protect(self, cub):
+		if self.position != False:
+			general.c_protect = False
+			if self.progress >= 1:
+				if self.position.colliderect(cub) == True:
 					general.c_protect = True
-					
 				
-			i+=1
-	
-	def Niveau(self, a):
-		if a <= 0.25:
-			return self.onde01
-		elif a <= 0.5:
-			return self.onde02
-		elif a <= 0.75:
-			return self.onde03
-		elif a <= 1:
-			return self.onde04
-		elif a <= 1.25:
-			return self.onde05
-		elif a <= 1.5:
-			return self.onde06
-		elif a <= 1.75:
-			return self.onde07
-		elif a <= 2:
-			return self.onde08
-		elif a <= 2.25:
-			return self.onde09
-		elif a <= 2.5:
-			return self.onde10
-		elif a <= 2.75:
-			return self.onde11
-		elif a <= 3:
-			return self.onde12
-		elif a <= 3.25:
-			return self.onde13
-		elif a <= 3.5:
-			return self.onde14
-		elif a <= 3.75:
-			return self.onde15
-		elif a <= 4:
-			return self.onde16
-		elif a <= 4.25:
-			return self.onde17
-		elif a <= 4.5:
-			return self.onde18
-		elif a <= 4.75:
-			return self.onde19
-		elif a <= 5:
-			return self.onde20
-		else:
-			return self.onde20
+	def Level(self, a=0):
+		return self.images[self.progress + a]
 
-	def Affichage(self, fenetre):
-		self.Progression()
-		i = 0
-		for element in self.positions:
-			fenetre.blit(self.Niveau(self.progressions[i]), element)
-			fenetre.blit(self.Niveau(self.progressions[i]-0.25), element)
-			i +=1
+	def Affichage(self, window):
+		self.Progress()
+		if self.position != False:
+			window.blit(self.Level(),self.position)
+			window.blit(self.Level(-1),self.position)
 
 
 

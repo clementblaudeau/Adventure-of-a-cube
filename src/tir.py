@@ -41,7 +41,7 @@ class tir1:
 		self.positions = []
 		self.k = 0
 	
-	def Progression(self):
+	def Progress(self):
 		i = 0
 		for element in self.positions:
 			self.positions[i] = self.positions[i].move(0,-3)
@@ -50,9 +50,9 @@ class tir1:
 			i +=1
 			
 			
-	def Affichage(self, fenetre):
+	def Affichage(self, window):
 		for element in self.positions:
-			fenetre.blit(self.image[general.niv], element)
+			window.blit(self.image[general.niv], element)
 			
 	def Tir(self,position):
 		if ((pygame.time.get_ticks() - self.k) > 100-(5*general.niv)):
@@ -72,7 +72,7 @@ class tir2:
 		self.k = 0
 		
 		
-	def Progression(self):
+	def Progress(self):
 		i = 0
 		for element in self.positions:
 			self.positions[i] = self.positions[i].move(0,-3)
@@ -80,9 +80,9 @@ class tir2:
 				self.positions.remove(self.positions[i])
 			i +=1
 		
-	def Affichage(self, fenetre):
+	def Affichage(self, window):
 		for element in self.positions:
-			fenetre.blit(self.image[general.niv], element)
+			window.blit(self.image[general.niv], element)
 			
 			
 	def Tir(self,position):

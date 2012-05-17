@@ -37,37 +37,37 @@ class Explosions:
 	def __init__(self):
 		self.positions = []
 		self.images = [
-		pygame.image.load("../images/explosion1.png").convert_alpha(),
-		pygame.image.load("../images/explosion1a.png").convert_alpha(),
-		pygame.image.load("../images/explosion1a.png").convert_alpha(),
-		pygame.image.load("../images/explosion1b.png").convert_alpha(),
-		pygame.image.load("../images/explosion1b.png").convert_alpha(),
-		pygame.image.load("../images/explosion2.png").convert_alpha(),
-		pygame.image.load("../images/explosion2a.png").convert_alpha(),
-		pygame.image.load("../images/explosion2a.png").convert_alpha(),
-		pygame.image.load("../images/explosion2b.png").convert_alpha(),
-		pygame.image.load("../images/explosion2b.png").convert_alpha(),
-		pygame.image.load("../images/explosion3.png").convert_alpha(),
-		pygame.image.load("../images/explosion3a.png").convert_alpha(),
-		pygame.image.load("../images/explosion3a.png").convert_alpha(),
-		pygame.image.load("../images/explosion3b.png").convert_alpha(),
-		pygame.image.load("../images/explosion3b.png").convert_alpha(),
-		pygame.image.load("../images/explosion4.png").convert_alpha(),
-		pygame.image.load("../images/explosion4a.png").convert_alpha(),
-		pygame.image.load("../images/explosion4a.png").convert_alpha(),
-		pygame.image.load("../images/explosion4b.png").convert_alpha(),
-		pygame.image.load("../images/explosion4b.png").convert_alpha()]
+		pygame.image.load("../images/explosion/explosion1.png").convert_alpha(),
+		pygame.image.load("../images/explosion/explosion1a.png").convert_alpha(),
+		pygame.image.load("../images/explosion/explosion1a.png").convert_alpha(),
+		pygame.image.load("../images/explosion/explosion1b.png").convert_alpha(),
+		pygame.image.load("../images/explosion/explosion1b.png").convert_alpha(),
+		pygame.image.load("../images/explosion/explosion2.png").convert_alpha(),
+		pygame.image.load("../images/explosion/explosion2a.png").convert_alpha(),
+		pygame.image.load("../images/explosion/explosion2a.png").convert_alpha(),
+		pygame.image.load("../images/explosion/explosion2b.png").convert_alpha(),
+		pygame.image.load("../images/explosion/explosion2b.png").convert_alpha(),
+		pygame.image.load("../images/explosion/explosion3.png").convert_alpha(),
+		pygame.image.load("../images/explosion/explosion3a.png").convert_alpha(),
+		pygame.image.load("../images/explosion/explosion3a.png").convert_alpha(),
+		pygame.image.load("../images/explosion/explosion3b.png").convert_alpha(),
+		pygame.image.load("../images/explosion/explosion3b.png").convert_alpha(),
+		pygame.image.load("../images/explosion/explosion4.png").convert_alpha(),
+		pygame.image.load("../images/explosion/explosion4a.png").convert_alpha(),
+		pygame.image.load("../images/explosion/explosion4a.png").convert_alpha(),
+		pygame.image.load("../images/explosion/explosion4b.png").convert_alpha(),
+		pygame.image.load("../images/explosion/explosion4b.png").convert_alpha()]
 						
 
-	def NouvelleExplosion(self, x, y):
+	def NewExplosion(self, x, y):
 		self.positions.append([(x,y),0])
 		
 		
-	def Affichage(self, fenetre):
+	def Affichage(self, window):
 		if self.positions != []:
 			supp = []
 			for i in range(len(self.positions)):
-				fenetre.blit(self.images[self.positions[i][1]],self.positions[i][0])
+				window.blit(self.images[self.positions[i][1]],self.positions[i][0])
 				self.positions[i][1]+= 1
 			for i in range(len(self.positions)):
 				if self.positions[i][1] > 11:
@@ -90,7 +90,7 @@ class Eclat:
 		self.j = 0
 
 	def Explosion(self, position, sorte):
-		self.explosions.NouvelleExplosion(position.left-50,position.top-50)
+		self.explosions.NewExplosion(position.left-50,position.top-50)
 		if sorte > 0:
 			self.positions.append(position.move(12,12))
 			self.positions.append(position.move(-12,-12))
@@ -112,8 +112,8 @@ class Eclat:
 				retour += 10
 		return retour
 
-	def Affichage(self, fenetre):
-		self.explosions.Affichage(fenetre)
+	def Affichage(self, window):
+		self.explosions.Affichage(window)
 		self.j += 1
 		i = 0
 		if self.j > 10:
@@ -126,7 +126,7 @@ class Eclat:
 			self.j = 0
 
 		for element in self.positions:
-			fenetre.blit(self.eclat, element)
+			window.blit(self.eclat, element)
 
 
 

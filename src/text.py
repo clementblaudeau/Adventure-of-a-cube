@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #	******	       
 #------------------------------
 #	Fichier utilisé pour les 
-#	affichages de certains textes
+#	Affichages de certains textes
 #------------------------------
 
 
@@ -36,11 +36,11 @@ class Textes:
 		self.vie = Vie()
 		self.nivtirs = NivTirs()
 	
-	def Affichage(self, time, fenetre, sorte):
-		self.chrono.Affichage(time, fenetre, sorte)
-		self.vie.Affichage(fenetre)
-		self.chrono.Affichage(fenetre)
-		self.nivtirs.Affichage(fenetre)
+	def Affichage(self, time, window, sorte):
+		self.chrono.Affichage(time, window, sorte)
+		self.vie.Affichage(window)
+		self.chrono.Affichage(window)
+		self.nivtirs.Affichage(window)
 
 class Chrono:
 	
@@ -55,7 +55,7 @@ class Chrono:
 		self.position = self.text.get_rect()
 		self.position = self.position.move(general.w+65, 20)
 
-	def Affichage(self, time, fenetre, sorte):
+	def Affichage(self, time, window, sorte):
 		self.chrono_ml = time
 		self.chrono_s = self.chrono_ml / 1000
 		self.chrono_m = self.chrono_s / 60
@@ -67,7 +67,7 @@ class Chrono:
 		self.text = self.font.render(self.temps, 1, (255,180,10))
 		if sorte == "boss":
 			self.text = self.font.render(self.temps, 1, (255,10,10))
-		fenetre.blit(self.text, self.position)
+		window.blit(self.text, self.position)
 		
 
 class Score:
@@ -86,7 +86,7 @@ class Score:
 	def CalculScore(self, vies):
 		return (self.score + (vies * 100) - (general.tirs*2))
 
-	def Affichage(self, fenetre):
+	def Affichage(self, window):
 		
 		self.r = self.score/2
 		if self.r > 255:
@@ -98,7 +98,7 @@ class Score:
 				if self.v > 255:
 					self.v = 255
 		self.text = self.font.render(str(self.score), 1, (self.r, self.v, self.b))
-		fenetre.blit(self.text, self.position)
+		window.blit(self.text, self.position)
 
 
 
@@ -116,7 +116,7 @@ class Vie:
 		self.b = 0
 		self.v = 0
 
-	def Affichage(self, fenetre):
+	def Affichage(self, window):
 		
 		if self.vie == 5:
 			self.v = 255
@@ -136,7 +136,7 @@ class Vie:
 			self.r = 255
 			self.v = 0
 		self.text = self.font.render(str(self.vie), 1, (self.r, self.v, self.b))
-		fenetre.blit(self.text, self.position)
+		window.blit(self.text, self.position)
 
 
 class NivTirs:
@@ -147,7 +147,7 @@ class NivTirs:
 		self.position = self.text.get_rect()
 		self.position = self.position.move(general.w+70, 200)
 
-	def Affichage(self, fenetre):
+	def Affichage(self, window):
 		chaine = ""
 		i = 0
 		if (general.ennemis/15 == 1):
@@ -163,12 +163,12 @@ class NivTirs:
 			chaine = "***"
 		
 		self.text = self.font.render(chaine, 1, (0, 0, 0))
-		fenetre.blit(self.text, self.position)
+		window.blit(self.text, self.position)
 		self.text = self.font.render(str("Tirs : "+str(general.tirs)), 1, (0, 0, 0))
-		fenetre.blit(self.text, self.position.move(0,50))
+		window.blit(self.text, self.position.move(0,50))
 
 		self.text = self.font.render(str("Bombes : "+str(general.n_bomb + 1)), 1, (0, 0, 0))
-		fenetre.blit(self.text, self.position.move(0,80))
+		window.blit(self.text, self.position.move(0,80))
 
 
 
@@ -179,8 +179,8 @@ class ModeLent:
 		self.text = self.font.render("Mode Lent", 1, (1,1,0))
 		
 		
-	def Affichage(self,fenetre):
-		fenetre.blit(self.text, (general.w+50,general.h-100))
+	def Affichage(self,window):
+		window.blit(self.text, (general.w+50,general.h-100))
 		
 	
 	

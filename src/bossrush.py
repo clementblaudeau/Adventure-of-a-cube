@@ -38,7 +38,7 @@ class BossRush:
 	def __init__(self, pers):
 		
 		self.nom = "Boss Rush !"
-		self.fond = pygame.image.load("../images/"+general.screen+"/lv1.jpg").convert()
+		self.fond = pygame.image.load("../images/lv1.jpg").convert()
 		try:
 		    self.son = pygame.mixer.Sound("../son/bossrush.wav")
 		except:
@@ -49,7 +49,7 @@ class BossRush:
 		self.niv = 1
 		self.transition = False
 		self.clear = False
-		self.imgtransition = pygame.image.load("../images/"+general.screen+"/transition.png").convert()
+		self.imgtransition = pygame.image.load("../images/transition.png").convert()
 		self.chrono = Chrono()
 		self.pers = pers
 		
@@ -60,19 +60,19 @@ class BossRush:
 		self.obstacles = Obstacles()
 		cub.Nettoyage2()		
 		
-	def Affichage(self, fenetre, scrool):
+	def Affichage(self, window, scrool):
 		if self.transition == False:
-			fenetre.blit(self.fond, scrool)
+			window.blit(self.fond, scrool)
 			self.ennemis.Tir()
 			self.boss.Tir(self.ennemis, self.obstacles)
 			self.ennemis.Deplacements()
-			self.boss.Affichage(fenetre)
-			self.obstacles.Affichage(fenetre)
-			self.ennemis.Affichage(fenetre)
-			self.chrono.Affichage(pygame.time.get_ticks(), fenetre, "")
+			self.boss.Affichage(window)
+			self.obstacles.Affichage(window)
+			self.ennemis.Affichage(window)
+			self.chrono.Affichage(pygame.time.get_ticks(), window, "")
 		else:
-			self.Transition(fenetre)
-			self.chrono.Affichage(pygame.time.get_ticks(), fenetre, "")
+			self.Transition(window)
+			self.chrono.Affichage(pygame.time.get_ticks(), window, "")
 			
 	def Collisions(self,cub):
 	    cub.tir1.positions = self.obstacles.ColisionsTir(cub.tir1.positions, 1+general.niv)
@@ -117,10 +117,10 @@ class BossRush:
 									general.scrool = -100
 		return False
 		
-	def Transition(self,fenetre):
+	def Transition(self,window):
 		if self.clear == True:
 			self.clear = False
-		fenetre.blit(self.imgtransition, (0,0))
+		window.blit(self.imgtransition, (0,0))
 		self.compteur -= 1
 		if self.compteur == 0:
 			self.compteur = 300
