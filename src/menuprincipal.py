@@ -45,30 +45,30 @@ class MenuPrincipal:
 		self.lastpos = (0,0)
 		self.cube = Cub()
 		self.cube.position = self.cube.position.move(100,100)
-		self.boutons.NouveauBouton((general.w/2 - 100,170), "Histoire")
-		self.boutons.NouveauBouton((general.w/2 - 100,220), "Fast Play")
-		self.boutons.NouveauBouton((general.w/2 - 100,270), "Boss Rush",20,False)
-		self.boutons.NouveauBouton((general.w/2 - 100,320), "Credits")
+		self.boutons.NewBouton((general.w/2 - 100,170), "Histoire")
+		self.boutons.NewBouton((general.w/2 - 100,220), "Fast Play")
+		self.boutons.NewBouton((general.w/2 - 100,270), "Boss Rush",20,False)
+		self.boutons.NewBouton((general.w/2 - 100,320), "Credits")
 		
-	def MenuAffichage(self,window,boss):
+	def Menu_Display(self,window,boss):
 		window.blit(pygame.image.load("../images/lv1.jpg").convert(), (general.w,0))
 		window.blit(self.fond,(0,0))
 		_continue = 1
 		self.boutons = Bouton_Text()
-		self.boutons.NouveauBouton((general.w/2 - 100,170), "Histoire")
-		self.boutons.NouveauBouton((general.w/2 - 100,220), "Fast Play")
-		self.boutons.NouveauBouton((general.w/2 - 100,270), "Boss Rush",20,boss)
-		self.boutons.NouveauBouton((general.w/2 - 100,320), "Credits")
-		self.boutons.NouveauBouton((general.w/2 - 100,370), "Quitter")
+		self.boutons.NewBouton((general.w/2 - 100,170), "Histoire")
+		self.boutons.NewBouton((general.w/2 - 100,220), "Fast Play")
+		self.boutons.NewBouton((general.w/2 - 100,270), "Boss Rush",20,boss)
+		self.boutons.NewBouton((general.w/2 - 100,320), "Credits")
+		self.boutons.NewBouton((general.w/2 - 100,370), "Quitter")
 		
-		self.boutons.Affichage(window, (0,0), 0)
+		self.boutons.Display(window, (0,0), 0)
 		self.ok = 0
 		self.ok2 = 0
 		while _continue:
 			tps_debut_boucle = pygame.time.get_ticks()
 			window.blit(self.fond,(0,0))
 			self.cube.Rotation()
-			self.cube.Affichage2(window)
+			self.cube.Display2(window)
 			for event in pygame.event.get():
 				if event.type == QUIT:
 					pygame.quit()
@@ -85,9 +85,9 @@ class MenuPrincipal:
 							pygame.quit()
 						return self.ok				
 			if self.lastevent == 1:
-				self.ok = self.boutons.Affichage(window, self.lastpos, 1)
+				self.ok = self.boutons.Display(window, self.lastpos, 1)
 			else:
-				self.boutons.Affichage(window, self.lastpos, 0)
+				self.boutons.Display(window, self.lastpos, 0)
 			
 			pygame.display.flip()
 			tps_fin_boucle = pygame.time.get_ticks()
@@ -99,25 +99,25 @@ class MenuPrincipal:
 		self.boutons = Bouton_Text()
 		self.boutons2 = Bouton_Text()
 		self.font = pygame.font.Font("../polices/Coalition.ttf", 35)
-		self.boutons.NouveauBouton((general.w/2 - 100,170), "Cub",20,pers[0])
+		self.boutons.NewBouton((general.w/2 - 100,170), "Cub",20,pers[0])
 		try:
-			self.boutons.NouveauBouton((general.w/2 - 100,220), str(general.caracters[1]),20,pers[1])
-			self.boutons.NouveauBouton((general.w/2 - 100,270), str(general.caracters[2]),20,pers[2])
+			self.boutons.NewBouton((general.w/2 - 100,220), str(general.caracters[1]),20,pers[1])
+			self.boutons.NewBouton((general.w/2 - 100,270), str(general.caracters[2]),20,pers[2])
 		except:
 			pass
-		self.boutons2.NouveauBouton((general.w/2 + 100,370), "< Retour")
+		self.boutons2.NewBouton((general.w/2 + 100,370), "< Retour")
 		window.blit(self.fond,(0,0))
 		_continue = 1
 		self.titre = (self.font.render(str(ajout), 1, (0, 0, 0)))
 		self.pos_titre = self.titre.get_rect().move(100,100)
-		self.boutons.Affichage(window, (0,0), 0)
+		self.boutons.Display(window, (0,0), 0)
 		self.ok = 0
 		while _continue:
 			tps_debut_boucle = pygame.time.get_ticks()
 			window.blit(self.fond,(0,0))
 			self.cube.Rotation()
 			window.blit(self.titre,(general.w / 2 - 150,130))
-			self.cube.Affichage2(window)
+			self.cube.Display2(window)
 			for event in pygame.event.get():
 				if event.type == QUIT:
 					return 0
@@ -134,11 +134,11 @@ class MenuPrincipal:
 						general.back = True
 						return 0
 			if self.lastevent == 1:
-				self.ok = self.boutons.Affichage(window, self.lastpos, 1)
-				self.ok2 = self.boutons2.Affichage(window, self.lastpos, 1)
+				self.ok = self.boutons.Display(window, self.lastpos, 1)
+				self.ok2 = self.boutons2.Display(window, self.lastpos, 1)
 			else:
-				self.boutons.Affichage(window, self.lastpos, 0)
-				self.boutons2.Affichage(window, self.lastpos, 0)
+				self.boutons.Display(window, self.lastpos, 0)
+				self.boutons2.Display(window, self.lastpos, 0)
 			
 			pygame.display.flip()
 			tps_fin_boucle = pygame.time.get_ticks()
@@ -150,24 +150,24 @@ class MenuPrincipal:
 		self.boutons2 = Bouton_Text()
 		self.font = pygame.font.Font("../polices/Coalition.ttf", 35)
 		
-		self.boutons.NouveauBouton((general.w/2 - 100,170), "Facile",20,lock[0])
-		self.boutons.NouveauBouton((general.w/2 - 100,220), "Moyen",20,lock[1])
-		self.boutons.NouveauBouton((general.w/2 - 100,270), "Difficile",20,lock[2])
+		self.boutons.NewBouton((general.w/2 - 100,170), "Facile",20,lock[0])
+		self.boutons.NewBouton((general.w/2 - 100,220), "Moyen",20,lock[1])
+		self.boutons.NewBouton((general.w/2 - 100,270), "Difficile",20,lock[2])
 		
-		self.boutons2.NouveauBouton((general.w/2 + 100,370), "< Retour")
+		self.boutons2.NewBouton((general.w/2 + 100,370), "< Retour")
 		window.blit(self.fond,(0,0))
 		_continue = 1
 		
 		self.titre = (self.font.render(str("Niveau"), 1, (0, 0, 0)))
-		self.boutons.Affichage(window, (0,0), 0)
-		self.boutons2.Affichage(window, (0,0), 0)
+		self.boutons.Display(window, (0,0), 0)
+		self.boutons2.Display(window, (0,0), 0)
 		self.ok = 0
 		while _continue:
 			tps_debut_boucle = pygame.time.get_ticks()
 			window.blit(self.fond,(0,0))
 			self.cube.Rotation()
 			window.blit(self.titre,(general.w / 2 - 150,130))
-			self.cube.Affichage2(window)
+			self.cube.Display2(window)
 			for event in pygame.event.get():
 				if event.type == QUIT:
 					return 0
@@ -184,11 +184,11 @@ class MenuPrincipal:
 						general.back = True
 						return 0
 			if self.lastevent == 1:
-				self.ok = self.boutons.Affichage(window, self.lastpos, 1)
-				self.ok2 = self.boutons2.Affichage(window, self.lastpos, 1)
+				self.ok = self.boutons.Display(window, self.lastpos, 1)
+				self.ok2 = self.boutons2.Display(window, self.lastpos, 1)
 			else:
-				self.boutons.Affichage(window, self.lastpos, 0)
-				self.boutons2.Affichage(window, self.lastpos, 0)
+				self.boutons.Display(window, self.lastpos, 0)
+				self.boutons2.Display(window, self.lastpos, 0)
 			
 			pygame.display.flip()
 			tps_fin_boucle = pygame.time.get_ticks()

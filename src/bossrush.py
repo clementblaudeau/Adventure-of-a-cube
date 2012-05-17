@@ -60,19 +60,19 @@ class BossRush:
 		self.obstacles = Obstacles()
 		cub.Nettoyage2()		
 		
-	def Affichage(self, window, scrool):
+	def Display(self, window, scrool):
 		if self.transition == False:
 			window.blit(self.fond, scrool)
 			self.ennemis.Tir()
 			self.boss.Tir(self.ennemis, self.obstacles)
 			self.ennemis.Deplacements()
-			self.boss.Affichage(window)
-			self.obstacles.Affichage(window)
-			self.ennemis.Affichage(window)
-			self.chrono.Affichage(pygame.time.get_ticks(), window, "")
+			self.boss.Display(window)
+			self.obstacles.Display(window)
+			self.ennemis.Display(window)
+			self.chrono.Display(pygame.time.get_ticks(), window, "")
 		else:
 			self.Transition(window)
-			self.chrono.Affichage(pygame.time.get_ticks(), window, "")
+			self.chrono.Display(pygame.time.get_ticks(), window, "")
 			
 	def Collisions(self,cub):
 	    cub.tir1.positions = self.obstacles.ColisionsTir(cub.tir1.positions, 1+general.niv)

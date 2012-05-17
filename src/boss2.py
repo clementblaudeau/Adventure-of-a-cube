@@ -140,12 +140,12 @@ class Boss2:
 			else:
 				return True
 				
-	def Affichage(self, window):
+	def Display(self, window):
 		if self.position.y >= -100:
 			if self.detruit == False:
 				window.blit(self.image, self.position)
 				if self.vagues >= self.nbVagues:
 					window.blit(self.imghitbox, self.hitbox)
 		
-		self.eclats.Affichage(window)
+		self.eclats.Display(window)
 	

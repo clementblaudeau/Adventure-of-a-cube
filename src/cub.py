@@ -166,21 +166,21 @@ class Cub:
 				
 
 
-	def Affichage(self, window):
+	def Display(self, window):
 		self.onde.Protect(self.hitbox)
 		window.blit(self.image, self.position)	
 		if self.degats > 0:
 			self.degats -= 1
 			if self.degats % 10:
 				window.blit(self.img_degat, self.position.move(7,7))
-		self.vie.Affichage(window)
-		self.tir1.Affichage(window)
-		self.tir2.Affichage(window)
-		self.onde.Affichage(window)
-		self.score.Affichage(window)
-		self.nivtirs.Affichage(window)
+		self.vie.Display(window)
+		self.tir1.Display(window)
+		self.tir2.Display(window)
+		self.onde.Display(window)
+		self.score.Display(window)
+		self.nivtirs.Display(window)
 		
-	def Affichage2(self, window):
+	def Display2(self, window):
 		window.blit(self.image, self.position)	
 
 	def AvanceTirs(self):

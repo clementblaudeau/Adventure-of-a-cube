@@ -63,7 +63,7 @@ class Explosions:
 		self.positions.append([(x,y),0])
 		
 		
-	def Affichage(self, window):
+	def Display(self, window):
 		if self.positions != []:
 			supp = []
 			for i in range(len(self.positions)):
@@ -112,8 +112,8 @@ class Eclat:
 				retour += 10
 		return retour
 
-	def Affichage(self, window):
-		self.explosions.Affichage(window)
+	def Display(self, window):
+		self.explosions.Display(window)
 		self.j += 1
 		i = 0
 		if self.j > 10:

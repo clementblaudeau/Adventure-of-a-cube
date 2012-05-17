@@ -16,12 +16,12 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 '''
 #------------------------------
-#	perl.py
+#	cub.py
 #	Clement Blaudeau       
 #	******	       
 #------------------------------
 #	Fichier qui gère le personnage
-#	de Perl
+#	de Sneeze
 #------------------------------
 
 
@@ -30,19 +30,19 @@ from pygame.locals import *
 from obstacles import * 
 from text import *
 from onde import *
-from tir import *
 from bombe import *
+from tir import *
 import general
 
-class Perl:
+class Sneeze:
 	
 	
 	def __init__(self):
-		self.image = pygame.image.load("../images/Perl/perl0001.png").convert_alpha()
+		self.image = pygame.image.load("../images/Sneeze/sneeze0001.png").convert_alpha()
 		self.position = self.image.get_rect()
 		self.i = 1
 		self.k = 0
-		self.cube_actuel = "../images/perl/perl002.png"
+		self.cube_actuel = "../Sneeze/sneeze0002.png"
 		self.hitbox = Rect(0,0,5,5)
 		self.glissement_vertical = 0
 		self.glissement_horizontal = 0
@@ -50,24 +50,24 @@ class Perl:
 		self.img_degat = pygame.image.load("../images/degats.png").convert_alpha()
 		self.score = Score()
 		self.vie = Vie()
-		self.bomb = Bomb()
 		self.nivtirs = NivTirs()
 		self.onde = Onde()
 		self.tir1 = tir1()
 		self.tir2 = tir2()
+		self.bomb = Bomb()
 		self.modelent = ModeLent()
 		self.images = []
 		self.ve = 0
 		self.ho = 0
 		while self.i <= 200:
 			if self.i < 10:
-				self.cube_actuel = "../images/Perl/perl000"+ str(self.i) +".png"
+				self.cube_actuel = "../images/Sneeze/sneeze000"+ str(self.i) +".png"
 			elif self.i < 100:
-				self.cube_actuel = "../images/Perl/perl00"+ str(self.i) +".png"
+				self.cube_actuel = "../images/Sneeze/sneeze00"+ str(self.i) +".png"
 			elif self.i < 200:
-				self.cube_actuel = "../images/Perl/perl0"+ str(self.i) +".png"
+				self.cube_actuel = "../images/Sneeze/sneeze0"+ str(self.i) +".png"
 			elif self.i == 200:
-				self.cube_actuel = "../images/Perl/perl0"+ str(self.i) +".png"
+				self.cube_actuel = "../images/Sneeze/sneeze0"+ str(self.i) +".png"
 			self.images.append(pygame.image.load(self.cube_actuel).convert_alpha())
 			self.i += 1
 		self.i = 0
@@ -85,28 +85,56 @@ class Perl:
 				self.position = self.position.move(0,4)
 				self.hitbox = self.hitbox.move(0,4)
 				if self.glissement_vertical < 40:
-					self.glissement_vertical += 3
+					self.glissement_vertical += 2
 
 		elif direction == 'haut':
-			if self.position.top >= 0 and not obstacles.ColisionsCube(self.hitbox.move(0,-4)):
+			if self.position.top >= 0 and not obstacles.ColisionsCube(self.hitbox.move(0,4)):
 				self.position = self.position.move(0,-4)
 				self.hitbox = self.hitbox.move(0,-4)
 				if self.glissement_vertical > -40:
-					self.glissement_vertical += -3
+					self.glissement_vertical += -2
 
 		elif direction == 'gauche':
 			if self.position.left >= -10 and not obstacles.ColisionsCube(self.hitbox.move(-4,0)):
 				self.position = self.position.move(-4,0)
 				self.hitbox = self.hitbox.move(-4,0)
 				if self.glissement_horizontal > -40:
-					self.glissement_horizontal += -3
+					self.glissement_horizontal += -2
 
 		elif direction == 'droite':
 			if self.position.right <= general.w+10 and not obstacles.ColisionsCube(self.hitbox.move(4,0)):
 				self.position = self.position.move(4,0)
 				self.hitbox = self.hitbox.move(4,0)
 				if self.glissement_horizontal < 40:
-					self.glissement_horizontal += 3
+					self.glissement_horizontal += 2
+				
+				
+	
+	def Reboot(self):
+		self.glissement_vertical = 0
+		self.glissement_horizontal = 0
+	
+			
+	def DeplaceLent(self, direction, obstacles):
+		if direction == 'bas':
+			if self.position.bottom <= general.h+10 and not obstacles.ColisionsCube(self.hitbox.move(0,2)):
+				self.position = self.position.move(0,2)
+				self.hitbox = self.hitbox.move(0,2)
+
+		elif direction == 'haut':
+			if self.position.top >= 0 and not obstacles.ColisionsCube(self.hitbox.move(0,-2)):
+				self.position = self.position.move(0,-2)
+				self.hitbox = self.hitbox.move(0,-2)
+
+		elif direction == 'gauche':
+			if self.position.left >= -10 and not obstacles.ColisionsCube(self.hitbox.move(-2,0)):
+				self.position = self.position.move(-2,0)
+				self.hitbox = self.hitbox.move(-2,0)
+
+		elif direction == 'droite':
+			if self.position.right <= general.w+10 and not obstacles.ColisionsCube(self.hitbox.move(2,0)):
+				self.position = self.position.move(2,0)
+				self.hitbox = self.hitbox.move(2,0)
 				
 	def Action(self,key,mode,obstacles):
 		
@@ -136,36 +164,6 @@ class Perl:
 					self.tir1.Tir(self.position)
 				if (key[general.k_shot2] == True) or (key[101] == True):
 					self.onde.NewOnde(self.position.move(-70,-50))
-				
-	
-	def Reboot(self):
-		self.glissement_vertical = 0
-		self.glissement_horizontal = 0
-	
-			
-	def DeplaceLent(self, direction, obstacles):
-		self.Reboot()
-		if direction == 'bas':
-			if self.position.bottom <= general.h+10 and not obstacles.ColisionsCube(self.hitbox.move(0,1)):
-				self.position = self.position.move(0,1)
-				self.hitbox = self.hitbox.move(0,1)
-
-		elif direction == 'haut':
-			if self.position.top >= 0 and not obstacles.ColisionsCube(self.hitbox.move(0,-1)):
-				self.position = self.position.move(0,-1)
-				self.hitbox = self.hitbox.move(0,-1)
-
-		elif direction == 'gauche':
-			if self.position.left >= -10 and not obstacles.ColisionsCube(self.hitbox.move(-1,0)):
-				self.position = self.position.move(-1,0)
-				self.hitbox = self.hitbox.move(-1,0)
-
-		elif direction == 'droite':
-			if self.position.right <= general.w+10 and not obstacles.ColisionsCube(self.hitbox.move(1,0)):
-				self.position = self.position.move(1,0)
-				self.hitbox = self.hitbox.move(1,0)
-				
-
 
 	def Display(self, window):
 		self.onde.Protect(self.hitbox)
@@ -180,7 +178,6 @@ class Perl:
 		self.onde.Display(window)
 		self.score.Display(window)
 		self.nivtirs.Display(window)
-
 		
 	def Display2(self, window):
 		window.blit(self.image, self.position)	
@@ -206,6 +203,7 @@ class Perl:
 		self.tir2 = tir2()
 		general.tirs = 0
 		self.degats = 0
+		general.n_bomb = 2
 		
 	def Nettoyage2(self):
 		self.position.x = 0
@@ -250,4 +248,5 @@ class Perl:
 					self.glissement_horizontal = self.glissement_horizontal + 1
 				else:
 					self.glissement_horizontal = 0
+
 

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #	******	       
 #------------------------------
 #	Fichier utilisé pour les 
-#	Affichages de certains textes
+#	Displays de certains textes
 #------------------------------
 
 
@@ -36,11 +36,11 @@ class Textes:
 		self.vie = Vie()
 		self.nivtirs = NivTirs()
 	
-	def Affichage(self, time, window, sorte):
-		self.chrono.Affichage(time, window, sorte)
-		self.vie.Affichage(window)
-		self.chrono.Affichage(window)
-		self.nivtirs.Affichage(window)
+	def Display(self, time, window, sorte):
+		self.chrono.Display(time, window, sorte)
+		self.vie.Display(window)
+		self.chrono.Display(window)
+		self.nivtirs.Display(window)
 
 class Chrono:
 	
@@ -55,7 +55,7 @@ class Chrono:
 		self.position = self.text.get_rect()
 		self.position = self.position.move(general.w+65, 20)
 
-	def Affichage(self, time, window, sorte):
+	def Display(self, time, window, sorte):
 		self.chrono_ml = time
 		self.chrono_s = self.chrono_ml / 1000
 		self.chrono_m = self.chrono_s / 60
@@ -86,7 +86,7 @@ class Score:
 	def CalculScore(self, vies):
 		return (self.score + (vies * 100) - (general.tirs*2))
 
-	def Affichage(self, window):
+	def Display(self, window):
 		
 		self.r = self.score/2
 		if self.r > 255:
@@ -116,7 +116,7 @@ class Vie:
 		self.b = 0
 		self.v = 0
 
-	def Affichage(self, window):
+	def Display(self, window):
 		
 		if self.vie == 5:
 			self.v = 255
@@ -147,7 +147,7 @@ class NivTirs:
 		self.position = self.text.get_rect()
 		self.position = self.position.move(general.w+70, 200)
 
-	def Affichage(self, window):
+	def Display(self, window):
 		chaine = ""
 		i = 0
 		if (general.ennemis/15 == 1):
@@ -179,7 +179,7 @@ class ModeLent:
 		self.text = self.font.render("Mode Lent", 1, (1,1,0))
 		
 		
-	def Affichage(self,window):
+	def Display(self,window):
 		window.blit(self.text, (general.w+50,general.h-100))
 		
 	

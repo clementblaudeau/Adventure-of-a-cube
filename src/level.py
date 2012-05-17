@@ -108,7 +108,7 @@ class Niveau:
 		
 	
 		
-	def Affichage(self, window, scrool):
+	def Display(self, window, scrool):
 		window.blit(self.fond, scrool)
 		self.ennemis.Tir()
 		try:
@@ -117,12 +117,12 @@ class Niveau:
 		    pass
 		self.ennemis.Deplacements()
 		try:
-		    self.boss.Affichage(window)
+		    self.boss.Display(window)
 		except:
 		    pass
-		self.obstacles.Affichage(window)
-		self.ennemis.Affichage(window)
-		self.chrono.Affichage(pygame.time.get_ticks(), window, "")
+		self.obstacles.Display(window)
+		self.ennemis.Display(window)
+		self.chrono.Display(pygame.time.get_ticks(), window, "")
 		
 	def Collisions(self,cub):
 	    if general.c_protect == False:

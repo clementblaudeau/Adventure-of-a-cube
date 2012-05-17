@@ -63,7 +63,7 @@ menu = Menu()
 menuprincipal = MenuPrincipal()
 cred = Credits()
 
-#Affichage de l'image du Load
+#Display de l'image du Load
 menu.Load1(window)
 
 #Icone et titre
@@ -114,7 +114,7 @@ _continue = 1
 while game_mode:
     general.back = False
     while general.back == False:
-	game_mode = menuprincipal.MenuAffichage(window,sauvegarde.BossRush())
+	game_mode = menuprincipal.Menu_Display(window,sauvegarde.BossRush())
 	#Choix du niveau ou ouverture des crédits ou passage en mode Boss Rush
 	if game_mode == 1:
 	    #Mode Histoire
@@ -140,7 +140,7 @@ while game_mode:
 		general.back = False
 		continue
 	    paneau = pygame.image.load("../images/paneau("+str(general.diff_level)+").png").convert_alpha()
-	    lvl = menu.MenuAffichage(window, sauvegarde.NiveauActuel(campagne))	
+	    lvl = menu.Menu_Display(window, sauvegarde.NiveauActuel(campagne))	
 	    if general.back == True:
 		general.back = False
 		continue
@@ -168,9 +168,9 @@ while game_mode:
 		continue
 	    general.back = True
 	elif game_mode == 4:
-	    #Affichage des crédits
+	    #Display des crédits
 	    lvl = 0
-	    cred.Affichage(window)
+	    cred.Display(window)
 	
 	
 	#Boucle des niveaux
@@ -201,10 +201,10 @@ while game_mode:
 		niveau.son.play(-1)
 		niveau.son.set_volume(0.9)
 		
-		#ReAffichage	
-		niveau.Affichage(window,scrool)
+		#ReDisplay	
+		niveau.Display(window,scrool)
 		window.blit(paneau,(general.w,0))
-		cub.Affichage(window)
+		cub.Display(window)
 		#Rafraichissement
 		pygame.display.flip()
 		menu.CommencementNiveau(window)
@@ -285,15 +285,15 @@ while game_mode:
 				cub.position = cub.position.move(0,1)
 				cub.hitbox = cub.hitbox.move(0,1)
 			
-			#Re-collage + Affichage des murs et ennemis
-			niveau.Affichage(window, scrool)
+			#Re-collage + Display des murs et ennemis
+			niveau.Display(window, scrool)
 			window.blit(paneau,(general.w,0))
 			if mode == "lent":
 				window.blit(mode_lent, (0,0))
 				window.blit(mode_lent2, (general.w,0))
-				cub.modelent.Affichage(window)
-			#niveau.chrono.Affichage(pygame.time.get_ticks(), window, "")
-			cub.Affichage(window)
+				cub.modelent.Display(window)
+			#niveau.chrono.Display(pygame.time.get_ticks(), window, "")
+			cub.Display(window)
 			#Rafraichissement
 			pygame.display.flip()
 	
@@ -332,14 +332,14 @@ while game_mode:
 		    if cub.vie.vie >= 0:
 			    if game_mode == 1:
 				if int(int(lvl) + 1) > int(sauvegarde.NiveauActuel(personnage)):
-				    sauvegarde.NouveauNiveau(general.caracters[personnage - 1])
+				    sauvegarde.NewNiveau(general.caracters[personnage - 1])
 				if lvl != 16:
 				    lvl = str(int(lvl) + 1)
 				else:
 				    menu.DebutNiveau(window,"final")
 				    lvl = 0
 			    elif game_mode == 2:
-				    lvl = menu.MenuAffichage(window, sauvegarde.NiveauActuel(personnage))
+				    lvl = menu.Menu_Display(window, sauvegarde.NiveauActuel(personnage))
 			    elif game_mode == 3:
 				    lvl = 0
 		    else:

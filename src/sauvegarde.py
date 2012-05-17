@@ -72,7 +72,7 @@ class Sauvegarde:
 				self.scores = open("../save/"+str(self.sav)+"/score.sa", "w")
 				pickle.dump(self.data_scores,self.scores)
 				self.scores.close()
-				return "Nouveau record !"
+				return "New record !"
 		elif pers == "Perl":
 			if self.data_scores[1][1][general.diff_level -1][int(numero) - 1] >= score:
 				return "Meilleur score : "+str(int(self.data_scores[1][general.diff_level -1][int(numero) - 1]))+"..."
@@ -81,7 +81,7 @@ class Sauvegarde:
 				self.scores = open("../save/"+str(self.sav)+"/score.sa", "w")
 				pickle.dump(self.data_scores,self.scores)
 				self.scores.close()
-				return "Nouveau record !"
+				return "New record !"
 		elif pers == "Sneeze":
 			if self.data_scores[2][1][general.diff_level -1][int(numero) - 1] >= score:
 				return "Meilleur score : "+str(int(self.data_scores[2][general.diff_level -1][int(numero) - 1]))+"..."
@@ -90,11 +90,11 @@ class Sauvegarde:
 				self.scores = open("../save/"+str(self.sav)+"/score.sa", "w")
 				pickle.dump(self.data_scores,self.scores)
 				self.scores.close()
-				return "Nouveau record !"
+				return "New record !"
 				
 				return
 		
-	def NouveauNiveau(self,pers):
+	def NewNiveau(self,pers):
 		if pers == "Cub":
 			if self.data_saves[1][1][int(general.diff_level)][1] + 1 > 16:
 				self.data_saves[1][1][int(general.diff_level)][1] = 16

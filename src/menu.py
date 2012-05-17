@@ -53,10 +53,10 @@ class Menu:
 		self.cube = Cub()
 		self.Progress = 0
 		self.cube.position = self.cube.position.move(100,100)
-		#self.boutons.NouveauBouton((30,160), 1)
-		#self.boutons.NouveauBouton((30,210), 2)
+		#self.boutons.NewBouton((30,160), 1)
+		#self.boutons.NewBouton((30,210), 2)
 		
-	def MenuAffichage(self,window,nb):
+	def Menu_Display(self,window,nb):
 		self.boutons.Netoyage()
 		self.titre = (self.font.render(str("Choix du level"), 1, (0, 0, 0)))
 		self.x = 30
@@ -68,21 +68,21 @@ class Menu:
 				self.y = 150
 				self.x += 200
 			self.nb = str(int(self.nb)+1)
-			self.boutons.NouveauBouton((self.x,self.y), self.nb)
+			self.boutons.NewBouton((self.x,self.y), self.nb)
 			self.y += 50
 			nb -= 1
 		
-		self.boutons2.NouveauBouton((general.w/2 + 100,370), "< Retour")
+		self.boutons2.NewBouton((general.w/2 + 100,370), "< Retour")
 		window.blit(self.fond,(0,0))
 		_continue = 1
-		self.boutons.Affichage(window, (0,0), 0)
-		self.boutons2.Affichage(window, (0,0), 0)
+		self.boutons.Display(window, (0,0), 0)
+		self.boutons2.Display(window, (0,0), 0)
 		self.ok = 0
 		self.ok2 = 0
 		while _continue:
 			window.blit(self.fond,(0,0))
 			self.cube.Rotation()
-			self.cube.Affichage2(window)
+			self.cube.Display2(window)
 			
 			for event in pygame.event.get():
 				if event.type == QUIT:
@@ -100,11 +100,11 @@ class Menu:
 						general.back = False
 						return 0				
 			if self.lastevent == 1:
-				self.ok = self.boutons.Affichage(window, self.lastpos, 1)
-				self.ok2 = self.boutons2.Affichage(window, self.lastpos, 1)
+				self.ok = self.boutons.Display(window, self.lastpos, 1)
+				self.ok2 = self.boutons2.Display(window, self.lastpos, 1)
 			else:
-				self.boutons.Affichage(window, self.lastpos, 0)
-				self.boutons2.Affichage(window, self.lastpos, 0)
+				self.boutons.Display(window, self.lastpos, 0)
+				self.boutons2.Display(window, self.lastpos, 0)
 			
 			pygame.display.flip()
 				
@@ -191,8 +191,8 @@ class Menu:
 		window.blit(pygame.image.load("../images/pause.png").convert_alpha(),(0,0));
 		pygame.display.flip()
 		self.boutons2.Netoyage()
-		self.boutons2.NouveauBouton((general.w/2 + 100,370), "< Retour")
-		self.boutons2.Affichage(window, (0,0), 0)
+		self.boutons2.NewBouton((general.w/2 + 100,370), "< Retour")
+		self.boutons2.Display(window, (0,0), 0)
 		self.ok2 = 0
 		pygame.time.delay(100)
 		_continue = 1
@@ -219,9 +219,9 @@ class Menu:
 						general.back = False
 						return 0				
 			if self.lastevent == 1:
-				self.ok2 = self.boutons2.Affichage(window, self.lastpos, 1)
+				self.ok2 = self.boutons2.Display(window, self.lastpos, 1)
 			else:
-				self.boutons2.Affichage(window, self.lastpos, 0)
+				self.boutons2.Display(window, self.lastpos, 0)
 			
 			pygame.display.flip()
 		

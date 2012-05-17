@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #	******	       
 #------------------------------
 #	Fichier qui gère les ennemis,
-#	leurs tirs, leur Affichage,etc..
+#	leurs tirs, leur Display,etc..
 #------------------------------
 
 import pygame
@@ -366,9 +366,9 @@ class Ennemis:
 				return 0
 			i+=1			
 				
-	def Affichage(self, window):
+	def Display(self, window):
 		#Scrool, 
-		#Affichage
+		#Display
 		self.Cleaner()
 		
 		if (pygame.time.get_ticks() - self.t_bille) >= 150:
@@ -480,7 +480,7 @@ class Ennemis:
 			if not (element.right > int(general.w) + 10) and not (element.left < -10) and not (element.top < -5) and not (element.bottom > int(general.h) + 10):
 				window.blit(self.bille, element)
 		
-		self.eclats.Affichage(window)
+		self.eclats.Display(window)
 	
 	def Fini(self):
 		self.Cleaner()

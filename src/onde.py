@@ -84,7 +84,7 @@ class Onde:
 	def Level(self, a=0):
 		return self.images[self.progress + a]
 
-	def Affichage(self, window):
+	def Display(self, window):
 		self.Progress()
 		if self.position != False:
 			window.blit(self.Level(),self.position)

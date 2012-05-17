@@ -54,9 +54,9 @@ class Obstacles:
 		self.vies.append(sorte * 3)
 		self.sortes.append(sorte)
 		
-	def Affichage(self, window):
+	def Display(self, window):
 		i = 0
-		self.eclat.Affichage(window)
+		self.eclat.Display(window)
 		for element in self.positions:
 			if self.sortes[i] == 1:
 				window.blit(self.style1, element)

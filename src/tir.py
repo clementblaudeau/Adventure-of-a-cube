@@ -50,7 +50,7 @@ class tir1:
 			i +=1
 			
 			
-	def Affichage(self, window):
+	def Display(self, window):
 		for element in self.positions:
 			window.blit(self.image[general.niv], element)
 			
@@ -80,7 +80,7 @@ class tir2:
 				self.positions.remove(self.positions[i])
 			i +=1
 		
-	def Affichage(self, window):
+	def Display(self, window):
 		for element in self.positions:
 			window.blit(self.image[general.niv], element)
 			

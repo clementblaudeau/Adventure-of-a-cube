@@ -195,12 +195,12 @@ class Boss:
 									pass
 
 				
-	def Affichage(self, window):
+	def Display(self, window):
 		if self.position.bottom >= -5:
 			self.Move()
 		window.blit(self.image, self.position)
 		for element in self.hitboxs:
 			if element[0] >= 0:
 				window.blit(self.img_hitbox,element[1].move(-5,-5))
-		self.eclats.Affichage(window)
+		self.eclats.Display(window)
 	

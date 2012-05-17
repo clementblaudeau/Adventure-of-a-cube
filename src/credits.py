@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #	Clement Blaudeau       
 #	******	       
 #------------------------------
-#	Fichier simple pour l'Affichage 
+#	Fichier simple pour l'Display 
 #	des crédits
 #------------------------------
 
@@ -33,7 +33,7 @@ class Credits:
 	def __init__(self):
 		self.e = 2
 		
-	def Affichage(self, window):
+	def Display(self, window):
 		image = pygame.image.load("../images/credits.png").convert_alpha()
 		_continue = 1
 		while _continue:

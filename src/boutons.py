@@ -39,13 +39,13 @@ class Bouton_Text:
 		self.font = pygame.font.Font("../polices/Coalition.ttf", 20)
 		
 	
-	def NouveauBouton(self, position, nom, taille=20, unlock=True):
+	def NewBouton(self, position, nom, taille=20, unlock=True):
 		self.font = pygame.font.Font("../polices/Coalition.ttf", taille)
 		temp = self.off.get_rect()
 		self.boutons.append([temp.move(position),self.font.render(str(nom), 1, (0, 0, 0)),unlock])
 
 	
-	def Affichage(self,window, souris, clic):
+	def Display(self,window, souris, clic):
 		i = 0
 		for element in self.boutons:
 			window.blit(self.off,element[0])
@@ -95,13 +95,13 @@ class Bouton_Nb:
 		self.font = pygame.font.Font("../polices/Coalition.ttf", 32)
 		
 	
-	def NouveauBouton(self, position, numero):
+	def NewBouton(self, position, numero):
 		temp = self.off.get_rect()
 		self.positions.append(temp.move(position))
 		self.numeros.append(self.font.render(str(numero), 1, (0, 0, 0)))
 		self.num.append(numero)
 	
-	def Affichage(self,window, souris, clic):
+	def Display(self,window, souris, clic):
 		i = 0
 		for element in self.positions:
 			window.blit(self.off,element)
