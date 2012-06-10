@@ -55,7 +55,7 @@ class Sauvegarde:
 			else:
 				return 1
 	
-	def NiveauActuel(self, pers):
+	def LevelActuel(self, pers):
 		return self.data_saves[1][int(pers)][general.diff_level][1]
 		
 	
@@ -94,7 +94,7 @@ class Sauvegarde:
 				
 				return
 		
-	def NewNiveau(self,pers):
+	def NewLevel(self,pers):
 		if pers == "Cub":
 			if self.data_saves[1][1][int(general.diff_level)][1] + 1 > 16:
 				self.data_saves[1][1][int(general.diff_level)][1] = 16

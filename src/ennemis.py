@@ -37,10 +37,10 @@ class Ennemis:
 		#variables en tous genres
 		self.positions = []
 		self.sortes = []
-		self.vies = []
+		self.lifes = []
 		self.positionsf = []
 		self.sortesf = []
-		self.viesf = []
+		self.lifesf = []
 		self.tirs1 = []
 		self.tirs2 = []
 		self.tirs3 = []
@@ -67,7 +67,7 @@ class Ennemis:
 		self.ennemis_f5 = pygame.image.load("../images/("+str(style)+")/ennemis_f5.png").convert_alpha()
 		self.ennemis_f6 = pygame.image.load("../images/("+str(style)+")/ennemis_f6.png").convert_alpha()
 		self.j = 0
-		self.son = pygame.mixer.Sound("../son/mort.ogg")
+		self.sound = pygame.mixer.Sound("../son/mort.ogg")
 		self.temps = pygame.time.get_ticks()
 		self.eclats = Eclat()
 		self.fini = 0
@@ -81,7 +81,7 @@ class Ennemis:
 		self.sortes.append(sorte)
 		if sorte == 6:
 			self.comp == True
-		self.vies.append(sorte * 3)
+		self.lifes.append(sorte * 3)
 		
 	def NouvelEnnemiFixe(self, sorte, x, y):
 		#Ajout d'un ennemi. A faire avec les niveaux
@@ -89,7 +89,7 @@ class Ennemis:
 		self.sortesf.append(sorte)
 		if sorte == 6:
 			self.comp == True
-		self.viesf.append(sorte * 3)
+		self.lifesf.append(sorte * 3)
 		
 	def CollisionCube(self, hitbox):
 		#Collision avec le cube.
@@ -98,7 +98,7 @@ class Ennemis:
 		for element in self.positions:
 			if element.colliderect(hitbox):
 				self.eclats.Explosion(self.positions[i],self.sortes[i] * 3)
-				self.vies.remove(self.vies[i])
+				self.lifes.remove(self.lifes[i])
 				self.sortes.remove(self.sortes[i])
 				self.positions.remove(self.positions[i])
 				general.niv = 0
@@ -109,7 +109,7 @@ class Ennemis:
 		for element in self.positionsf:
 			if element.colliderect(hitbox):
 				self.eclats.Explosion(self.positionsf[i],self.sortesf[i] * 3)
-				self.viesf.remove(self.viesf[i])
+				self.lifesf.remove(self.lifesf[i])
 				self.sortesf.remove(self.sortesf[i])
 				self.positionsf.remove(self.positionsf[i])
 				general.niv = 0
@@ -186,15 +186,15 @@ class Ennemis:
 							tirs.remove(element)
 						except:
 							pass
-						self.vies[i] =- degats
-						if self.vies[i] <= 0:
+						self.lifes[i] =- degats
+						if self.lifes[i] <= 0:
 							general.ennemis += 1
 							self.eclats.Explosion(self.positions[i],self.sortes[i] * 3)
-							self.vies.remove(self.vies[i])
+							self.lifes.remove(self.lifes[i])
 							self.sortes.pop(i)
 							self.positions.remove(element2)
-							self.son.set_volume(0.2)
-							self.son.play()
+							self.sound.set_volume(0.2)
+							self.sound.play()
 					i +=1
 				i = 0
 				for element2 in self.positionsf:
@@ -203,14 +203,14 @@ class Ennemis:
 							tirs.remove(element)
 						except:
 							pass
-						self.viesf[i] =- degats
-						if self.viesf[i] <= 0:
+						self.lifesf[i] =- degats
+						if self.lifesf[i] <= 0:
 							general.ennemis += 1
 							self.eclats.Explosion(self.positionsf[i],self.sortesf[i] * 3)
-							self.viesf.remove(self.viesf[i])
+							self.lifesf.remove(self.lifesf[i])
 							self.sortesf.pop(i)
 							self.positionsf.remove(element2)
-							self.son.play()
+							self.sound.play()
 					i +=1
 			i = 0
 		
@@ -223,31 +223,31 @@ class Ennemis:
 			if element == 1 or element == 6:
 				self.positions[i] = self.positions[i].move(0,1)
 				if self.positions[i].top > general.h+10:
-					self.vies.remove(self.vies[i])
+					self.lifes.remove(self.lifes[i])
 					self.sortes.remove(self.sortes[i])
 					self.positions.remove(self.positions[i])
 			elif element == 2:
 				self.positions[i] = self.positions[i].move(1,0)
 				if self.positions[i].left > general.w:
-					self.vies.remove(self.vies[i])
+					self.lifes.remove(self.lifes[i])
 					self.sortes.remove(self.sortes[i])
 					self.positions.remove(self.positions[i])
 			elif element == 3:
 				self.positions[i] = self.positions[i].move(-1,0)
 				if self.positions[i].right < 0:
-					self.vies.remove(self.vies[i])
+					self.lifes.remove(self.lifes[i])
 					self.sortes.remove(self.sortes[i])
 					self.positions.remove(self.positions[i])
 			elif element == 4:
 				self.positions[i] = self.positions[i].move(-1,1)
 				if self.positions[i].right < 0 or self.positions[i].top > int(general.h) + 10:
-					self.vies.remove(self.vies[i])
+					self.lifes.remove(self.lifes[i])
 					self.sortes.remove(self.sortes[i])
 					self.positions.remove(self.positions[i])
 			elif element == 5:
 				self.positions[i] = self.positions[i].move(1,1)
 				if self.positions[i].left > 680 or self.positions[i].top > int(general.h) + 10:
-					self.vies.remove(self.vies[i])
+					self.lifes.remove(self.lifes[i])
 					self.sortes.remove(self.sortes[i])
 					self.positions.remove(self.positions[i])
 			#elif element == 6:

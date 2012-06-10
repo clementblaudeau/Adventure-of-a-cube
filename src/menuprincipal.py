@@ -145,7 +145,7 @@ class MenuPrincipal:
 			if tps_fin_boucle - tps_debut_boucle < 9:
 				pygame.time.delay(9 -(tps_fin_boucle - tps_debut_boucle))
 				
-	def ChoixNiveau(self,window, niv,lock):
+	def ChoixLevel(self,window, niv,lock):
 		self.boutons = Bouton_Text()
 		self.boutons2 = Bouton_Text()
 		self.font = pygame.font.Font("../polices/Coalition.ttf", 35)
@@ -158,7 +158,7 @@ class MenuPrincipal:
 		window.blit(self.fond,(0,0))
 		_continue = 1
 		
-		self.titre = (self.font.render(str("Niveau"), 1, (0, 0, 0)))
+		self.titre = (self.font.render(str("Level"), 1, (0, 0, 0)))
 		self.boutons.Display(window, (0,0), 0)
 		self.boutons2.Display(window, (0,0), 0)
 		self.ok = 0

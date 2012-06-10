@@ -62,9 +62,10 @@ class Boss:
 				self.hitboxs[i][1].top = general.scrool
 		self.position = self.image.get_rect().move(0,general.scrool)
 		self.time = 0
-		self.son = pygame.mixer.Sound("../son/mort.ogg")
+		self.sound = pygame.mixer.Sound("../son/mort.ogg")
 		self.img_hitbox = pygame.image.load("../images/hitbox.png").convert_alpha()
 		self.eclats = Eclat()
+		self._done = False
 		
 		
 	def CollisionCube(self, hitbox):
@@ -76,6 +77,33 @@ class Boss:
 			
 	def Scrool(self):
 		self.position = self.position.move(0,1)
+		for i in range(len(self.hitboxs)):
+			if int(str(self.hitboxs[i][2])) == 1:
+				self.hitboxs[i][1] = self.hitboxs[i][1].move(0,1)
+			elif int(str(self.hitboxs[i][2])) == 2:
+				self.hitboxs[i][1] = self.hitboxs[i][1].move(1,0)
+			elif int(str(self.hitboxs[i][2])) == 3:
+				self.hitboxs[i][1] = self.hitboxs[i][1].move(-1,0)
+			else:
+				pass
+				
+	def Scrool_BossRush(self,scrool):
+		if self._done == False:
+			for i in range(len(self.hitboxs)):
+				if int(str(self.hitboxs[i][2])) == 1:
+					self.hitboxs[i][1] = self.hitboxs[i][1].move(0,444)
+				elif int(str(self.hitboxs[i][2])) == 2:
+					self.hitboxs[i][1] = self.hitboxs[i][1].move(444,0)
+				elif int(str(self.hitboxs[i][2])) == 3:
+					self.hitboxs[i][1] = self.hitboxs[i][1].move(-444,0)
+				else:
+					pass
+			self._done = True
+		else:
+			pass
+			
+		self.position = self.position.move(0,1)
+		
 		for i in range(len(self.hitboxs)):
 			if int(str(self.hitboxs[i][2])) == 1:
 				self.hitboxs[i][1] = self.hitboxs[i][1].move(0,1)
@@ -188,8 +216,8 @@ class Boss:
 								self.hitboxs[i][0] -= 1
 								self.eclats.Explosion(self.hitboxs[i][1],9)
 								try:
-									self.son.set_volume(0.2)
-									self.son.play()
+									self.sound.set_volume(0.2)
+									self.sound.play()
 									tirs.remove(element)
 								except:
 									pass
