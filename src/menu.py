@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #	******	       
 #------------------------------
 #	Fichier important qui se charge
-#	des menu de niveau, des cinématiques
+#	des menu de level, des cinématiques
 #	des pauses, des game-over et des 
 #	barres de Load
 #------------------------------
@@ -53,6 +53,8 @@ class Menu:
 		self.cube = Cub()
 		self.Progress = 0
 		self.cube.position = self.cube.position.move(100,100)
+		self.sound_win = pygame.mixer.Sound("../son/win.ogg")
+		self.sound_lose = pygame.mixer.Sound("../son/lose.ogg")
 		#self.boutons.NewBouton((30,160), 1)
 		#self.boutons.NewBouton((30,210), 2)
 		
@@ -72,7 +74,7 @@ class Menu:
 			self.y += 50
 			nb -= 1
 		
-		self.boutons2.NewBouton((general.w/2 + 100,370), "< Retour")
+		self.boutons2.NewBouton((general.w/2 + 100,370), ".:.. Quit ..:.")
 		window.blit(self.fond,(0,0))
 		_continue = 1
 		self.boutons.Display(window, (0,0), 0)
@@ -108,7 +110,7 @@ class Menu:
 			
 			pygame.display.flip()
 				
-	def DebutNiveau(self, window,lvl):
+	def DebutLevel(self, window,lvl):
 		try:
 			movie = pygame.movie.Movie ('../videos/'+str(lvl)+'.mpg')
 		except:
@@ -126,29 +128,31 @@ class Menu:
 		#window = pygame.display.set_mode((general.w+200, general.h), DOUBLEBUF)
 				
 
-	def FinNiveau(self, score, vies, window, meilleurScore):
+	def FinLevel(self, score, lifes, window, meilleurScore):
 		
 		
-		if vies > -1:
+		if lifes > -1:
 			image = self.gagne
 			vrai = True
 			self.vrai = True
 		else:
 			image = pygame.image.load("../images/game_over.png").convert()
+			self.sound_lose.play()
 			vrai = False
 			self.vrai = False
 		window.blit(image,(0,0))
 		if vrai:
+			self.sound_win.play()
 			self.font = pygame.font.Font("../polices/Coalition.ttf", 17)
 			window.blit(image,(0,0))
 			pygame.time.delay(500)
 			window.blit(self.font.render(" Score : " + str(score), 1, (255, 255, 0)), (80, 320))
 			pygame.display.flip()
 			pygame.time.delay(700)
-			window.blit(self.font.render(" + Vies Restantes : " + str(vies), 1, (255, 255, 0)), (80, 340))
+			window.blit(self.font.render(" + Lifes Restantes : " + str(lifes), 1, (255, 255, 0)), (80, 340))
 			pygame.display.flip()
 			pygame.time.delay(700)
-			window.blit(self.font.render(" + Vies Restantes : " + str(vies) + " x 100 : " + str(vies * 100), 1, (255, 255, 0)), (80, 340))
+			window.blit(self.font.render(" + Lifes Restantes : " + str(lifes) + " x 100 : " + str(lifes * 100), 1, (255, 255, 0)), (80, 340))
 			window.blit(self.font.render(" - Tirs : " + str(general.tirs), 1, (255, 0, 0)), (80, 360))
 			pygame.display.flip()
 			pygame.time.delay(700)
@@ -158,7 +162,7 @@ class Menu:
 			window.blit(self.font.render("---------", 1, (255, 255, 0)), (130, 380))
 			pygame.display.flip()
 			pygame.time.delay(700)
-			window.blit(self.font.render(" Total : " +  str((vies * 100 + score)- (2*general.tirs)), 1, (255, 185, 0)), (80, 400))
+			window.blit(self.font.render(" Total : " +  str((lifes * 100 + score)- (2*general.tirs)), 1, (255, 185, 0)), (80, 400))
 			pygame.display.flip()
 			pygame.time.delay(700)
 			window.blit(self.font.render(str(meilleurScore), 1, (255, 185, 0)), (250, 50))
@@ -174,10 +178,10 @@ class Menu:
 			window.blit(image,(0,0))
 			if vrai:
 				window.blit(self.font.render(" Score : " + str(score), 1, (255, 255, 0)), (80, 320))
-				window.blit(self.font.render(" + Vies Restantes : " + str(vies) + " x 100 : " + str(vies * 100), 1, (255, 255, 0)), (80, 340))
+				window.blit(self.font.render(" + Lifes Restantes : " + str(lifes) + " x 100 : " + str(lifes * 100), 1, (255, 255, 0)), (80, 340))
 				window.blit(self.font.render(" - Tirs : " + str(general.tirs) +" x 2 : " + str(general.tirs*2), 1, (255, 0, 0)), (80, 360))
 				window.blit(self.font.render("---------", 1, (255, 255, 0)), (130, 380))
-				window.blit(self.font.render(" Total : " +  str((vies * 100 + score)- (2*general.tirs)), 1, (255, 185, 0)), (80, 400))
+				window.blit(self.font.render(" Total : " +  str((lifes * 100 + score)- (2*general.tirs)), 1, (255, 185, 0)), (80, 400))
 				window.blit(self.font.render(str(meilleurScore), 1, (255, 185, 0)), (250, 50))
 			pygame.display.flip()
 			
@@ -191,7 +195,7 @@ class Menu:
 		window.blit(pygame.image.load("../images/pause.png").convert_alpha(),(0,0));
 		pygame.display.flip()
 		self.boutons2.Netoyage()
-		self.boutons2.NewBouton((general.w/2 + 100,370), "< Retour")
+		self.boutons2.NewBouton((general.w/2 + 100,370), ".:.. Quit ..:.")
 		self.boutons2.Display(window, (0,0), 0)
 		self.ok2 = 0
 		pygame.time.delay(100)
@@ -274,7 +278,7 @@ class Menu:
 						_continue = 0
 			
 			
-	def CommencementNiveau(self, window):
+	def CommencementLevel(self, window):
 		window.blit(self.font.render("3", 1, (255, 255, 0)), ((general.w/2)-50, 320))
 		pygame.display.flip()
 		pygame.time.delay(700)
@@ -287,7 +291,7 @@ class Menu:
 		
 	    
 
-#class DebutNiveau:
+#class DebutLevel:
 	#Cinematique
 		
 

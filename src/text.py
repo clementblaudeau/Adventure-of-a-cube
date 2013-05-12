@@ -33,12 +33,12 @@ class Textes:
 	def __init__(self):
 		self.chrono = Chrono()
 		self.score = Score()
-		self.vie = Vie()
+		self.life = Life()
 		self.nivtirs = NivTirs()
 	
 	def Display(self, time, window, sorte):
 		self.chrono.Display(time, window, sorte)
-		self.vie.Display(window)
+		self.life.Display(window)
 		self.chrono.Display(window)
 		self.nivtirs.Display(window)
 
@@ -83,8 +83,8 @@ class Score:
 		self.b = 0
 		self.v = 0
 		
-	def CalculScore(self, vies):
-		return (self.score + (vies * 100) - (general.tirs*2))
+	def CalculScore(self, lifes):
+		return (self.score + (lifes * 100) - (general.tirs*2))
 
 	def Display(self, window):
 		
@@ -103,39 +103,39 @@ class Score:
 
 
 
-class Vie:
+class Life:
 	
 	def __init__(self):
 		self.font = pygame.font.Font(None, 36)
 		self.text = self.font.render("0", 1, (255, 255, 255))
 		self.position = self.text.get_rect()
 		self.position = self.position.move(general.w+65, 85)
-		self.vie = 5
-		self.vies_utilisees = 0
+		self.life = 5
+		self.lifes_used = 0
 		self.r = 0
 		self.b = 0
 		self.v = 0
 
 	def Display(self, window):
 		
-		if self.vie == 5:
+		if self.life == 5:
 			self.v = 255
-		if self.vie == 4:
+		if self.life == 4:
 			self.v = 250
 			self.r = 250
-		if self.vie == 3:
+		if self.life == 3:
 			self.v = 200
 			self.r = 255
-		if self.vie == 2:
+		if self.life == 2:
 			self.r = 255
 			self.v = 155
-		if self.vie == 1:
+		if self.life == 1:
 			self.r = 255
 			self.v = 50
-		if self.vie == 0:
+		if self.life == 0:
 			self.r = 255
 			self.v = 0
-		self.text = self.font.render(str(self.vie), 1, (self.r, self.v, self.b))
+		self.text = self.font.render(str(self.life), 1, (self.r, self.v, self.b))
 		window.blit(self.text, self.position)
 
 

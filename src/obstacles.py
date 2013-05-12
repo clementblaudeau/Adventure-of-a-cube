@@ -42,7 +42,7 @@ class Obstacles:
 		self.style5 = pygame.image.load("../images/mur.png").convert_alpha()
 		self.style6 = pygame.image.load("../images/mur.png").convert_alpha()
 		self.style7 = pygame.image.load("../images/mur.png").convert_alpha()
-		self.vies = []
+		self.lifes = []
 		self.sortes = []
 		self.j = 0
 		self.eclat = Eclat()
@@ -51,7 +51,7 @@ class Obstacles:
 		self.temp = self.style1.get_rect()
 		self.temp = self.temp.move(largeur, hauteur)
 		self.positions.append(self.temp)
-		self.vies.append(sorte * 3)
+		self.lifes.append(sorte * 3)
 		self.sortes.append(sorte)
 		
 	def Display(self, window):
@@ -89,11 +89,11 @@ class Obstacles:
 			for element2 in attaques:
 					if element.left < element2.right and element.right > element2.left and element.bottom >= (element2.top - 8) and element.top <= element2.bottom:
 						attaques.remove(element2)
-						self.vies[i] = self.vies[i] - degats
-						if self.vies[i] <= 0:
+						self.lifes[i] = self.lifes[i] - degats
+						if self.lifes[i] <= 0:
 							self.eclat.Explosion(element,self.sortes[i])
 							self.positions.remove(element)
-							self.vies.remove(self.vies[i])
+							self.lifes.remove(self.lifes[i])
 							self.sortes.remove(self.sortes[i])
 							general.ennemis += 0.5
 							return attaques

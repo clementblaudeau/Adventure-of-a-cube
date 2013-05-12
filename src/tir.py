@@ -37,7 +37,7 @@ class tir1:
 	
 	def __init__(self):
 		self.image = [pygame.image.load("../images/tir.png").convert_alpha(),pygame.image.load("../images/tir2.png").convert_alpha(),pygame.image.load("../images/tir3.png").convert_alpha()]
-		self.son = pygame.mixer.Sound("../son/tir.ogg")
+		self.sound = pygame.mixer.Sound("../son/tir.ogg")
 		self.positions = []
 		self.k = 0
 	
@@ -58,8 +58,8 @@ class tir1:
 		if ((pygame.time.get_ticks() - self.k) > 100-(5*general.niv)):
 		    self.k = pygame.time.get_ticks()
 		    general.tirs += 1
-		    self.son.set_volume(0.2)
-		    self.son.play()
+		    self.sound.set_volume(0.2)
+		    self.sound.play()
 		    self.positions.append(Rect(0,0,20,30).move(position.left + 20, position.top - 10))
 		
 	
@@ -68,7 +68,7 @@ class tir2:
 	def __init__(self):
 		self.image = [pygame.image.load("../images/attaque.png").convert_alpha(),pygame.image.load("../images/attaque2.png").convert_alpha(),pygame.image.load("../images/attaque3.png").convert_alpha()]
 		self.positions = []
-		self.son = pygame.mixer.Sound("../son/tir2.ogg")
+		self.sound = pygame.mixer.Sound("../son/tir2.ogg")
 		self.k = 0
 		
 		
@@ -89,8 +89,8 @@ class tir2:
 		if ((pygame.time.get_ticks() - self.k) > 350-(5*general.niv)):
 		    self.k = pygame.time.get_ticks()
 		    self.positions.append(Rect(0,0,20,30).move(position.left + 20, position.top - 20))
-		    self.son.play()
-		    self.son.set_volume(0.2)
+		    self.sound.play()
+		    self.sound.set_volume(0.2)
 		    general.tirs += 3
 		
 	

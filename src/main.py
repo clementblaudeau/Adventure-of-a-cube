@@ -34,7 +34,7 @@ from tir import *
 from onde import *
 from obstacles import *
 from animations import *
-from niveau import *
+from level import *
 from menu import *
 from credits import *
 from text import *
@@ -114,50 +114,48 @@ _continue = 1
 while game_mode:
     general.back = False
     while general.back == False:
+	
+	#Choix du level ou ouverture des crédits ou passage en mode Boss Rush
 	game_mode = menuprincipal.Menu_Display(window,sauvegarde.BossRush())
-	#Choix du niveau ou ouverture des crédits ou passage en mode Boss Rush
+	
 	if game_mode == 1:
 	    #Mode Histoire
 	    personnage = menuprincipal.Choixpersonnage(window, "Campagne")
+	    print personnage
 	    if general.back == True:
-		general.back = False
 		continue
-	    general.diff_level = menuprincipal.ChoixNiveau(window, sauvegarde.Difficulte(personnage - 1),sauvegarde.History(personnage))
+	    general.diff_level = menuprincipal.ChoixLevel(window, sauvegarde.Difficulte(personnage - 1),sauvegarde.History(personnage))
+	    print general.diff_level
 	    if general.back == True: 
-		general.back = False
 		continue
 	    paneau = pygame.image.load("../images/paneau("+str(general.diff_level)+").png").convert_alpha()
 	    general.back = True
-	    lvl = sauvegarde.NiveauActuel(str(personnage))
+	    lvl = sauvegarde.LevelActuel(str(personnage))
+	    print lvl
 	elif game_mode == 2:
-	    #Mode Fast Play : Choix du niveau
+	    #Mode Fast Play : Choix du level
 	    campagne = menuprincipal.Choixpersonnage(window, "Campagne ")
 	    if general.back == True:
-		general.back = False
 		continue
-	    general.diff_level = menuprincipal.ChoixNiveau(window, sauvegarde.Difficulte(campagne - 1),sauvegarde.History(campagne))
+	    general.diff_level = menuprincipal.ChoixLevel(window, sauvegarde.Difficulte(campagne - 1),sauvegarde.History(campagne))
 	    if general.back == True:
-		general.back = False
 		continue
 	    paneau = pygame.image.load("../images/paneau("+str(general.diff_level)+").png").convert_alpha()
-	    lvl = menu.Menu_Display(window, sauvegarde.NiveauActuel(campagne))	
+	    lvl = menu.Menu_Display(window, sauvegarde.LevelActuel(campagne))	
 	    if general.back == True:
-		general.back = False
 		continue
 	    personnage = menuprincipal.Choixpersonnage(window)
 	    if general.back == True:
-		general.back = False
 		continue
 	    general.back = True
 	elif game_mode == 3:
 	    #Mode Boss Rush
 	    campagne = menuprincipal.Choixpersonnage(window,sauvegarde.BossRushes(), "Campagne ")
 	    if general.back == True:
-		general.back = False
 		continue
 	    lvl = 1
 	    general.scrool = -100
-	    general.diff_level = menuprincipal.ChoixNiveau(window, sauvegarde.Difficulte(campagne - 1),sauvegarde.BossRushesDifficulty(campagne))
+	    general.diff_level = menuprincipal.ChoixLevel(window, sauvegarde.Difficulte(campagne - 1),sauvegarde.BossRushesDifficulty(campagne))
 	    if general.back == True:
 		general.back = False
 		continue
@@ -172,10 +170,10 @@ while game_mode:
 	    lvl = 0
 	    cred.Display(window)
 	
-	
+	print lvl
 	#Boucle des niveaux
 	while lvl != 0:
-		#Nettoyage pour commencer le niveau
+		#Nettoyage pour commencer le level
 		if personnage == 1:
 		    cub = Cub()
 		elif personnage == 2:
@@ -184,30 +182,30 @@ while game_mode:
 		    cub = Sneeze()
 		menu.Chargement(window)
 		if game_mode != 3:
-		    niveau = Niveau(str(lvl), str(general.caracters[personnage - 1]))
+		    level = Level(str(lvl), str(general.caracters[personnage - 1]))
 		    general.scrool = -544
-		    menu.DebutNiveau(window,lvl)
+		    menu.DebutLevel(window,lvl)
 		else:
-		    niveau = BossRush(general.caracters[campagne - 1])
+		    level = BossRush(general.caracters[campagne - 1])
 		    general.scrool = -100
 		_continue = 1
 		cub.Nettoyage()
 		mode = "rapide"
-		pygame.display.set_caption(niveau.nom)
+		pygame.display.set_caption(level.nom)
 		avancement = 0
 		scrool = window.get_rect()
 		scrool = scrool.move(0,general.scrool)
 		pygame.time.delay(100)
-		niveau.son.play(-1)
-		niveau.son.set_volume(0.9)
+		level.sound.play(-1)
+		level.sound.set_volume(0.9)
 		
 		#ReDisplay	
-		niveau.Display(window,scrool)
+		level.Display(window,scrool)
 		window.blit(paneau,(general.w,0))
 		cub.Display(window)
 		#Rafraichissement
 		pygame.display.flip()
-		menu.CommencementNiveau(window)
+		menu.CommencementLevel(window)
 		
 		while _continue:
 			tps_debut_boucle = pygame.time.get_ticks()
@@ -223,7 +221,7 @@ while game_mode:
 						menu.Pause(window)
 						if general.back == False:
 						    lvl = 0
-						    cub.vie.vie = 0
+						    cub.life.life = 0
 						    _continue = 0
 						    continue
 						pygame.event.clear()
@@ -236,25 +234,25 @@ while game_mode:
 					mode = "lent"
 					cub.Reboot()
 			
-			cub.Action(key,mode,niveau.obstacles)
+			cub.Action(key,mode,level.obstacles)
 			if mode == "lent":
 				#Tirs
 				if (key[general.k_shot3] == True) or (key[114] == True):
-					cub.bomb.Tir(niveau.ennemis, window)
+					cub.bomb.Tir(level.ennemis, window)
 			else:
 				#Tirs
 				if (key[general.k_shot3] == True) or (key[114] == True):
-					cub.bomb.Tir(niveau.ennemis, window)
+					cub.bomb.Tir(level.ennemis, window)
 		    
 	
 			#Test des colisions avec les obstacles
 			if general.c_protect == False:
-			    niveau.Collisions(cub)
-			if cub.vie.vie < 0:
+			    level.Collisions(cub)
+			if cub.life.life < 0:
 				_continue = 0
 			
-			if niveau.clear == True:
-			    niveau.Cleaner(cub)
+			if level.clear == True:
+			    level.Cleaner(cub)
 			    scrool = window.get_rect()
 			    scrool = scrool.move(0,general.scrool)
 			#Scrool
@@ -264,14 +262,17 @@ while game_mode:
 					scrool = scrool.move(0,1)
 					j = 0
 					avancement += 1
-					niveau.ennemis.ScroolEnnemisFixes()
+					level.ennemis.ScroolEnnemisFixes()
 					try:
-					    niveau.boss.Scrool()
+					    if game_mode == 3:
+						level.boss.Scrool_BossRush(scrool)
+					    else:
+						level.boss.Scrool()
 					except:
-					    pass
+					   pass
 			
 			
-			cub.Glissement(niveau.obstacles)
+			cub.Glissement(level.obstacles)
 	    
 			#Avance des attaques
 			cub.AvanceTirs()
@@ -280,38 +281,38 @@ while game_mode:
 			cub.Rotation()
 	
 			#Scrool des obstacles
-			niveau.obstacles.Scrool(cub.position)
-			if niveau.obstacles.ColisionsCube(cub.hitbox) == True:
+			level.obstacles.Scrool(cub.position)
+			if level.obstacles.ColisionsCube(cub.hitbox) == True:
 				cub.position = cub.position.move(0,1)
 				cub.hitbox = cub.hitbox.move(0,1)
 			
 			#Re-collage + Display des murs et ennemis
-			niveau.Display(window, scrool)
+			level.Display(window, scrool)
 			window.blit(paneau,(general.w,0))
 			if mode == "lent":
 				window.blit(mode_lent, (0,0))
 				window.blit(mode_lent2, (general.w,0))
 				cub.modelent.Display(window)
-			#niveau.chrono.Display(pygame.time.get_ticks(), window, "")
+			#level.chrono.Display(pygame.time.get_ticks(), window, "")
 			cub.Display(window)
 			#Rafraichissement
 			pygame.display.flip()
 	
 	
-			#Survie
+			#Surlife
 			if cub.position.top < -50:
 				_continue = 0
-				niveau.son.stop()
+				level.sound.stop()
 			if cub.position.top > general.h+10:
 				_continue = 0
-				niveau.son.stop()
-				cub.vie.vie = -1
-			if niveau.Fini() == True:
+				level.sound.stop()
+				cub.life.life = -1
+			if level.Fini() == True:
 				_continue = 0
 				if game_mode == 3:
 				    lvl = "bossrush"
 				pygame.time.delay(500)
-				niveau.son.stop()
+				level.sound.stop()
 		
 	    
 			#Attendre (contre la surcharge du processeur et l'acceleration trop brutale)
@@ -321,25 +322,25 @@ while game_mode:
 				
 		#Fin de la boucle _continue
 		
-		niveau.son.stop()
+		level.sound.stop()
 		if lvl == 0:
 			continue
 		else:
 		    if game_mode != 3:
-			menu.FinNiveau(cub.score.score, cub.vie.vie, window, sauvegarde.MeilleurScore(lvl, cub.score.CalculScore(cub.vie.vie), general.caracters[personnage - 1]))
+			menu.FinLevel(cub.score.score, cub.life.life, window, sauvegarde.MeilleurScore(lvl, cub.score.CalculScore(cub.life.life), general.caracters[personnage - 1]))
 		    elif game_mode == 3:
-			menu.FinNiveau(cub.score.score, 40 - cub.vie.vies_utilisees - cub.vie.vie, window, sauvegarde.MeilleurScore(lvl, cub.score.CalculScore(cub.vie.vie), general.caracters[personnage - 1]))
-		    if cub.vie.vie >= 0:
+			menu.FinLevel(cub.score.score, 40 - cub.life.lifes_utilisees - cub.life.life, window, sauvegarde.MeilleurScore(lvl, cub.score.CalculScore(cub.life.life), general.caracters[personnage - 1]))
+		    if cub.life.life >= 0:
 			    if game_mode == 1:
-				if int(int(lvl) + 1) > int(sauvegarde.NiveauActuel(personnage)):
-				    sauvegarde.NewNiveau(general.caracters[personnage - 1])
+				if int(int(lvl) + 1) > int(sauvegarde.LevelActuel(personnage)):
+				    sauvegarde.NewLevel(general.caracters[personnage - 1])
 				if lvl != 16:
 				    lvl = str(int(lvl) + 1)
 				else:
-				    menu.DebutNiveau(window,"final")
+				    menu.DebutLevel(window,"final")
 				    lvl = 0
 			    elif game_mode == 2:
-				    lvl = menu.Menu_Display(window, sauvegarde.NiveauActuel(personnage))
+				    lvl = menu.Menu_Display(window, sauvegarde.LevelActuel(personnage))
 			    elif game_mode == 3:
 				    lvl = 0
 		    else:

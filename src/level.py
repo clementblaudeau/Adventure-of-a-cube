@@ -16,7 +16,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 '''
 #------------------------------
-#	niveau.py
+#	level.py
 #	Clement Blaudeau       
 #	******	       
 #------------------------------
@@ -35,7 +35,7 @@ from boss import *
 from text import *
 import general
 
-class Niveau:
+class Level:
 	
 	def __init__(self, numero, pers):
 		self.nom_fichier = "../niveaux/"+pers+"/("+str(general.diff_level)+")/" + numero + ".lvl"
@@ -56,11 +56,11 @@ class Niveau:
 		self.fond = pygame.image.load("../"+self.nom_background[0] + "/" + self.nom_background[1]).convert()
 		self.nom_son = self.contenu[2]
 		#try:
-		#    self.son = pygame.mixer.Sound(self.nom_../son/)
+		#    self.sound = pygame.mixer.Sound(self.nom_../son/)
 		#except Exception:
 		  #  print Exception
 		print self.nom_son
-		self.son = pygame.mixer.Sound("../son/Cub/1.wav")
+		self.sound = pygame.mixer.Sound("../son/Cub/1.wav")
 		self.nombre_obstacles = self.contenu[4]
 		self.obstacles = Obstacles()
 		if int(numero)%2 == 0:
@@ -140,13 +140,13 @@ class Niveau:
 		cub.score.score += self.ennemis.eclats.Absorption(cub)
 		if (self.ennemis.CollisionCube(cub.hitbox) == True):
 		    if cub.degats == 0:
-			cub.vie.vie += -1
+			cub.life.life += -1
 			cub.degats +=200
 			cub.Reboot()
 		try:
 		    if (self.boss.CollisionCube(cub.hitbox) == True):
 			if cub.degats == 0:
-			    cub.vie.vie += -1
+			    cub.life.life += -1
 			    cub.degats +=200
 			    cub.Reboot()
 		except:

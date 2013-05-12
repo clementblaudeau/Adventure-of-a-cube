@@ -49,7 +49,7 @@ class Sneeze:
 		self.degats = 0
 		self.img_degat = pygame.image.load("../images/degats.png").convert_alpha()
 		self.score = Score()
-		self.vie = Vie()
+		self.life = Life()
 		self.nivtirs = NivTirs()
 		self.onde = Onde()
 		self.tir1 = tir1()
@@ -172,7 +172,7 @@ class Sneeze:
 			self.degats -= 1
 			if self.degats % 10:
 				window.blit(self.img_degat, self.position.move(7,7))
-		self.vie.Display(window)
+		self.life.Display(window)
 		self.tir1.Display(window)
 		self.tir2.Display(window)
 		self.onde.Display(window)
@@ -193,8 +193,8 @@ class Sneeze:
 		self.hitbox.y = 0
 		self.position = self.position.move(275,350)
 		self.hitbox = self.hitbox.move(303,373)
-		self.vie.vie = 5
-		self.vie.vies_utilisees = 5
+		self.life.life = 5
+		self.life.lifes_utilisees = 5
 		self.score.score = 0
 		self.glissement_vertical = 0
 		self.glissement_horizontal = 0
@@ -212,8 +212,8 @@ class Sneeze:
 		self.hitbox.y = 0
 		self.position = self.position.move(275,350)
 		self.hitbox = self.hitbox.move(303,373)
-		self.vie.vies_utilisees += 5-self.vie.vie
-		self.vie.vie = 5
+		self.life.lifes_utilisees += 5-self.life.life
+		self.life.life = 5
 		self.glissement_vertical = 0
 		self.glissement_horizontal = 0
 		self.k = 0

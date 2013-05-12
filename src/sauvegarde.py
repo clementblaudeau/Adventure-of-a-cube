@@ -55,7 +55,7 @@ class Sauvegarde:
 			else:
 				return 1
 	
-	def NiveauActuel(self, pers):
+	def LevelActuel(self, pers):
 		return self.data_saves[1][int(pers)][general.diff_level][1]
 		
 	
@@ -75,7 +75,7 @@ class Sauvegarde:
 				return "New record !"
 		elif pers == "Perl":
 			if self.data_scores[1][1][general.diff_level -1][int(numero) - 1] >= score:
-				return "Meilleur score : "+str(int(self.data_scores[1][general.diff_level -1][int(numero) - 1]))+"..."
+				return "Meilleur score : "+str(int(self.data_scores[1][1][general.diff_level -1][int(numero) - 1]))+"..."
 			else:
 				self.data_scores[1][1][general.diff_level -1][int(numero) - 1] = score
 				self.scores = open("../save/"+str(self.sav)+"/score.sa", "w")
@@ -84,7 +84,7 @@ class Sauvegarde:
 				return "New record !"
 		elif pers == "Sneeze":
 			if self.data_scores[2][1][general.diff_level -1][int(numero) - 1] >= score:
-				return "Meilleur score : "+str(int(self.data_scores[2][general.diff_level -1][int(numero) - 1]))+"..."
+				return "Meilleur score : "+str(int(self.data_scores[2][1][general.diff_level -1][int(numero) - 1]))+"..."
 			else:
 				self.data_scores[2][1][general.diff_level -1][int(numero) - 1] = score
 				self.scores = open("../save/"+str(self.sav)+"/score.sa", "w")
@@ -94,7 +94,7 @@ class Sauvegarde:
 				
 				return
 		
-	def NewNiveau(self,pers):
+	def NewLevel(self,pers):
 		if pers == "Cub":
 			if self.data_saves[1][1][int(general.diff_level)][1] + 1 > 16:
 				self.data_saves[1][1][int(general.diff_level)][1] = 16

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #	******	       
 #------------------------------
 #	Fichier qui gère le boss particulier
-#	du niveau 7.2
+#	du level 7.2
 #------------------------------
 
 
@@ -38,7 +38,7 @@ class Boss2:
 	def __init__(self, niv, pers):
 		#variables en tous genres
 		self.position = 0
-		self.vie = 0
+		self.life = 0
 		try:
 			self.image = pygame.image.load("../images/boss"+str(niv)+str(pers)+".png").convert_alpha()
 		except:
