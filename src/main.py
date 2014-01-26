@@ -125,13 +125,13 @@ while game_mode:
 	    if general.back == True:
 		continue
 	    general.diff_level = menuprincipal.ChoixLevel(window, sauvegarde.Difficulte(personnage - 1),sauvegarde.History(personnage))
-	    print general.diff_level
+
 	    if general.back == True: 
 		continue
 	    paneau = pygame.image.load("../images/paneau("+str(general.diff_level)+").png").convert_alpha()
 	    general.back = True
 	    lvl = sauvegarde.LevelActuel(str(personnage))
-	    print lvl
+
 	elif game_mode == 2:
 	    #Mode Fast Play : Choix du level
 	    campagne = menuprincipal.Choixpersonnage(window, "Campagne ")
